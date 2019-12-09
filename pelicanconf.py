@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 import os
 
 AUTHOR = 'Michael Lehotay'
-SITENAME = 'Mild Deutans Unite!'
+SITENAME = 'GA DSI-TOR-6'
 SITEURL = 'https://mlehotay.github.io/blog'
 PATH = 'content'
 STATIC_PATHS = ['images']

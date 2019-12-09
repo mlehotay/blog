@@ -1,5 +1,5 @@
 Title: Probability Simulation in Python
-Date: 2019-12-09 00:48
+Date: 2019-12-09 06:50
 Slug: probability-simulation
 
 # Probability Simulation in Python
@@ -12,22 +12,56 @@ description of problem. pictures of goats.
 https://en.wikipedia.org/wiki/Monty_Hall_problem
 
 
-
 ```python
-import numpy as np
 import random
 ```
 
 
 ```python
-np.random.randint(0, 3) # randomly select which door has the car behind it
+# game setup
+NUM_DOORS = 3
+assert NUM_DOORS > 2, 'not enough doors'
+random.seed()
+winning_door = random.randint(1, NUM_DOORS) # randomly select the winning door
+print(f'Game begins. (The car is behind door {winning_door}).')
+
+# player chooses one of the doors
+player_door = random.randint(1, NUM_DOORS)
+print(f'Player chooses door {player_door}.')
+
+# Monty opens a different door to reveal a goat
+while(True):
+    goat_door = random.randint(1, NUM_DOORS)
+    if(goat_door != winning_door and goat_door != player_door):
+        break
+print(f'Monty opens door {goat_door} to reveal a goat.')
+
+# player chooses another door, if they want to
+switch = random.choice([False, True])
+if(switch):
+    while(True):
+        new_door = random.randint(1, NUM_DOORS)
+        if(new_door != player_door and new_door != goat_door):
+            break
+    player_door = new_door
+    print(f'Player switches to door {player_door}.')
+else:
+    print(f'Player still chooses door {player_door}.')
+
+# determine the outcome
+print(f'Monty opens door {winning_door} to reveal the car.')
+if player_door == winning_door:
+    print('Player wins!')
+else:
+    print('Player loses.')
 ```
 
-
-
-
-    1
-
+    Game begins. (The car is behind door 2).
+    Player chooses door 1.
+    Monty opens door 3 to reveal a goat.
+    Player switches to door 2.
+    Monty opens door 2 to reveal the car.
+    Player wins!
 
 
 summary of how this model represents the problem
@@ -55,9 +89,4 @@ conclusion
 # cd output; python -m http.server
 # ghp-import -m "xyzzy" -b gh-pages output
 # git push origin gh-pages
-```
-
-
-```python
-
 ```

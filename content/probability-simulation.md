@@ -4,11 +4,9 @@ Slug: probability-simulation
 
 ## Probability Simulation in Python
 
-This is the code. Still need to write text.
+I've never really liked with the [Monty Hall problem](https://en.wikipedia.org/wiki/Monty_Hall_problem). The soution is counterintuative and my brain kind of breaks when I try to wrap my head around the conditional probabilities. In situations like this it can be beneficial to look at the problem empirically and estimate the probabilities of the outcomes in the event space in code. So, let's play the game ourselves and see what happens!
 
-### Monty Hall
-
-https://en.wikipedia.org/wiki/Monty_Hall_problem
+We start by creating a model of the game to simulate one iteration, or one time playing the game. I've included print statements to describe what happens are every step.
 
 
 ```python
@@ -56,12 +54,14 @@ else:
 ```
 
     Game begins. (The car is behind door 3).
-    Player chooses door 3.
+    Player chooses door 1.
     Monty opens door 2 to reveal a goat.
-    Player still chooses door 3.
+    Player switches to door 3.
     Monty opens door 3 to reveal the car.
     Player wins!
 
+
+At this point we have a working system that can play the game once. After testing it thoroughly to verify that it implements the behaviour described in the problem, let's turn it into a function so we can re-use it more easily.
 
 
 ```python
@@ -102,18 +102,22 @@ def monty_hall(switch, n=NUM_DOORS):
         print('Player loses.')
 ```
 
+We can call our function with a randomized strategy like this:
+
 
 ```python
 monty_hall(random.choice([False, True]))
 ```
 
-    Game begins. (The car is behind door 1).
-    Player chooses door 3.
-    Monty opens door 2 to reveal a goat.
-    Player still chooses door 3.
-    Monty opens door 1 to reveal the car.
+    Game begins. (The car is behind door 3).
+    Player chooses door 2.
+    Monty opens door 1 to reveal a goat.
+    Player still chooses door 2.
+    Monty opens door 3 to reveal the car.
     Player loses.
 
+
+Now lets clean it up a bit and remove the print statements so it runs quietly.
 
 
 ```python
@@ -150,9 +154,13 @@ monty_hall(random.choice([False, True]))
 
 
 
-    True
+    False
 
 
+
+Now that we have create a model for the problem, we can estimate the probabilites with simulation. We run the model repeatedly and measure the frequency of each outcome over many iterations of the game. These frequencies represent our probabilites!
+
+It looks like the probability of winning is about 0.5 when the player chooses to switch or stay with equal probability.
 
 
 ```python
@@ -166,9 +174,11 @@ sum(results)/N
 
 
 
-    0.5008
+    0.4985
 
 
+
+But when the player always sticks to their original guess, their win rate drops to about 0.33.
 
 
 ```python
@@ -181,9 +191,11 @@ sum(results)/N
 
 
 
-    0.3362
+    0.3348
 
 
+
+And if the player always changes their guess, their win rate increases to about 0.67.
 
 
 ```python
@@ -196,9 +208,11 @@ sum(results)/N
 
 
 
-    0.6713
+    0.6663
 
 
+
+We can change our loop to a list comprehension to make it python-y. (I'm hoping this will seem more readable to me after I get more practice with list comprehensions!)
 
 
 ```python
@@ -209,9 +223,11 @@ sum(results)/N
 
 
 
-    0.6703
+    0.6672
 
 
+
+And for conciseness, lets eliminate the results variable and run each simulation as a single expression.
 
 
 ```python
@@ -221,9 +237,11 @@ sum([monty_hall(True) for _ in range(N)])/N
 
 
 
-    0.6672
+    0.6637
 
 
+
+Now with our model complete, we can easily simulate the Monty Hall problem with different parameters. Let's see what increasing the number of doors does:
 
 
 ```python
@@ -232,31 +250,22 @@ for doors in range(3, 10+1):
         print(f'{doors}, {strategy}: {sum([monty_hall(strategy, doors) for _ in range(N)])/N}')
 ```
 
-    3, False: 0.3347
-    3, True: 0.669
-    4, False: 0.2522
-    4, True: 0.3763
-    5, False: 0.2046
-    5, True: 0.2619
-    6, False: 0.1746
-    6, True: 0.2126
-    7, False: 0.1453
-    7, True: 0.1731
-    8, False: 0.1259
-    8, True: 0.1445
-    9, False: 0.1097
-    9, True: 0.1255
-    10, False: 0.0928
-    10, True: 0.1124
+    3, False: 0.3376
+    3, True: 0.6595
+    4, False: 0.2533
+    4, True: 0.3829
+    5, False: 0.2025
+    5, True: 0.2706
+    6, False: 0.173
+    6, True: 0.2135
+    7, False: 0.1476
+    7, True: 0.1745
+    8, False: 0.1268
+    8, True: 0.149
+    9, False: 0.1105
+    9, True: 0.1285
+    10, False: 0.1032
+    10, True: 0.1082
 
 
-
-```python
-# pelican cheat sheet
-
-# rm -rf output; mkdir output
-# pelican -s pelicanconf.py -o output -t theme content
-# cd output; python -m http.server
-# ghp-import -m "xyzzy" -b gh-pages output
-# git push origin gh-pages
-```
+Hmmm, it looks like no matter how many doors there are, it is always better to change your guess. See how easy it is to estimate this programatically!

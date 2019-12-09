@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0"><channel><title>GA DSI-TOR-6 - Michael Lehotay</title><link>https://mlehotay.github.io/blog/</link><description></description><lastBuildDate>Mon, 09 Dec 2019 06:50:00 -0500</lastBuildDate><item><title>Probability Simulation in Python</title><link>https://mlehotay.github.io/blog/probability-simulation.html</link><description>&lt;h1&gt;Probability Simulation in Python&lt;/h1&gt;
-&lt;p&gt;Intro. Model probability problems with random variables and frequency. Simulate the problem by running the model many times.&lt;/p&gt;
+<rss version="2.0"><channel><title>GA DSI-TOR-6 - Michael Lehotay</title><link>https://mlehotay.github.io/blog/</link><description></description><lastBuildDate>Mon, 09 Dec 2019 08:04:00 -0500</lastBuildDate><item><title>Probability Simulation in Python</title><link>https://mlehotay.github.io/blog/probability-simulation.html</link><description>&lt;h2&gt;Probability Simulation in Python&lt;/h2&gt;
+&lt;p&gt;This is the code. Still need to write text.&lt;/p&gt;
 &lt;h3&gt;Monty Hall&lt;/h3&gt;
-&lt;p&gt;description of problem. pictures of goats.
-https://en.wikipedia.org/wiki/Monty_Hall_problem&lt;/p&gt;
+&lt;p&gt;https://en.wikipedia.org/wiki/Monty_Hall_problem&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;random&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
@@ -11,4 +10,6 @@ https://en.wikipedia.org/wiki/Monty_Hall_problem&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# game setup&lt;/span&gt;
 &lt;span class="n"&gt;NUM_DOORS&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;
 &lt;span class="k"&gt;assert&lt;/span&gt; &lt;span class="n"&gt;NUM_DOORS&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;not enough doors&amp;#39;&lt;/span&gt;
-&lt;span class="n"&gt;random&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;seed …&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Michael Lehotay</dc:creator><pubDate>Mon, 09 Dec 2019 06:50:00 -0500</pubDate><guid isPermaLink="false">tag:mlehotay.github.io,2019-12-09:/blog/probability-simulation.html</guid><category>misc</category></item></channel></rss>
+&lt;span class="n"&gt;random&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;seed&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="n"&gt;winning_door&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;random&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;randint&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;NUM_DOORS&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="c1"&gt;# randomly select the winning door&lt;/span&gt;
+&lt;span class="k"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;Game begins. (The …&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Michael Lehotay</dc:creator><pubDate>Mon, 09 Dec 2019 08:04:00 -0500</pubDate><guid isPermaLink="false">tag:mlehotay.github.io,2019-12-09:/blog/probability-simulation.html</guid><category>misc</category></item></channel></rss>

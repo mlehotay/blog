@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <title>Probability Simulation in Python</title>
+ <!-- Latest compiled and minified CSS -->
+ <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+ <div class="container">
+  <h1><a href=".">GA DSI-TOR-6</a></h1>
+ </div>
+</head>
+<body>
+ <div class="container">
+<div class="row">
+ <div class="col-md-8">
+  <h3>Probability Simulation in Python</h3>
+  <label>2019-12-09</label>
+  <h1>Probability Simulation in Python</h1>
+<p>Intro. Model probability problems with random variables and frequency. Simulate the problem by running the model many times.</p>
+<h3>Monty Hall</h3>
+<p>description of problem. pictures of goats.
+https://en.wikipedia.org/wiki/Monty_Hall_problem</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">random</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1"># game setup</span>
+<span class="n">NUM_DOORS</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="k">assert</span> <span class="n">NUM_DOORS</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;not enough doors&#39;</span>
+<span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">()</span>
+<span class="n">winning_door</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">NUM_DOORS</span><span class="p">)</span> <span class="c1"># randomly select the winning door</span>
+<span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;Game begins. (The car is behind door {winning_door}).&#39;</span><span class="p">)</span>
+
+<span class="c1"># player chooses one of the doors</span>
+<span class="n">player_door</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">NUM_DOORS</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;Player chooses door {player_door}.&#39;</span><span class="p">)</span>
+
+<span class="c1"># Monty opens a different door to reveal a goat</span>
+<span class="k">while</span><span class="p">(</span><span class="bp">True</span><span class="p">):</span>
+    <span class="n">goat_door</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">NUM_DOORS</span><span class="p">)</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">goat_door</span> <span class="o">!=</span> <span class="n">winning_door</span> <span class="ow">and</span> <span class="n">goat_door</span> <span class="o">!=</span> <span class="n">player_door</span><span class="p">):</span>
+        <span class="k">break</span>
+<span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;Monty opens door {goat_door} to reveal a goat.&#39;</span><span class="p">)</span>
+
+<span class="c1"># player chooses another door, if they want to</span>
+<span class="n">switch</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="bp">False</span><span class="p">,</span> <span class="bp">True</span><span class="p">])</span>
+<span class="k">if</span><span class="p">(</span><span class="n">switch</span><span class="p">):</span>
+    <span class="k">while</span><span class="p">(</span><span class="bp">True</span><span class="p">):</span>
+        <span class="n">new_door</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">NUM_DOORS</span><span class="p">)</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">new_door</span> <span class="o">!=</span> <span class="n">player_door</span> <span class="ow">and</span> <span class="n">new_door</span> <span class="o">!=</span> <span class="n">goat_door</span><span class="p">):</span>
+            <span class="k">break</span>
+    <span class="n">player_door</span> <span class="o">=</span> <span class="n">new_door</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;Player switches to door {player_door}.&#39;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;Player still chooses door {player_door}.&#39;</span><span class="p">)</span>
+
+<span class="c1"># determine the outcome</span>
+<span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;Monty opens door {winning_door} to reveal the car.&#39;</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">player_door</span> <span class="o">==</span> <span class="n">winning_door</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;Player wins!&#39;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;Player loses.&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="n">Game</span> <span class="n">begins</span><span class="p">.</span> <span class="p">(</span><span class="n">The</span> <span class="n">car</span> <span class="k">is</span> <span class="n">behind</span> <span class="n">door</span> <span class="mi">2</span><span class="p">).</span>
+<span class="n">Player</span> <span class="n">chooses</span> <span class="n">door</span> <span class="mi">1</span><span class="p">.</span>
+<span class="n">Monty</span> <span class="n">opens</span> <span class="n">door</span> <span class="mi">3</span> <span class="k">to</span> <span class="n">reveal</span> <span class="n">a</span> <span class="n">goat</span><span class="p">.</span>
+<span class="n">Player</span> <span class="n">switches</span> <span class="k">to</span> <span class="n">door</span> <span class="mi">2</span><span class="p">.</span>
+<span class="n">Monty</span> <span class="n">opens</span> <span class="n">door</span> <span class="mi">2</span> <span class="k">to</span> <span class="n">reveal</span> <span class="n">the</span> <span class="n">car</span><span class="p">.</span>
+<span class="n">Player</span> <span class="n">wins</span><span class="o">!</span>
+</pre></div>
+
+
+<p>summary of how this model represents the problem</p>
+<div class="highlight"><pre><span></span><span class="c1"># run the simulation many times</span>
+</pre></div>
+
+
+<p>explain results of the simulation, discuss how frequency represents probability</p>
+<div class="highlight"><pre><span></span><span class="c1"># show some graphs</span>
+</pre></div>
+
+
+<p>conclusion</p>
+<div class="highlight"><pre><span></span><span class="c1"># pelican cheat sheet</span>
+
+<span class="c1"># rm -rf output; mkdir output</span>
+<span class="c1"># pelican -s pelicanconf.py -o output -t theme content</span>
+<span class="c1"># cd output; python -m http.server</span>
+<span class="c1"># ghp-import -m &quot;xyzzy&quot; -b gh-pages output</span>
+<span class="c1"># git push origin gh-pages</span>
+</pre></div>
+ </div>
+</div>
+ </div>
+</body>
+</html>

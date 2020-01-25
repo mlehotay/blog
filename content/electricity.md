@@ -34,7 +34,7 @@ Files 1 and 3 contain summary statisitics:
 Three rows of stats at the bottom of the sheet: min, max, and avg of each column.
 The two rightmost columns show average daily totals per month, and name of the month.
 
-![Image of spreadsheet](../images/electricity.png)
+![Image of spreadsheet]({static}/images/electricity.png)
 
 ## Data Cleaning
 

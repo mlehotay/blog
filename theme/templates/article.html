@@ -2,7 +2,7 @@
 
 {% block title %}{{ SITENAME }} - {{ article.title }}{% endblock %}
 
-{% block content %}        
+{% block content %}
   <article class="post">
         <h2 class="page_title"><a href="{{ article.url }}" rel="bookmark" title="{{SITENAME}} - {{ article.title|striptags }}">{{ article.title }}</a></h2>
 
@@ -15,7 +15,7 @@
 
         {% if DISQUS_SITENAME %}
         <div class="comments">
-        <h2>Commentaires:</h2>
+        <h2>Comments:</h2>
             <div id="disqus_thread"></div>
             <script type="text/javascript">
                var disqus_identifier = "{{ article.url }}";

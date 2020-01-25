@@ -1,12 +1,12 @@
 <nav id="menu">
-  <a href="{{ SITEURL }}/index.html">Accueil</a>
+  <a href="{{ SITEURL }}/index.html">Home</a>
   {% if DISPLAY_PAGES_ON_MENU != False%}
     {% for p in pages %}
   <a {% if p == page %}class="active" {% endif %}href="{{ SITEURL }}/{{ p.url }}">{{ p.title }}</a>
     {% endfor %}
   {% else %}
-  <a href="{{ SITEURL }}/categories.html">Catégories</a>
-  <a href="{{ SITEURL }}/tags.html">Mots-clés</a>
+  <a href="{{ SITEURL }}/categories.html">Categories</a>
+  <a href="{{ SITEURL }}/tags.html">Keywords</a>
   {% endif %}
   <a href="{{ SITEURL }}/archives.html">Archives</a>
 

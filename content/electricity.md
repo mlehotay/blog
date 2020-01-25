@@ -1,8 +1,10 @@
 Title: Electricity Usage in Ontario
 Date: 2020-01-07 03:09
+Modified: 2020-01-25 13:03
+Category: Data Science
+Tags: data-cleaning, time-series, python
 Slug: electricity
-
-# Electricity Usage in Ontario
+Status: published
 
 
 ```python

@@ -4,13 +4,16 @@ from __future__ import unicode_literals
 import os
 import alchemy
 
-THEME = alchemy.path()
 AUTHOR = 'Michael Lehotay'
-SITENAME = 'GA DSI-TOR-6'
+SITENAME = 'mlehotay'
 SITEURL = 'https://mlehotay.github.io/blog'
-PATH = 'content'
-STATIC_PATHS = ['images']
+
 TIMEZONE = 'America/Toronto'
 DEFAULT_LANG = 'en'
+
+PATH = 'content'
+STATIC_PATHS = ['images']
+
 DEFAULT_PAGINATION = 10
 RELATIVE_URLS = True
+THEME = alchemy.path()

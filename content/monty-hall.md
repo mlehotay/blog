@@ -1,10 +1,12 @@
 Title: Probability Simulation in Python
 Date: 2019-12-09 08:04
+Modified: 2020-01-25 12:49
+Category: Data Science
+Tags: probability, simulation, python
 Slug: monty-hall
+Status: published
 
-## Probability Simulation in Python
-
-I've never really liked with the [Monty Hall problem](https://en.wikipedia.org/wiki/Monty_Hall_problem). The soution is counterintuative and my brain kind of breaks when I try to wrap my head around the conditional probabilities. In situations like this it can be beneficial to look at the problem empirically and estimate the probabilities of the outcomes in the event space in code. So, let's play the game ourselves and see what happens!
+I've never really liked the [Monty Hall problem](https://en.wikipedia.org/wiki/Monty_Hall_problem). The soution is counterintuative and my brain kind of breaks when I try to wrap my head around the conditional probabilities. In situations like this it can be beneficial to look at the problem empirically and estimate the probabilities of the outcomes in the event space in code. So, let's play the game ourselves and see what happens!
 
 We start by creating a model of the game to simulate one iteration, or one time playing the game. I've included print statements to describe what happens are every step.
 
@@ -53,11 +55,11 @@ else:
     print('Player loses.')
 ```
 
-    Game begins. (The car is behind door 1).
-    Player chooses door 3.
-    Monty opens door 2 to reveal a goat.
-    Player switches to door 1.
-    Monty opens door 1 to reveal the car.
+    Game begins. (The car is behind door 2).
+    Player chooses door 1.
+    Monty opens door 3 to reveal a goat.
+    Player switches to door 2.
+    Monty opens door 2 to reveal the car.
     Player wins!
 
 
@@ -154,7 +156,7 @@ monty_hall(random.choice([False, True]))
 
 
 
-    False
+    True
 
 
 
@@ -174,7 +176,7 @@ sum(results)/N
 
 
 
-    0.4945
+    0.4926
 
 
 
@@ -191,7 +193,7 @@ sum(results)/N
 
 
 
-    0.3347
+    0.3215
 
 
 
@@ -208,7 +210,7 @@ sum(results)/N
 
 
 
-    0.6625
+    0.6642
 
 
 
@@ -223,7 +225,7 @@ sum(results)/N
 
 
 
-    0.6674
+    0.6717
 
 
 
@@ -237,7 +239,7 @@ sum([monty_hall(True) for _ in range(N)])/N
 
 
 
-    0.6638
+    0.663
 
 
 
@@ -250,22 +252,22 @@ for doors in range(3, 10+1):
         print(f'{doors}, {strategy}: {sum([monty_hall(strategy, doors) for _ in range(N)])/N}')
 ```
 
-    3, False: 0.3334
-    3, True: 0.6647
-    4, False: 0.2464
-    4, True: 0.3736
-    5, False: 0.201
-    5, True: 0.27
-    6, False: 0.163
-    6, True: 0.2104
-    7, False: 0.1472
-    7, True: 0.1691
-    8, False: 0.1285
-    8, True: 0.1499
-    9, False: 0.1117
-    9, True: 0.1266
-    10, False: 0.0998
-    10, True: 0.1105
+    3, False: 0.3337
+    3, True: 0.6684
+    4, False: 0.249
+    4, True: 0.3699
+    5, False: 0.2046
+    5, True: 0.266
+    6, False: 0.1666
+    6, True: 0.2072
+    7, False: 0.1525
+    7, True: 0.1725
+    8, False: 0.127
+    8, True: 0.1396
+    9, False: 0.1107
+    9, True: 0.1275
+    10, False: 0.0961
+    10, True: 0.1143
 
 
 Hmmm, it looks like no matter how many doors there are, it is always better to change your guess. See how easy it is to estimate this programatically!

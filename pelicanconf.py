@@ -2,7 +2,9 @@
 # -*- coding: utf-8 -*- #
 from __future__ import unicode_literals
 import os
+import alchemy
 
+THEME = alchemy.path()
 AUTHOR = 'Michael Lehotay'
 SITENAME = 'GA DSI-TOR-6'
 SITEURL = 'https://mlehotay.github.io/blog'

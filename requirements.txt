@@ -2,3 +2,4 @@ pelican
 Markdown
 jupyter
 ghp-import
+alchemy

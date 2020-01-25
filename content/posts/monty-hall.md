@@ -53,12 +53,12 @@ else:
     print('Player loses.')
 ```
 
-    Game begins. (The car is behind door 3).
-    Player chooses door 1.
+    Game begins. (The car is behind door 1).
+    Player chooses door 3.
     Monty opens door 2 to reveal a goat.
-    Player still chooses door 1.
-    Monty opens door 3 to reveal the car.
-    Player loses.
+    Player switches to door 1.
+    Monty opens door 1 to reveal the car.
+    Player wins!
 
 
 At this point we have a working system that can play the game once. After testing it thoroughly to verify that it implements the behaviour described in the problem, let's turn it into a function so we can re-use it more easily.
@@ -110,11 +110,11 @@ monty_hall(random.choice([False, True]))
 ```
 
     Game begins. (The car is behind door 2).
-    Player chooses door 1.
+    Player chooses door 2.
     Monty opens door 3 to reveal a goat.
-    Player still chooses door 1.
+    Player still chooses door 2.
     Monty opens door 2 to reveal the car.
-    Player loses.
+    Player wins!
 
 
 Now lets clean it up a bit and remove the print statements so it runs quietly.
@@ -154,7 +154,7 @@ monty_hall(random.choice([False, True]))
 
 
 
-    True
+    False
 
 
 
@@ -174,7 +174,7 @@ sum(results)/N
 
 
 
-    0.4957
+    0.4945
 
 
 
@@ -191,7 +191,7 @@ sum(results)/N
 
 
 
-    0.3376
+    0.3347
 
 
 
@@ -208,7 +208,7 @@ sum(results)/N
 
 
 
-    0.6711
+    0.6625
 
 
 
@@ -223,7 +223,7 @@ sum(results)/N
 
 
 
-    0.6686
+    0.6674
 
 
 
@@ -237,7 +237,7 @@ sum([monty_hall(True) for _ in range(N)])/N
 
 
 
-    0.6682
+    0.6638
 
 
 
@@ -250,22 +250,22 @@ for doors in range(3, 10+1):
         print(f'{doors}, {strategy}: {sum([monty_hall(strategy, doors) for _ in range(N)])/N}')
 ```
 
-    3, False: 0.331
-    3, True: 0.6693
-    4, False: 0.253
-    4, True: 0.373
-    5, False: 0.202
-    5, True: 0.2641
-    6, False: 0.1739
-    6, True: 0.2121
-    7, False: 0.1488
-    7, True: 0.1628
-    8, False: 0.1214
-    8, True: 0.1476
-    9, False: 0.1064
-    9, True: 0.1236
-    10, False: 0.1018
-    10, True: 0.1132
+    3, False: 0.3334
+    3, True: 0.6647
+    4, False: 0.2464
+    4, True: 0.3736
+    5, False: 0.201
+    5, True: 0.27
+    6, False: 0.163
+    6, True: 0.2104
+    7, False: 0.1472
+    7, True: 0.1691
+    8, False: 0.1285
+    8, True: 0.1499
+    9, False: 0.1117
+    9, True: 0.1266
+    10, False: 0.0998
+    10, True: 0.1105
 
 
 Hmmm, it looks like no matter how many doors there are, it is always better to change your guess. See how easy it is to estimate this programatically!

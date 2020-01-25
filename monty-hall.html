@@ -19,7 +19,7 @@
   <link rel="alternate" type="application/atom+xml" title="Full Atom Feed"
         href="https://mlehotay.github.io/blog/feeds/all.atom.xml">
   <link rel="alternate" type="application/atom+xml" title="Categories Atom Feed"
-        href="https://mlehotay.github.io/blog/feeds/misc.atom.xml">  
+        href="https://mlehotay.github.io/blog/feeds/posts.atom.xml">  
   <meta name="description" content="Probability Simulation in Python I've never really liked with the Monty Hall problem. The soution is counterintuative and my brain kind of breaks when I try to wrap my head around the conditional probabilities. In situations like this it can be beneficial to look at the problem empirically and estimate …">
 
 
@@ -49,7 +49,7 @@
         </li>
         <li class="list-inline-item">
           <i class="fas fa-folder-open"></i>
-          <a href="./category/misc.html">misc</a>
+          <a href="./category/posts.html">posts</a>
         </li>
           <li class="list-inline-item">
             <i class="fas fa-user"></i>
@@ -103,12 +103,12 @@
 </pre></div>
 
 
-<div class="highlight"><pre><span></span><span class="n">Game</span> <span class="n">begins</span><span class="p">.</span> <span class="p">(</span><span class="n">The</span> <span class="n">car</span> <span class="k">is</span> <span class="n">behind</span> <span class="n">door</span> <span class="mi">3</span><span class="p">).</span>
-<span class="n">Player</span> <span class="n">chooses</span> <span class="n">door</span> <span class="mi">1</span><span class="p">.</span>
+<div class="highlight"><pre><span></span><span class="n">Game</span> <span class="n">begins</span><span class="p">.</span> <span class="p">(</span><span class="n">The</span> <span class="n">car</span> <span class="k">is</span> <span class="n">behind</span> <span class="n">door</span> <span class="mi">1</span><span class="p">).</span>
+<span class="n">Player</span> <span class="n">chooses</span> <span class="n">door</span> <span class="mi">3</span><span class="p">.</span>
 <span class="n">Monty</span> <span class="n">opens</span> <span class="n">door</span> <span class="mi">2</span> <span class="k">to</span> <span class="n">reveal</span> <span class="n">a</span> <span class="n">goat</span><span class="p">.</span>
-<span class="n">Player</span> <span class="n">still</span> <span class="n">chooses</span> <span class="n">door</span> <span class="mi">1</span><span class="p">.</span>
-<span class="n">Monty</span> <span class="n">opens</span> <span class="n">door</span> <span class="mi">3</span> <span class="k">to</span> <span class="n">reveal</span> <span class="n">the</span> <span class="n">car</span><span class="p">.</span>
-<span class="n">Player</span> <span class="n">loses</span><span class="p">.</span>
+<span class="n">Player</span> <span class="n">switches</span> <span class="k">to</span> <span class="n">door</span> <span class="mi">1</span><span class="p">.</span>
+<span class="n">Monty</span> <span class="n">opens</span> <span class="n">door</span> <span class="mi">1</span> <span class="k">to</span> <span class="n">reveal</span> <span class="n">the</span> <span class="n">car</span><span class="p">.</span>
+<span class="n">Player</span> <span class="n">wins</span><span class="o">!</span>
 </pre></div>
 
 
@@ -157,11 +157,11 @@
 
 
 <div class="highlight"><pre><span></span><span class="n">Game</span> <span class="n">begins</span><span class="p">.</span> <span class="p">(</span><span class="n">The</span> <span class="n">car</span> <span class="k">is</span> <span class="n">behind</span> <span class="n">door</span> <span class="mi">2</span><span class="p">).</span>
-<span class="n">Player</span> <span class="n">chooses</span> <span class="n">door</span> <span class="mi">1</span><span class="p">.</span>
+<span class="n">Player</span> <span class="n">chooses</span> <span class="n">door</span> <span class="mi">2</span><span class="p">.</span>
 <span class="n">Monty</span> <span class="n">opens</span> <span class="n">door</span> <span class="mi">3</span> <span class="k">to</span> <span class="n">reveal</span> <span class="n">a</span> <span class="n">goat</span><span class="p">.</span>
-<span class="n">Player</span> <span class="n">still</span> <span class="n">chooses</span> <span class="n">door</span> <span class="mi">1</span><span class="p">.</span>
+<span class="n">Player</span> <span class="n">still</span> <span class="n">chooses</span> <span class="n">door</span> <span class="mi">2</span><span class="p">.</span>
 <span class="n">Monty</span> <span class="n">opens</span> <span class="n">door</span> <span class="mi">2</span> <span class="k">to</span> <span class="n">reveal</span> <span class="n">the</span> <span class="n">car</span><span class="p">.</span>
-<span class="n">Player</span> <span class="n">loses</span><span class="p">.</span>
+<span class="n">Player</span> <span class="n">wins</span><span class="o">!</span>
 </pre></div>
 
 
@@ -196,7 +196,7 @@
 </pre></div>
 
 
-<div class="highlight"><pre><span></span><span class="k">True</span>
+<div class="highlight"><pre><span></span><span class="k">False</span>
 </pre></div>
 
 
@@ -210,7 +210,7 @@
 </pre></div>
 
 
-<div class="highlight"><pre><span></span><span class="mi">0</span><span class="p">.</span><span class="mi">4957</span>
+<div class="highlight"><pre><span></span><span class="mi">0</span><span class="p">.</span><span class="mi">4945</span>
 </pre></div>
 
 
@@ -222,7 +222,7 @@
 </pre></div>
 
 
-<div class="highlight"><pre><span></span><span class="mi">0</span><span class="p">.</span><span class="mi">3376</span>
+<div class="highlight"><pre><span></span><span class="mi">0</span><span class="p">.</span><span class="mi">3347</span>
 </pre></div>
 
 
@@ -234,7 +234,7 @@
 </pre></div>
 
 
-<div class="highlight"><pre><span></span><span class="mi">0</span><span class="p">.</span><span class="mi">6711</span>
+<div class="highlight"><pre><span></span><span class="mi">0</span><span class="p">.</span><span class="mi">6625</span>
 </pre></div>
 
 
@@ -244,7 +244,7 @@
 </pre></div>
 
 
-<div class="highlight"><pre><span></span><span class="mi">0</span><span class="p">.</span><span class="mi">6686</span>
+<div class="highlight"><pre><span></span><span class="mi">0</span><span class="p">.</span><span class="mi">6674</span>
 </pre></div>
 
 
@@ -253,7 +253,7 @@
 </pre></div>
 
 
-<div class="highlight"><pre><span></span><span class="mi">0</span><span class="p">.</span><span class="mi">6682</span>
+<div class="highlight"><pre><span></span><span class="mi">0</span><span class="p">.</span><span class="mi">6638</span>
 </pre></div>
 
 
@@ -264,22 +264,22 @@
 </pre></div>
 
 
-<div class="highlight"><pre><span></span><span class="mi">3</span><span class="p">,</span> <span class="k">False</span><span class="p">:</span> <span class="mi">0</span><span class="p">.</span><span class="mi">331</span>
-<span class="mi">3</span><span class="p">,</span> <span class="k">True</span><span class="p">:</span> <span class="mi">0</span><span class="p">.</span><span class="mi">6693</span>
-<span class="mi">4</span><span class="p">,</span> <span class="k">False</span><span class="p">:</span> <span class="mi">0</span><span class="p">.</span><span class="mi">253</span>
-<span class="mi">4</span><span class="p">,</span> <span class="k">True</span><span class="p">:</span> <span class="mi">0</span><span class="p">.</span><span class="mi">373</span>
-<span class="mi">5</span><span class="p">,</span> <span class="k">False</span><span class="p">:</span> <span class="mi">0</span><span class="p">.</span><span class="mi">202</span>
-<span class="mi">5</span><span class="p">,</span> <span class="k">True</span><span class="p">:</span> <span class="mi">0</span><span class="p">.</span><span class="mi">2641</span>
-<span class="mi">6</span><span class="p">,</span> <span class="k">False</span><span class="p">:</span> <span class="mi">0</span><span class="p">.</span><span class="mi">1739</span>
-<span class="mi">6</span><span class="p">,</span> <span class="k">True</span><span class="p">:</span> <span class="mi">0</span><span class="p">.</span><span class="mi">2121</span>
-<span class="mi">7</span><span class="p">,</span> <span class="k">False</span><span class="p">:</span> <span class="mi">0</span><span class="p">.</span><span class="mi">1488</span>
-<span class="mi">7</span><span class="p">,</span> <span class="k">True</span><span class="p">:</span> <span class="mi">0</span><span class="p">.</span><span class="mi">1628</span>
-<span class="mi">8</span><span class="p">,</span> <span class="k">False</span><span class="p">:</span> <span class="mi">0</span><span class="p">.</span><span class="mi">1214</span>
-<span class="mi">8</span><span class="p">,</span> <span class="k">True</span><span class="p">:</span> <span class="mi">0</span><span class="p">.</span><span class="mi">1476</span>
-<span class="mi">9</span><span class="p">,</span> <span class="k">False</span><span class="p">:</span> <span class="mi">0</span><span class="p">.</span><span class="mi">1064</span>
-<span class="mi">9</span><span class="p">,</span> <span class="k">True</span><span class="p">:</span> <span class="mi">0</span><span class="p">.</span><span class="mi">1236</span>
-<span class="mi">10</span><span class="p">,</span> <span class="k">False</span><span class="p">:</span> <span class="mi">0</span><span class="p">.</span><span class="mi">1018</span>
-<span class="mi">10</span><span class="p">,</span> <span class="k">True</span><span class="p">:</span> <span class="mi">0</span><span class="p">.</span><span class="mi">1132</span>
+<div class="highlight"><pre><span></span><span class="mi">3</span><span class="p">,</span> <span class="k">False</span><span class="p">:</span> <span class="mi">0</span><span class="p">.</span><span class="mi">3334</span>
+<span class="mi">3</span><span class="p">,</span> <span class="k">True</span><span class="p">:</span> <span class="mi">0</span><span class="p">.</span><span class="mi">6647</span>
+<span class="mi">4</span><span class="p">,</span> <span class="k">False</span><span class="p">:</span> <span class="mi">0</span><span class="p">.</span><span class="mi">2464</span>
+<span class="mi">4</span><span class="p">,</span> <span class="k">True</span><span class="p">:</span> <span class="mi">0</span><span class="p">.</span><span class="mi">3736</span>
+<span class="mi">5</span><span class="p">,</span> <span class="k">False</span><span class="p">:</span> <span class="mi">0</span><span class="p">.</span><span class="mi">201</span>
+<span class="mi">5</span><span class="p">,</span> <span class="k">True</span><span class="p">:</span> <span class="mi">0</span><span class="p">.</span><span class="mi">27</span>
+<span class="mi">6</span><span class="p">,</span> <span class="k">False</span><span class="p">:</span> <span class="mi">0</span><span class="p">.</span><span class="mi">163</span>
+<span class="mi">6</span><span class="p">,</span> <span class="k">True</span><span class="p">:</span> <span class="mi">0</span><span class="p">.</span><span class="mi">2104</span>
+<span class="mi">7</span><span class="p">,</span> <span class="k">False</span><span class="p">:</span> <span class="mi">0</span><span class="p">.</span><span class="mi">1472</span>
+<span class="mi">7</span><span class="p">,</span> <span class="k">True</span><span class="p">:</span> <span class="mi">0</span><span class="p">.</span><span class="mi">1691</span>
+<span class="mi">8</span><span class="p">,</span> <span class="k">False</span><span class="p">:</span> <span class="mi">0</span><span class="p">.</span><span class="mi">1285</span>
+<span class="mi">8</span><span class="p">,</span> <span class="k">True</span><span class="p">:</span> <span class="mi">0</span><span class="p">.</span><span class="mi">1499</span>
+<span class="mi">9</span><span class="p">,</span> <span class="k">False</span><span class="p">:</span> <span class="mi">0</span><span class="p">.</span><span class="mi">1117</span>
+<span class="mi">9</span><span class="p">,</span> <span class="k">True</span><span class="p">:</span> <span class="mi">0</span><span class="p">.</span><span class="mi">1266</span>
+<span class="mi">10</span><span class="p">,</span> <span class="k">False</span><span class="p">:</span> <span class="mi">0</span><span class="p">.</span><span class="mi">0998</span>
+<span class="mi">10</span><span class="p">,</span> <span class="k">True</span><span class="p">:</span> <span class="mi">0</span><span class="p">.</span><span class="mi">1105</span>
 </pre></div>
 
 

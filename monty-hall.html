@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <title>  Probability Simulation in Python | GA DSI-TOR-6
+  <title>  Probability Simulation in Python | mlehotay
 </title>
   <link rel="canonical" href="./monty-hall.html">
 
@@ -19,8 +19,8 @@
   <link rel="alternate" type="application/atom+xml" title="Full Atom Feed"
         href="https://mlehotay.github.io/blog/feeds/all.atom.xml">
   <link rel="alternate" type="application/atom+xml" title="Categories Atom Feed"
-        href="https://mlehotay.github.io/blog/feeds/misc.atom.xml">  
-  <meta name="description" content="Probability Simulation in Python I've never really liked with the Monty Hall problem. The soution is counterintuative and my brain kind of breaks when I try to wrap my head around the conditional probabilities. In situations like this it can be beneficial to look at the problem empirically and estimate …">
+        href="https://mlehotay.github.io/blog/feeds/data-science.atom.xml">  
+  <meta name="description" content="I've never really liked the Monty Hall problem. The soution is counterintuative and my brain kind of breaks when I try to wrap my head around the conditional probabilities. In situations like this it can be beneficial to look at the problem empirically and estimate the probabilities of the outcomes …">
 
 
 </head>
@@ -30,7 +30,7 @@
     <div class="container">
 <div class="row">
   <div class="col-sm-12">
-    <h1 class="title"><a href="./">GA DSI-TOR-6</a></h1>
+    <h1 class="title"><a href="./">mlehotay</a></h1>
   </div>
 </div>    </div>
   </header>
@@ -49,16 +49,18 @@
         </li>
         <li class="list-inline-item">
           <i class="fas fa-folder-open"></i>
-          <a href="./category/misc.html">misc</a>
+          <a href="./category/data-science.html">Data Science</a>
         </li>
           <li class="list-inline-item">
             <i class="fas fa-user"></i>
               <a href="./author/michael-lehotay.html">Michael Lehotay</a>          </li>
+          <li class="list-inline-item">
+            <i class="fas fa-tag"></i>
+              <a href="./tag/probability.html">#probability</a>,               <a href="./tag/simulation.html">#simulation</a>,               <a href="./tag/python.html">#python</a>          </li>
       </ul>
     </header>
     <div class="content">
-      <h2>Probability Simulation in Python</h2>
-<p>I've never really liked with the <a href="https://en.wikipedia.org/wiki/Monty_Hall_problem">Monty Hall problem</a>. The soution is counterintuative and my brain kind of breaks when I try to wrap my head around the conditional probabilities. In situations like this it can be beneficial to look at the problem empirically and estimate the probabilities of the outcomes in the event space in code. So, let's play the game ourselves and see what happens!</p>
+      <p>I've never really liked the <a href="https://en.wikipedia.org/wiki/Monty_Hall_problem">Monty Hall problem</a>. The soution is counterintuative and my brain kind of breaks when I try to wrap my head around the conditional probabilities. In situations like this it can be beneficial to look at the problem empirically and estimate the probabilities of the outcomes in the event space in code. So, let's play the game ourselves and see what happens!</p>
 <p>We start by creating a model of the game to simulate one iteration, or one time playing the game. I've included print statements to describe what happens are every step.</p>
 <div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">random</span>
 </pre></div>
@@ -103,11 +105,11 @@
 </pre></div>
 
 
-<div class="highlight"><pre><span></span><span class="n">Game</span> <span class="n">begins</span><span class="p">.</span> <span class="p">(</span><span class="n">The</span> <span class="n">car</span> <span class="k">is</span> <span class="n">behind</span> <span class="n">door</span> <span class="mi">1</span><span class="p">).</span>
-<span class="n">Player</span> <span class="n">chooses</span> <span class="n">door</span> <span class="mi">3</span><span class="p">.</span>
-<span class="n">Monty</span> <span class="n">opens</span> <span class="n">door</span> <span class="mi">2</span> <span class="k">to</span> <span class="n">reveal</span> <span class="n">a</span> <span class="n">goat</span><span class="p">.</span>
-<span class="n">Player</span> <span class="n">switches</span> <span class="k">to</span> <span class="n">door</span> <span class="mi">1</span><span class="p">.</span>
-<span class="n">Monty</span> <span class="n">opens</span> <span class="n">door</span> <span class="mi">1</span> <span class="k">to</span> <span class="n">reveal</span> <span class="n">the</span> <span class="n">car</span><span class="p">.</span>
+<div class="highlight"><pre><span></span><span class="n">Game</span> <span class="n">begins</span><span class="p">.</span> <span class="p">(</span><span class="n">The</span> <span class="n">car</span> <span class="k">is</span> <span class="n">behind</span> <span class="n">door</span> <span class="mi">2</span><span class="p">).</span>
+<span class="n">Player</span> <span class="n">chooses</span> <span class="n">door</span> <span class="mi">1</span><span class="p">.</span>
+<span class="n">Monty</span> <span class="n">opens</span> <span class="n">door</span> <span class="mi">3</span> <span class="k">to</span> <span class="n">reveal</span> <span class="n">a</span> <span class="n">goat</span><span class="p">.</span>
+<span class="n">Player</span> <span class="n">switches</span> <span class="k">to</span> <span class="n">door</span> <span class="mi">2</span><span class="p">.</span>
+<span class="n">Monty</span> <span class="n">opens</span> <span class="n">door</span> <span class="mi">2</span> <span class="k">to</span> <span class="n">reveal</span> <span class="n">the</span> <span class="n">car</span><span class="p">.</span>
 <span class="n">Player</span> <span class="n">wins</span><span class="o">!</span>
 </pre></div>
 
@@ -196,7 +198,7 @@
 </pre></div>
 
 
-<div class="highlight"><pre><span></span><span class="k">False</span>
+<div class="highlight"><pre><span></span><span class="k">True</span>
 </pre></div>
 
 
@@ -210,7 +212,7 @@
 </pre></div>
 
 
-<div class="highlight"><pre><span></span><span class="mi">0</span><span class="p">.</span><span class="mi">4945</span>
+<div class="highlight"><pre><span></span><span class="mi">0</span><span class="p">.</span><span class="mi">4926</span>
 </pre></div>
 
 
@@ -222,7 +224,7 @@
 </pre></div>
 
 
-<div class="highlight"><pre><span></span><span class="mi">0</span><span class="p">.</span><span class="mi">3347</span>
+<div class="highlight"><pre><span></span><span class="mi">0</span><span class="p">.</span><span class="mi">3215</span>
 </pre></div>
 
 
@@ -234,7 +236,7 @@
 </pre></div>
 
 
-<div class="highlight"><pre><span></span><span class="mi">0</span><span class="p">.</span><span class="mi">6625</span>
+<div class="highlight"><pre><span></span><span class="mi">0</span><span class="p">.</span><span class="mi">6642</span>
 </pre></div>
 
 
@@ -244,7 +246,7 @@
 </pre></div>
 
 
-<div class="highlight"><pre><span></span><span class="mi">0</span><span class="p">.</span><span class="mi">6674</span>
+<div class="highlight"><pre><span></span><span class="mi">0</span><span class="p">.</span><span class="mi">6717</span>
 </pre></div>
 
 
@@ -253,7 +255,7 @@
 </pre></div>
 
 
-<div class="highlight"><pre><span></span><span class="mi">0</span><span class="p">.</span><span class="mi">6638</span>
+<div class="highlight"><pre><span></span><span class="mi">0</span><span class="p">.</span><span class="mi">663</span>
 </pre></div>
 
 
@@ -264,22 +266,22 @@
 </pre></div>
 
 
-<div class="highlight"><pre><span></span><span class="mi">3</span><span class="p">,</span> <span class="k">False</span><span class="p">:</span> <span class="mi">0</span><span class="p">.</span><span class="mi">3334</span>
-<span class="mi">3</span><span class="p">,</span> <span class="k">True</span><span class="p">:</span> <span class="mi">0</span><span class="p">.</span><span class="mi">6647</span>
-<span class="mi">4</span><span class="p">,</span> <span class="k">False</span><span class="p">:</span> <span class="mi">0</span><span class="p">.</span><span class="mi">2464</span>
-<span class="mi">4</span><span class="p">,</span> <span class="k">True</span><span class="p">:</span> <span class="mi">0</span><span class="p">.</span><span class="mi">3736</span>
-<span class="mi">5</span><span class="p">,</span> <span class="k">False</span><span class="p">:</span> <span class="mi">0</span><span class="p">.</span><span class="mi">201</span>
-<span class="mi">5</span><span class="p">,</span> <span class="k">True</span><span class="p">:</span> <span class="mi">0</span><span class="p">.</span><span class="mi">27</span>
-<span class="mi">6</span><span class="p">,</span> <span class="k">False</span><span class="p">:</span> <span class="mi">0</span><span class="p">.</span><span class="mi">163</span>
-<span class="mi">6</span><span class="p">,</span> <span class="k">True</span><span class="p">:</span> <span class="mi">0</span><span class="p">.</span><span class="mi">2104</span>
-<span class="mi">7</span><span class="p">,</span> <span class="k">False</span><span class="p">:</span> <span class="mi">0</span><span class="p">.</span><span class="mi">1472</span>
-<span class="mi">7</span><span class="p">,</span> <span class="k">True</span><span class="p">:</span> <span class="mi">0</span><span class="p">.</span><span class="mi">1691</span>
-<span class="mi">8</span><span class="p">,</span> <span class="k">False</span><span class="p">:</span> <span class="mi">0</span><span class="p">.</span><span class="mi">1285</span>
-<span class="mi">8</span><span class="p">,</span> <span class="k">True</span><span class="p">:</span> <span class="mi">0</span><span class="p">.</span><span class="mi">1499</span>
-<span class="mi">9</span><span class="p">,</span> <span class="k">False</span><span class="p">:</span> <span class="mi">0</span><span class="p">.</span><span class="mi">1117</span>
-<span class="mi">9</span><span class="p">,</span> <span class="k">True</span><span class="p">:</span> <span class="mi">0</span><span class="p">.</span><span class="mi">1266</span>
-<span class="mi">10</span><span class="p">,</span> <span class="k">False</span><span class="p">:</span> <span class="mi">0</span><span class="p">.</span><span class="mi">0998</span>
-<span class="mi">10</span><span class="p">,</span> <span class="k">True</span><span class="p">:</span> <span class="mi">0</span><span class="p">.</span><span class="mi">1105</span>
+<div class="highlight"><pre><span></span><span class="mi">3</span><span class="p">,</span> <span class="k">False</span><span class="p">:</span> <span class="mi">0</span><span class="p">.</span><span class="mi">3337</span>
+<span class="mi">3</span><span class="p">,</span> <span class="k">True</span><span class="p">:</span> <span class="mi">0</span><span class="p">.</span><span class="mi">6684</span>
+<span class="mi">4</span><span class="p">,</span> <span class="k">False</span><span class="p">:</span> <span class="mi">0</span><span class="p">.</span><span class="mi">249</span>
+<span class="mi">4</span><span class="p">,</span> <span class="k">True</span><span class="p">:</span> <span class="mi">0</span><span class="p">.</span><span class="mi">3699</span>
+<span class="mi">5</span><span class="p">,</span> <span class="k">False</span><span class="p">:</span> <span class="mi">0</span><span class="p">.</span><span class="mi">2046</span>
+<span class="mi">5</span><span class="p">,</span> <span class="k">True</span><span class="p">:</span> <span class="mi">0</span><span class="p">.</span><span class="mi">266</span>
+<span class="mi">6</span><span class="p">,</span> <span class="k">False</span><span class="p">:</span> <span class="mi">0</span><span class="p">.</span><span class="mi">1666</span>
+<span class="mi">6</span><span class="p">,</span> <span class="k">True</span><span class="p">:</span> <span class="mi">0</span><span class="p">.</span><span class="mi">2072</span>
+<span class="mi">7</span><span class="p">,</span> <span class="k">False</span><span class="p">:</span> <span class="mi">0</span><span class="p">.</span><span class="mi">1525</span>
+<span class="mi">7</span><span class="p">,</span> <span class="k">True</span><span class="p">:</span> <span class="mi">0</span><span class="p">.</span><span class="mi">1725</span>
+<span class="mi">8</span><span class="p">,</span> <span class="k">False</span><span class="p">:</span> <span class="mi">0</span><span class="p">.</span><span class="mi">127</span>
+<span class="mi">8</span><span class="p">,</span> <span class="k">True</span><span class="p">:</span> <span class="mi">0</span><span class="p">.</span><span class="mi">1396</span>
+<span class="mi">9</span><span class="p">,</span> <span class="k">False</span><span class="p">:</span> <span class="mi">0</span><span class="p">.</span><span class="mi">1107</span>
+<span class="mi">9</span><span class="p">,</span> <span class="k">True</span><span class="p">:</span> <span class="mi">0</span><span class="p">.</span><span class="mi">1275</span>
+<span class="mi">10</span><span class="p">,</span> <span class="k">False</span><span class="p">:</span> <span class="mi">0</span><span class="p">.</span><span class="mi">0961</span>
+<span class="mi">10</span><span class="p">,</span> <span class="k">True</span><span class="p">:</span> <span class="mi">0</span><span class="p">.</span><span class="mi">1143</span>
 </pre></div>
 
 
@@ -296,6 +298,7 @@
       <li class="list-inline-item"><a href="./authors.html">Authors</a></li>
     <li class="list-inline-item"><a href="./archives.html">Archives</a></li>
     <li class="list-inline-item"><a href="./categories.html">Categories</a></li>
+      <li class="list-inline-item"><a href="./tags.html">Tags</a></li>
   </ul>
   <p class="col-sm-6 text-sm-right text-muted">
     Generated by <a href="https://github.com/getpelican/pelican" target="_blank">Pelican</a>

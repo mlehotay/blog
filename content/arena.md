@@ -365,6 +365,21 @@ arena.print_probabilities()
     Mithril Order: 0.383
 
 
-And the predictions are repeatable. Awesome!
+And the predictions are pretty repeatable. Awesome! I wonder what happens if we give one of the Mithril Order fighters some better equipment.
+
+
+```python
+roles[2] = {'name': 'Eve', 'faction': 'Mithril Order', 'level': 1,
+            'class':Fighter, 'weapon':'broad sword', 'armor':'splint mail'}
+
+arena = Arena(roles)
+arena.simulate_battle()
+arena.print_probabilities()
+```
+
+    Estimated Probabilities of Victory:
+    Green Banner: 0.423
+    Mithril Order: 0.577
+
 
 I put all the code for this blog post on GitHub: [https://github.com/mlehotay/arena](https://github.com/mlehotay/arena)

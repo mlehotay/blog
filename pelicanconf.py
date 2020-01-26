@@ -6,7 +6,7 @@ import alchemy
 
 AUTHOR = 'Michael Lehotay'
 SITENAME = 'mlehotay'
-SITESUBTITLE = 'blog'
+SITESUBTITLE = 'developer blog and motley assemblage of data science projects'
 SITEURL = 'https://mlehotay.github.io/blog'
 
 TIMEZONE = 'America/Toronto'
@@ -14,6 +14,7 @@ DEFAULT_LANG = 'en'
 
 PATH = 'content'
 STATIC_PATHS = ['images']
+DELETE_OUTPUT_DIRECTORY = True
 
 DEFAULT_PAGINATION = 10
 RELATIVE_URLS = True

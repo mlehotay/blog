@@ -1,0 +1,424 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>  RPG Combat Simulator | mlehotay
+</title>
+  <link rel="canonical" href="./arena.html">
+
+
+  <link rel="stylesheet" href="./theme/css/bootstrap.min.css">
+  <link rel="stylesheet" href="./theme/css/fontawesome.min.css">
+  <link rel="stylesheet" href="./theme/css/pygments/default.min.css">
+  <link rel="stylesheet" href="./theme/css/theme.css">
+
+  <link rel="alternate" type="application/atom+xml" title="Full Atom Feed"
+        href="https://mlehotay.github.io/blog/feeds/all.atom.xml">
+  <link rel="alternate" type="application/atom+xml" title="Categories Atom Feed"
+        href="https://mlehotay.github.io/blog/feeds/games.atom.xml">  
+  <meta name="description" content="I have been thinking about combat in RPG games lately and wondering if I could come up with a way to model combat that I could use for machine learning. I'd like to be able to make decisions about the best weapon to wield and the best armor to wear …">
+
+
+</head>
+
+<body>
+  <header class="header">
+    <div class="container">
+<div class="row">
+  <div class="col-sm-12">
+    <h1 class="title"><a href="./">mlehotay</a></h1>
+      <p class="text-muted">blog</p>
+  </div>
+</div>    </div>
+  </header>
+
+  <div class="main">
+    <div class="container">
+      <h1>  RPG Combat Simulator
+</h1>
+      <hr>
+  <article class="article">
+    <header>
+      <ul class="list-inline">
+        <li class="list-inline-item text-muted" title="2020-01-24T09:41:00-05:00">
+          <i class="fas fa-clock"></i>
+          Fri 24 January 2020
+        </li>
+        <li class="list-inline-item">
+          <i class="fas fa-folder-open"></i>
+          <a href="./category/games.html">Games</a>
+        </li>
+          <li class="list-inline-item">
+            <i class="fas fa-user"></i>
+              <a href="./author/michael-lehotay.html">Michael Lehotay</a>          </li>
+          <li class="list-inline-item">
+            <i class="fas fa-tag"></i>
+              <a href="./tag/simulation.html">#simulation</a>,               <a href="./tag/probability.html">#probability</a>,               <a href="./tag/object-oriented.html">#object-oriented</a>          </li>
+      </ul>
+    </header>
+    <div class="content">
+      <p>I have been thinking about combat in RPG games lately and wondering if I could come up with a way to model combat that I could use for machine learning. I'd like to be able to make decisions about the best weapon to wield and the best armor to wear, and to be able to predict the odds of surviving a particular battle. The obvious approach is to simulate the battle many times and use statistics!</p>
+<p>Our combat system will be pretty basic. For simplicity it will only use melee weapons and not have any missile weapons or magic. Other than that it will work like many tabletop role-playing games: fighters take turns attacking each other and the outcome of each attack is randomly determined by rolling dice. A regular set of dice contains dice with 4, 6, 8, 10, 12, and 20 sides.</p>
+<p>Combatants have three variables that describe their toughness and their state of health:</p>
+<ul>
+<li><strong>Level</strong> is a measure of a fighter's skill and experience.</li>
+<li><strong>Health</strong> or (<strong>hit points</strong>) is the amount of injury the fighter can withstand.</li>
+<li><strong>Armor class</strong> describes how easy or difficult it is to hit a fighter. The lower their AC, the harder they are to hit.</li>
+</ul>
+<p>To attack, roll a 20-sided die to see if you hit your opponent. You need to roll a certain number or higher to hit. The formula is <code>22 - level - armor_class</code>. For example, to hit an opponent with armor class 10, a level 1 fighter needs to roll an 11 or higher (22 - 1 - 10 = 11).</p>
+<p>If you hit, then roll to see how much damage you do. The number of dice and what kind of dice is determined by the weapon you are wielding.</p>
+<p>Let's start by implementing rolls of the dice. We'll use this function any time we need to generate a random number.</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">random</span>
+
+<span class="k">def</span> <span class="nf">roll</span><span class="p">(</span><span class="n">dice</span><span class="p">,</span> <span class="n">sides</span><span class="p">):</span>
+    <span class="n">total</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">dice</span><span class="p">):</span>
+        <span class="n">total</span> <span class="o">+=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">sides</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">total</span>
+</pre></div>
+
+
+<p>And now we define the weapons and armor as dictionaries.</p>
+<p>The amount of damage a weapon can do is represented as a tuple with three elements: the number of dice, the number of sides per die, and an addend. For example, a flail does 2-7 points of damage by rolling a 6-sided die and adding 1 (1d6+1).</p>
+<div class="highlight"><pre><span></span><span class="n">weapon_list</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="bp">None</span><span class="p">:</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span>  <span class="c1"># 1d2</span>
+    <span class="s1">&#39;axe&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="c1"># 1d6</span>
+    <span class="s1">&#39;battle axe&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="c1"># 1d8</span>
+    <span class="s1">&#39;club&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span>
+    <span class="s1">&#39;dagger&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span>
+    <span class="s1">&#39;flail&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="c1"># 1d6+1</span>
+    <span class="s1">&#39;hammer&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span>
+    <span class="s1">&#39;mace&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span>
+    <span class="s1">&#39;morning star&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="c1"># 2d4</span>
+    <span class="s1">&#39;scimitar&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span>
+    <span class="s1">&#39;spear&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span>
+    <span class="s1">&#39;quarterstaff&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span>
+    <span class="s1">&#39;broad sword&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span>
+    <span class="s1">&#39;long sword&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span>
+    <span class="s1">&#39;short sword&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span>
+    <span class="s1">&#39;trident&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span>
+    <span class="s1">&#39;two-handed sword&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>The value for a type of armor is the amount of protection it provides. The values correspond to the difference in the die roll needed to hit an opponent. So if you need to roll a 13 to hit an enemy wearing ring mail, you'd need to roll a 15 to hit an opponent in chain mail.</p>
+<div class="highlight"><pre><span></span><span class="n">armor_list</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="bp">None</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="s1">&#39;shield&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="s1">&#39;padded armor&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="s1">&#39;leather armor&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="s1">&#39;studded leather&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="s1">&#39;ring mail&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="s1">&#39;scale mail&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+    <span class="s1">&#39;chain mail&#39;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+    <span class="s1">&#39;splint mail&#39;</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
+    <span class="s1">&#39;banded mail&#39;</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
+    <span class="s1">&#39;plate mail&#39;</span><span class="p">:</span> <span class="mi">7</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h2>Fighter</h2>
+<p>Here is the <code>Fighter</code> class to represent a combatant.</p>
+<p>The constructor takes the <code>name</code>, <code>level</code>, <code>faction</code>, <code>weapon</code>, and <code>armor</code> for the fighter. <code>Name</code> is the fighter's name (e.g., Frodo) and <code>faction</code> is the name of the "side" they are on. Fighters from the same faction will not attack each other. Values for <code>faction</code> could be 'good' and 'evil' or anything else you want. The <code>battle</code> member variable will be assigned a value when the fighter enters the arena. For now, set it to None.</p>
+<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Fighter</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">faction</span><span class="p">,</span> <span class="n">weapon</span><span class="p">,</span> <span class="n">armor</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">level</span> <span class="o">=</span> <span class="n">level</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_health</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">roll</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">level</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">health</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_health</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">faction</span> <span class="o">=</span> <span class="n">faction</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">weapon</span> <span class="o">=</span> <span class="n">weapon</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">armor</span> <span class="o">=</span> <span class="n">armor</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">armor_class</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">-</span> <span class="n">armor_list</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">armor</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">battle</span> <span class="o">=</span> <span class="bp">None</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">f</span><span class="s1">&#39;{self.name} ({self.health}/{self.max_health}) </span><span class="se">\</span>
+<span class="s1">            [Level {self.level} {self.__class__.__name__}, {self.weapon}, {self.armor}, {self.faction}]&#39;</span>
+</pre></div>
+
+
+<p>On each turn the fighter will make a list all the opponents in the battle (anybody not in their faction), and then randomly select one to attack.</p>
+<div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">take_turn</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">opponents</span> <span class="o">=</span> <span class="p">[</span><span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">battle</span><span class="o">.</span><span class="n">fighters</span> <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">faction</span><span class="o">!=</span><span class="bp">self</span><span class="o">.</span><span class="n">faction</span><span class="p">]</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">opponents</span> <span class="o">!=</span> <span class="p">[]):</span>
+            <span class="n">target</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">opponents</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">attack</span><span class="p">(</span><span class="n">target</span><span class="p">)</span>
+</pre></div>
+
+
+<p>The attack hits its target if the fighter rolls a high enough number. That number is <code>22 - level - armor_class</code>.</p>
+<p>If the attack hits then roll again to calculate the amount of damage and call the target's <code>take_damage</code> method.</p>
+<div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">attack</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">opponent</span><span class="p">):</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">roll</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">20</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="p">(</span><span class="mi">22</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">level</span> <span class="o">-</span> <span class="n">opponent</span><span class="o">.</span><span class="n">armor_class</span><span class="p">)):</span>
+            <span class="p">(</span><span class="n">dice</span><span class="p">,</span> <span class="n">sides</span><span class="p">,</span> <span class="n">plus</span><span class="p">)</span> <span class="o">=</span> <span class="n">weapon_list</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">weapon</span><span class="p">]</span>
+            <span class="n">damage</span> <span class="o">=</span> <span class="n">roll</span><span class="p">(</span><span class="n">dice</span><span class="p">,</span> <span class="n">sides</span><span class="p">)</span> <span class="o">+</span> <span class="n">plus</span>
+            <span class="n">opponent</span><span class="o">.</span><span class="n">take_damage</span><span class="p">(</span><span class="n">damage</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="k">elif</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">battle</span><span class="o">.</span><span class="n">verbose</span><span class="p">):</span>
+            <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;  {self.name} swings at {opponent.name} and misses&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Note here that when the target object's <code>take_damage</code> method is called, the program flow transfers from the attacker to the opponent. Now <code>self</code> no longer refers to the attacking fighter and instead it refers to the target.</p>
+<p>When a fighter's health is reduced to zero they die.</p>
+<div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">take_damage</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">damage</span><span class="p">,</span> <span class="n">attacker</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">battle</span><span class="o">.</span><span class="n">verbose</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;  {attacker.name} attacks {self.name} for {damage} damage&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">health</span> <span class="o">-=</span> <span class="n">damage</span>
+        <span class="k">if</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">health</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">die</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">die</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">battle</span><span class="o">.</span><span class="n">verbose</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;  {self.name} dies!&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">battle</span><span class="o">.</span><span class="n">fighters</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">battle</span> <span class="o">=</span> <span class="bp">None</span>
+</pre></div>
+
+
+<h2>Battle</h2>
+<p>Here we have a class to represent a battle between two or more fighters. The battle has a <code>title</code>, a list of <code>fighters</code>, a <code>turn</code> counter, and a <code>winner</code>. The constructor gets called with a list of <code>roles</code> that describe how each fighter object should be instantiated, and a boolean verbosity flag. When <code>verbose</code> is set to true then the play-by-play action of the battle is printed.</p>
+<p>A <code>Fighter</code> object is created for each <code>role</code> passed to the <code>Battle</code> constructor. The fighters are then added to the battle by calling its <code>add_fighter</code> method.</p>
+<p>The <code>roles</code> parameter is a list of dictionaries with the following keys (and example values):</p>
+<div class="highlight"><pre><span></span><span class="err">{</span>
+  <span class="s1">&#39;name&#39;</span><span class="p">:</span>    <span class="s1">&#39;Boromir&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;faction&#39;</span><span class="p">:</span> <span class="s1">&#39;Gondor&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;level&#39;</span><span class="p">:</span>    <span class="mi">9</span><span class="p">,</span>
+  <span class="s1">&#39;class&#39;</span><span class="p">:</span>    <span class="n">Fighter</span><span class="p">,</span>
+  <span class="s1">&#39;weapon&#39;</span><span class="p">:</span>  <span class="s1">&#39;long sword&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;armor&#39;</span><span class="p">:</span>   <span class="s1">&#39;chain mail&#39;</span>
+<span class="err">}</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Battle</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">roles</span><span class="p">,</span> <span class="n">verbose</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="n">title</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="o">=</span> <span class="n">verbose</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fighters</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">winner</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">turn</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">role</span> <span class="ow">in</span> <span class="n">roles</span><span class="p">:</span>
+            <span class="n">fighter</span> <span class="o">=</span> <span class="n">role</span><span class="p">[</span><span class="s1">&#39;class&#39;</span><span class="p">](</span><span class="n">role</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">],</span> <span class="n">role</span><span class="p">[</span><span class="s1">&#39;level&#39;</span><span class="p">],</span> <span class="n">role</span><span class="p">[</span><span class="s1">&#39;faction&#39;</span><span class="p">],</span> <span class="n">role</span><span class="p">[</span><span class="s1">&#39;weapon&#39;</span><span class="p">],</span> <span class="n">role</span><span class="p">[</span><span class="s1">&#39;armor&#39;</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_fighter</span><span class="p">(</span><span class="n">fighter</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">f</span><span class="s1">&#39;{self.title} turn {self.turn}&#39;</span>
+
+    <span class="k">def</span> <span class="nf">add_fighter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fighter</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fighters</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">fighter</span><span class="p">)</span>
+        <span class="n">fighter</span><span class="o">.</span><span class="n">battle</span> <span class="o">=</span> <span class="bp">self</span>
+</pre></div>
+
+
+<p>The battle proceeds in rounds. During a round each fighter is given their turn to attack. The battle ends when all the surviving fighters are from the same faction.</p>
+<div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">fight_battle</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;{self.title} fighters:&#39;</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">fighter</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">fighters</span><span class="p">:</span>
+                <span class="k">print</span><span class="p">(</span><span class="n">fighter</span><span class="p">)</span>
+        <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">winner</span> <span class="o">==</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">play_round</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;{self.winner} wins {self.title}!&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">winner</span>
+
+    <span class="k">def</span> <span class="nf">play_round</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">turn</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;{self}:&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">fighters</span><span class="p">:</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">take_turn</span><span class="p">()</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">({</span><span class="n">f</span><span class="o">.</span><span class="n">faction</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">fighters</span><span class="p">})</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">winner</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fighters</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">faction</span>
+</pre></div>
+
+
+<p>We've got enough code written now to simulate a full battle. Let's give it a go.</p>
+<div class="highlight"><pre><span></span><span class="n">roles</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;Bob&#39;</span><span class="p">,</span> <span class="s1">&#39;faction&#39;</span><span class="p">:</span> <span class="s1">&#39;Green Banner&#39;</span><span class="p">,</span> <span class="s1">&#39;level&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+     <span class="s1">&#39;class&#39;</span><span class="p">:</span><span class="n">Fighter</span><span class="p">,</span> <span class="s1">&#39;weapon&#39;</span><span class="p">:</span><span class="s1">&#39;scimitar&#39;</span><span class="p">,</span> <span class="s1">&#39;armor&#39;</span><span class="p">:</span><span class="s1">&#39;chain mail&#39;</span><span class="p">},</span>
+    <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;Alice&#39;</span><span class="p">,</span> <span class="s1">&#39;faction&#39;</span><span class="p">:</span> <span class="s1">&#39;Mithril Order&#39;</span><span class="p">,</span> <span class="s1">&#39;level&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+     <span class="s1">&#39;class&#39;</span><span class="p">:</span><span class="n">Fighter</span><span class="p">,</span> <span class="s1">&#39;weapon&#39;</span><span class="p">:</span><span class="s1">&#39;short sword&#39;</span><span class="p">,</span> <span class="s1">&#39;armor&#39;</span><span class="p">:</span><span class="s1">&#39;leather armor&#39;</span><span class="p">},</span>
+    <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;Eve&#39;</span><span class="p">,</span> <span class="s1">&#39;faction&#39;</span><span class="p">:</span> <span class="s1">&#39;Mithril Order&#39;</span><span class="p">,</span> <span class="s1">&#39;level&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+     <span class="s1">&#39;class&#39;</span><span class="p">:</span><span class="n">Fighter</span><span class="p">,</span> <span class="s1">&#39;weapon&#39;</span><span class="p">:</span><span class="s1">&#39;flail&#39;</span><span class="p">,</span> <span class="s1">&#39;armor&#39;</span><span class="p">:</span><span class="s1">&#39;shield&#39;</span><span class="p">}</span>
+<span class="p">]</span>
+
+<span class="n">Battle</span><span class="p">(</span><span class="s1">&#39;Test Battle&#39;</span><span class="p">,</span> <span class="n">roles</span><span class="p">,</span> <span class="bp">True</span><span class="p">)</span><span class="o">.</span><span class="n">fight_battle</span><span class="p">()</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="nv">Test</span> <span class="nv">Battle</span> <span class="nv">fighters</span>:
+<span class="nv">Bob</span> <span class="ss">(</span><span class="mi">11</span><span class="o">/</span><span class="mi">11</span><span class="ss">)</span> [<span class="nv">Level</span> <span class="mi">2</span> <span class="nv">Fighter</span>, <span class="nv">scimitar</span>, <span class="nv">chain</span> <span class="nv">mail</span>, <span class="nv">Green</span> <span class="nv">Banner</span>]
+<span class="nv">Alice</span> <span class="ss">(</span><span class="mi">8</span><span class="o">/</span><span class="mi">8</span><span class="ss">)</span> [<span class="nv">Level</span> <span class="mi">1</span> <span class="nv">Fighter</span>, <span class="nv">short</span> <span class="nv">sword</span>, <span class="nv">leather</span> <span class="nv">armor</span>, <span class="nv">Mithril</span> <span class="nv">Order</span>]
+<span class="nv">Eve</span> <span class="ss">(</span><span class="mi">9</span><span class="o">/</span><span class="mi">9</span><span class="ss">)</span> [<span class="nv">Level</span> <span class="mi">1</span> <span class="nv">Fighter</span>, <span class="nv">flail</span>, <span class="nv">shield</span>, <span class="nv">Mithril</span> <span class="nv">Order</span>]
+<span class="nv">Test</span> <span class="nv">Battle</span> <span class="nv">turn</span> <span class="mi">1</span>:
+  <span class="nv">Bob</span> <span class="nv">swings</span> <span class="nv">at</span> <span class="nv">Alice</span> <span class="nv">and</span> <span class="nv">misses</span>
+  <span class="nv">Alice</span> <span class="nv">swings</span> <span class="nv">at</span> <span class="nv">Bob</span> <span class="nv">and</span> <span class="nv">misses</span>
+  <span class="nv">Eve</span> <span class="nv">attacks</span> <span class="nv">Bob</span> <span class="k">for</span> <span class="mi">6</span> <span class="nv">damage</span>
+<span class="nv">Test</span> <span class="nv">Battle</span> <span class="nv">turn</span> <span class="mi">2</span>:
+  <span class="nv">Bob</span> <span class="nv">swings</span> <span class="nv">at</span> <span class="nv">Eve</span> <span class="nv">and</span> <span class="nv">misses</span>
+  <span class="nv">Alice</span> <span class="nv">swings</span> <span class="nv">at</span> <span class="nv">Bob</span> <span class="nv">and</span> <span class="nv">misses</span>
+  <span class="nv">Eve</span> <span class="nv">attacks</span> <span class="nv">Bob</span> <span class="k">for</span> <span class="mi">5</span> <span class="nv">damage</span>
+  <span class="nv">Bob</span> <span class="nv">dies</span><span class="o">!</span>
+<span class="nv">Mithril</span> <span class="nv">Order</span> <span class="nv">wins</span> <span class="nv">Test</span> <span class="nv">Battle</span><span class="o">!</span>
+
+
+
+
+
+<span class="s1">&#39;</span><span class="s">Mithril Order</span><span class="s1">&#39;</span>
+</pre></div>
+
+
+<h2>Arena</h2>
+<p>Now we need to repeat many <code>iterations</code> of the battle so that we can estimate each faction's probability of winning. 1000 times should be plenty.</p>
+<p>We create a set of <code>factions</code> by adding the faction of each <code>role</code>. Using a set ensures that we only count each faction once. Then we start fighting battles and counting <code>wins</code>.</p>
+<p>The <code>print_probabilities</code> method prints the probability of each faction winning based on their observed win frequencies.</p>
+<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Arena</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">roles</span><span class="p">,</span> <span class="n">iterations</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">roles</span> <span class="o">=</span> <span class="n">roles</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">iterations</span> <span class="o">=</span> <span class="n">iterations</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="o">=</span> <span class="n">verbose</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">factions</span> <span class="o">=</span> <span class="p">{</span><span class="n">role</span><span class="p">[</span><span class="s1">&#39;faction&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">role</span> <span class="ow">in</span> <span class="n">roles</span><span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">wins</span> <span class="o">=</span> <span class="p">{</span><span class="n">faction</span><span class="p">:</span><span class="mi">0</span> <span class="k">for</span> <span class="n">faction</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">factions</span><span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">winner</span> <span class="o">=</span> <span class="bp">None</span>
+
+    <span class="k">def</span> <span class="nf">simulate_battle</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">iterations</span><span class="p">):</span>
+            <span class="n">winner</span> <span class="o">=</span> <span class="n">Battle</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;Battle {i+1}&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">roles</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">)</span><span class="o">.</span><span class="n">fight_battle</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">wins</span><span class="p">[</span><span class="n">winner</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="k">def</span> <span class="nf">print_probabilities</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;Estimated Probabilities of Victory:&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">faction</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">factions</span><span class="p">):</span>
+            <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;{faction}: {self.wins[faction]/self.iterations}&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>That's it! We are done! Let's see how it works with more than one iteration.</p>
+<div class="highlight"><pre><span></span><span class="n">arena</span> <span class="o">=</span> <span class="n">Arena</span><span class="p">(</span><span class="n">roles</span><span class="p">,</span> <span class="n">iterations</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">arena</span><span class="o">.</span><span class="n">simulate_battle</span><span class="p">()</span>
+<span class="n">arena</span><span class="o">.</span><span class="n">print_probabilities</span><span class="p">()</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="nv">Battle</span> <span class="mi">1</span> <span class="nv">fighters</span>:
+<span class="nv">Bob</span> <span class="ss">(</span><span class="mi">11</span><span class="o">/</span><span class="mi">11</span><span class="ss">)</span> [<span class="nv">Level</span> <span class="mi">2</span> <span class="nv">Fighter</span>, <span class="nv">scimitar</span>, <span class="nv">chain</span> <span class="nv">mail</span>, <span class="nv">Green</span> <span class="nv">Banner</span>]
+<span class="nv">Alice</span> <span class="ss">(</span><span class="mi">10</span><span class="o">/</span><span class="mi">10</span><span class="ss">)</span> [<span class="nv">Level</span> <span class="mi">1</span> <span class="nv">Fighter</span>, <span class="nv">short</span> <span class="nv">sword</span>, <span class="nv">leather</span> <span class="nv">armor</span>, <span class="nv">Mithril</span> <span class="nv">Order</span>]
+<span class="nv">Eve</span> <span class="ss">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">1</span><span class="ss">)</span> [<span class="nv">Level</span> <span class="mi">1</span> <span class="nv">Fighter</span>, <span class="nv">flail</span>, <span class="nv">shield</span>, <span class="nv">Mithril</span> <span class="nv">Order</span>]
+<span class="nv">Battle</span> <span class="mi">1</span> <span class="nv">turn</span> <span class="mi">1</span>:
+  <span class="nv">Bob</span> <span class="nv">attacks</span> <span class="nv">Eve</span> <span class="k">for</span> <span class="mi">6</span> <span class="nv">damage</span>
+  <span class="nv">Eve</span> <span class="nv">dies</span><span class="o">!</span>
+  <span class="nv">Alice</span> <span class="nv">swings</span> <span class="nv">at</span> <span class="nv">Bob</span> <span class="nv">and</span> <span class="nv">misses</span>
+<span class="nv">Battle</span> <span class="mi">1</span> <span class="nv">turn</span> <span class="mi">2</span>:
+  <span class="nv">Bob</span> <span class="nv">attacks</span> <span class="nv">Alice</span> <span class="k">for</span> <span class="mi">8</span> <span class="nv">damage</span>
+  <span class="nv">Alice</span> <span class="nv">swings</span> <span class="nv">at</span> <span class="nv">Bob</span> <span class="nv">and</span> <span class="nv">misses</span>
+<span class="nv">Battle</span> <span class="mi">1</span> <span class="nv">turn</span> <span class="mi">3</span>:
+  <span class="nv">Bob</span> <span class="nv">swings</span> <span class="nv">at</span> <span class="nv">Alice</span> <span class="nv">and</span> <span class="nv">misses</span>
+  <span class="nv">Alice</span> <span class="nv">swings</span> <span class="nv">at</span> <span class="nv">Bob</span> <span class="nv">and</span> <span class="nv">misses</span>
+<span class="nv">Battle</span> <span class="mi">1</span> <span class="nv">turn</span> <span class="mi">4</span>:
+  <span class="nv">Bob</span> <span class="nv">attacks</span> <span class="nv">Alice</span> <span class="k">for</span> <span class="mi">1</span> <span class="nv">damage</span>
+  <span class="nv">Alice</span> <span class="nv">swings</span> <span class="nv">at</span> <span class="nv">Bob</span> <span class="nv">and</span> <span class="nv">misses</span>
+<span class="nv">Battle</span> <span class="mi">1</span> <span class="nv">turn</span> <span class="mi">5</span>:
+  <span class="nv">Bob</span> <span class="nv">swings</span> <span class="nv">at</span> <span class="nv">Alice</span> <span class="nv">and</span> <span class="nv">misses</span>
+  <span class="nv">Alice</span> <span class="nv">swings</span> <span class="nv">at</span> <span class="nv">Bob</span> <span class="nv">and</span> <span class="nv">misses</span>
+<span class="nv">Battle</span> <span class="mi">1</span> <span class="nv">turn</span> <span class="mi">6</span>:
+  <span class="nv">Bob</span> <span class="nv">swings</span> <span class="nv">at</span> <span class="nv">Alice</span> <span class="nv">and</span> <span class="nv">misses</span>
+  <span class="nv">Alice</span> <span class="nv">swings</span> <span class="nv">at</span> <span class="nv">Bob</span> <span class="nv">and</span> <span class="nv">misses</span>
+<span class="nv">Battle</span> <span class="mi">1</span> <span class="nv">turn</span> <span class="mi">7</span>:
+  <span class="nv">Bob</span> <span class="nv">attacks</span> <span class="nv">Alice</span> <span class="k">for</span> <span class="mi">7</span> <span class="nv">damage</span>
+  <span class="nv">Alice</span> <span class="nv">dies</span><span class="o">!</span>
+<span class="nv">Green</span> <span class="nv">Banner</span> <span class="nv">wins</span> <span class="nv">Battle</span> <span class="mi">1</span><span class="o">!</span>
+<span class="nv">Battle</span> <span class="mi">2</span> <span class="nv">fighters</span>:
+<span class="nv">Bob</span> <span class="ss">(</span><span class="mi">6</span><span class="o">/</span><span class="mi">6</span><span class="ss">)</span> [<span class="nv">Level</span> <span class="mi">2</span> <span class="nv">Fighter</span>, <span class="nv">scimitar</span>, <span class="nv">chain</span> <span class="nv">mail</span>, <span class="nv">Green</span> <span class="nv">Banner</span>]
+<span class="nv">Alice</span> <span class="ss">(</span><span class="mi">6</span><span class="o">/</span><span class="mi">6</span><span class="ss">)</span> [<span class="nv">Level</span> <span class="mi">1</span> <span class="nv">Fighter</span>, <span class="nv">short</span> <span class="nv">sword</span>, <span class="nv">leather</span> <span class="nv">armor</span>, <span class="nv">Mithril</span> <span class="nv">Order</span>]
+<span class="nv">Eve</span> <span class="ss">(</span><span class="mi">2</span><span class="o">/</span><span class="mi">2</span><span class="ss">)</span> [<span class="nv">Level</span> <span class="mi">1</span> <span class="nv">Fighter</span>, <span class="nv">flail</span>, <span class="nv">shield</span>, <span class="nv">Mithril</span> <span class="nv">Order</span>]
+<span class="nv">Battle</span> <span class="mi">2</span> <span class="nv">turn</span> <span class="mi">1</span>:
+  <span class="nv">Bob</span> <span class="nv">swings</span> <span class="nv">at</span> <span class="nv">Alice</span> <span class="nv">and</span> <span class="nv">misses</span>
+  <span class="nv">Alice</span> <span class="nv">swings</span> <span class="nv">at</span> <span class="nv">Bob</span> <span class="nv">and</span> <span class="nv">misses</span>
+  <span class="nv">Eve</span> <span class="nv">swings</span> <span class="nv">at</span> <span class="nv">Bob</span> <span class="nv">and</span> <span class="nv">misses</span>
+<span class="nv">Battle</span> <span class="mi">2</span> <span class="nv">turn</span> <span class="mi">2</span>:
+  <span class="nv">Bob</span> <span class="nv">attacks</span> <span class="nv">Alice</span> <span class="k">for</span> <span class="mi">2</span> <span class="nv">damage</span>
+  <span class="nv">Alice</span> <span class="nv">attacks</span> <span class="nv">Bob</span> <span class="k">for</span> <span class="mi">6</span> <span class="nv">damage</span>
+  <span class="nv">Bob</span> <span class="nv">dies</span><span class="o">!</span>
+<span class="nv">Mithril</span> <span class="nv">Order</span> <span class="nv">wins</span> <span class="nv">Battle</span> <span class="mi">2</span><span class="o">!</span>
+<span class="nv">Estimated</span> <span class="nv">Probabilities</span> <span class="nv">of</span> <span class="nv">Victory</span>:
+<span class="nv">Green</span> <span class="nv">Banner</span>: <span class="mi">0</span>.<span class="mi">5</span>
+<span class="nv">Mithril</span> <span class="nv">Order</span>: <span class="mi">0</span>.<span class="mi">5</span>
+</pre></div>
+
+
+<p>That works pretty well. I am happy with that! Let's do it again with 1000 iterations.</p>
+<div class="highlight"><pre><span></span><span class="n">arena</span> <span class="o">=</span> <span class="n">Arena</span><span class="p">(</span><span class="n">roles</span><span class="p">)</span>
+<span class="n">arena</span><span class="o">.</span><span class="n">simulate_battle</span><span class="p">()</span>
+<span class="n">arena</span><span class="o">.</span><span class="n">print_probabilities</span><span class="p">()</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="n">Estimated</span> <span class="n">Probabilities</span> <span class="k">of</span> <span class="n">Victory</span><span class="p">:</span>
+<span class="n">Green</span> <span class="n">Banner</span><span class="p">:</span> <span class="mi">0</span><span class="p">.</span><span class="mi">606</span>
+<span class="n">Mithril</span> <span class="k">Order</span><span class="p">:</span> <span class="mi">0</span><span class="p">.</span><span class="mi">394</span>
+</pre></div>
+
+
+<p>It looks like the Green Banner has the edge in this battle. They are predicted to win about 60% of the time.</p>
+<div class="highlight"><pre><span></span><span class="n">arena</span> <span class="o">=</span> <span class="n">Arena</span><span class="p">(</span><span class="n">roles</span><span class="p">)</span>
+<span class="n">arena</span><span class="o">.</span><span class="n">simulate_battle</span><span class="p">()</span>
+<span class="n">arena</span><span class="o">.</span><span class="n">print_probabilities</span><span class="p">()</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="n">Estimated</span> <span class="n">Probabilities</span> <span class="k">of</span> <span class="n">Victory</span><span class="p">:</span>
+<span class="n">Green</span> <span class="n">Banner</span><span class="p">:</span> <span class="mi">0</span><span class="p">.</span><span class="mi">617</span>
+<span class="n">Mithril</span> <span class="k">Order</span><span class="p">:</span> <span class="mi">0</span><span class="p">.</span><span class="mi">383</span>
+</pre></div>
+
+
+<p>And the predictions are pretty repeatable. Awesome! I wonder what happens if we give one of the Mithril Order fighters some better equipment.</p>
+<div class="highlight"><pre><span></span><span class="n">roles</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;Eve&#39;</span><span class="p">,</span> <span class="s1">&#39;faction&#39;</span><span class="p">:</span> <span class="s1">&#39;Mithril Order&#39;</span><span class="p">,</span> <span class="s1">&#39;level&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="s1">&#39;class&#39;</span><span class="p">:</span><span class="n">Fighter</span><span class="p">,</span> <span class="s1">&#39;weapon&#39;</span><span class="p">:</span><span class="s1">&#39;broad sword&#39;</span><span class="p">,</span> <span class="s1">&#39;armor&#39;</span><span class="p">:</span><span class="s1">&#39;splint mail&#39;</span><span class="p">}</span>
+
+<span class="n">arena</span> <span class="o">=</span> <span class="n">Arena</span><span class="p">(</span><span class="n">roles</span><span class="p">)</span>
+<span class="n">arena</span><span class="o">.</span><span class="n">simulate_battle</span><span class="p">()</span>
+<span class="n">arena</span><span class="o">.</span><span class="n">print_probabilities</span><span class="p">()</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="n">Estimated</span> <span class="n">Probabilities</span> <span class="k">of</span> <span class="n">Victory</span><span class="p">:</span>
+<span class="n">Green</span> <span class="n">Banner</span><span class="p">:</span> <span class="mi">0</span><span class="p">.</span><span class="mi">423</span>
+<span class="n">Mithril</span> <span class="k">Order</span><span class="p">:</span> <span class="mi">0</span><span class="p">.</span><span class="mi">577</span>
+</pre></div>
+
+
+<p>I put all the code for this blog post on GitHub: <a href="https://github.com/mlehotay/arena">https://github.com/mlehotay/arena</a></p>
+    </div>
+  </article>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+<div class="row">
+  <ul class="col-sm-6 list-inline">
+      <li class="list-inline-item"><a href="./authors.html">Authors</a></li>
+    <li class="list-inline-item"><a href="./archives.html">Archives</a></li>
+    <li class="list-inline-item"><a href="./categories.html">Categories</a></li>
+      <li class="list-inline-item"><a href="./tags.html">Tags</a></li>
+  </ul>
+  <p class="col-sm-6 text-sm-right text-muted">
+    Generated by <a href="https://github.com/getpelican/pelican" target="_blank">Pelican</a>
+    / <a href="https://github.com/nairobilug/pelican-alchemy" target="_blank">&#x2728;</a>
+  </p>
+</div>    </div>
+  </footer>
+
+</body>
+
+</html>

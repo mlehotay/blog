@@ -6,6 +6,7 @@ import alchemy
 
 AUTHOR = 'Michael Lehotay'
 SITENAME = 'mlehotay'
+SITESUBTITLE = 'blog'
 SITEURL = 'https://mlehotay.github.io/blog'
 
 TIMEZONE = 'America/Toronto'

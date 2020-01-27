@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>  Knapsack Problem | mlehotay
+</title>
+  <link rel="canonical" href="./knapsack.html">
+
+
+  <link rel="stylesheet" href="./theme/css/bootstrap.min.css">
+  <link rel="stylesheet" href="./theme/css/fontawesome.min.css">
+  <link rel="stylesheet" href="./theme/css/pygments/default.min.css">
+  <link rel="stylesheet" href="./theme/css/theme.css">
+
+  <link rel="alternate" type="application/atom+xml" title="Full Atom Feed"
+        href="https://mlehotay.github.io/blog/feeds/all.atom.xml">
+  <link rel="alternate" type="application/atom+xml" title="Categories Atom Feed"
+        href="https://mlehotay.github.io/blog/feeds/data-science.atom.xml">  
+  <meta name="description" content="This is a draft version of the blog post. The final version should be up tonight. -ML import random import arena # https://github.com/mlehotay/arena.git NUM_ITEMS = 5 MAX_WEIGHT = 100 MAX_VALUE = 100 CAPACITY = 250 POPULATION_SIZE = 10 MUTATION_RATE = 0.20 class Knapsack: def __init__(self, item_list, mask=None): if mask …">
+
+
+</head>
+
+<body>
+  <header class="header">
+    <div class="container">
+<div class="row">
+  <div class="col-sm-12">
+    <h1 class="title"><a href="./">mlehotay</a></h1>
+      <p class="text-muted">developer blog and motley assemblage of data science projects</p>
+  </div>
+</div>    </div>
+  </header>
+
+  <div class="main">
+    <div class="container">
+      <h1>  Knapsack Problem
+</h1>
+      <hr>
+  <article class="article">
+    <header>
+      <ul class="list-inline">
+        <li class="list-inline-item text-muted" title="2020-01-26T22:43:00-05:00">
+          <i class="fas fa-clock"></i>
+          Sun 26 January 2020
+        </li>
+        <li class="list-inline-item">
+          <i class="fas fa-folder-open"></i>
+          <a href="./category/data-science.html">Data Science</a>
+        </li>
+          <li class="list-inline-item">
+            <i class="fas fa-user"></i>
+              <a href="./author/michael-lehotay.html">Michael Lehotay</a>          </li>
+          <li class="list-inline-item">
+            <i class="fas fa-tag"></i>
+              <a href="./tag/genetic.html">#genetic</a>          </li>
+      </ul>
+    </header>
+    <div class="content">
+      <p>This is a draft version of the blog post. The final version should be up tonight. -ML</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">arena</span> <span class="c1"># https://github.com/mlehotay/arena.git</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="n">NUM_ITEMS</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">MAX_WEIGHT</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">MAX_VALUE</span> <span class="o">=</span> <span class="mi">100</span>
+
+<span class="n">CAPACITY</span> <span class="o">=</span> <span class="mi">250</span>
+
+<span class="n">POPULATION_SIZE</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">MUTATION_RATE</span> <span class="o">=</span> <span class="mf">0.20</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Knapsack</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item_list</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">mask</span> <span class="o">==</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">mask</span> <span class="o">=</span> <span class="p">[</span><span class="bp">False</span><span class="p">]</span><span class="o">*</span><span class="n">NUM_ITEMS</span>     
+        <span class="bp">self</span><span class="o">.</span><span class="n">mask</span> <span class="o">=</span> <span class="n">mask</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">items</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span> <span class="k">for</span> <span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">selected</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">item_list</span><span class="p">,</span> <span class="n">mask</span><span class="p">)</span> <span class="k">if</span> <span class="n">selected</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">weight</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span><span class="n">item</span><span class="p">[</span><span class="s1">&#39;weight&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span><span class="n">item</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="p">])</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">f</span><span class="s1">&#39;Knapsack({self.mask}, weight:{self.weight}, value:{self.value})&#39;</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">mutate</span><span class="p">(</span><span class="n">knapsack</span><span class="p">,</span> <span class="n">item_list</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">MUTATION_RATE</span><span class="p">:</span>
+        <span class="n">i</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">NUM_ITEMS</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">new_mask</span> <span class="o">=</span> <span class="n">knapsack</span><span class="o">.</span><span class="n">mask</span>
+        <span class="n">new_mask</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">new_mask</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>    
+        <span class="n">knapsack</span> <span class="o">=</span> <span class="n">Knapsack</span><span class="p">(</span><span class="n">item_list</span><span class="p">,</span> <span class="n">new_mask</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">knapsack</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">crossover</span><span class="p">(</span><span class="n">knapsack1</span><span class="p">,</span> <span class="n">knapsack2</span><span class="p">):</span>
+    <span class="k">pass</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="n">treasure</span> <span class="o">=</span> <span class="p">[{</span>
+    <span class="s1">&#39;weight&#39;</span><span class="p">:</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">MAX_WEIGHT</span><span class="p">),</span>
+    <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">MAX_VALUE</span><span class="p">)</span>
+    <span class="p">}</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">NUM_ITEMS</span><span class="p">)</span>
+<span class="p">]</span>
+<span class="n">treasure</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="p">[</span><span class="err">{</span><span class="s1">&#39;weight&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="mi">91</span><span class="err">}</span><span class="p">,</span>
+ <span class="err">{</span><span class="s1">&#39;weight&#39;</span><span class="p">:</span> <span class="mi">83</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="mi">11</span><span class="err">}</span><span class="p">,</span>
+ <span class="err">{</span><span class="s1">&#39;weight&#39;</span><span class="p">:</span> <span class="mi">79</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="mi">71</span><span class="err">}</span><span class="p">,</span>
+ <span class="err">{</span><span class="s1">&#39;weight&#39;</span><span class="p">:</span> <span class="mi">90</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="mi">87</span><span class="err">}</span><span class="p">,</span>
+ <span class="err">{</span><span class="s1">&#39;weight&#39;</span><span class="p">:</span> <span class="mi">63</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="mi">78</span><span class="err">}</span><span class="p">]</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="n">population</span> <span class="o">=</span> <span class="p">[</span><span class="n">Knapsack</span><span class="p">(</span><span class="n">treasure</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">POPULATION_SIZE</span><span class="p">)]</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="n">population</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="p">[</span><span class="n">Knapsack</span><span class="p">([</span><span class="k">False</span><span class="p">,</span> <span class="k">False</span><span class="p">,</span> <span class="k">False</span><span class="p">,</span> <span class="k">False</span><span class="p">,</span> <span class="k">False</span><span class="p">],</span> <span class="n">weight</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span><span class="mi">0</span><span class="p">),</span>
+ <span class="n">Knapsack</span><span class="p">([</span><span class="k">False</span><span class="p">,</span> <span class="k">False</span><span class="p">,</span> <span class="k">False</span><span class="p">,</span> <span class="k">False</span><span class="p">,</span> <span class="k">False</span><span class="p">],</span> <span class="n">weight</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span><span class="mi">0</span><span class="p">),</span>
+ <span class="n">Knapsack</span><span class="p">([</span><span class="k">False</span><span class="p">,</span> <span class="k">False</span><span class="p">,</span> <span class="k">False</span><span class="p">,</span> <span class="k">False</span><span class="p">,</span> <span class="k">False</span><span class="p">],</span> <span class="n">weight</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span><span class="mi">0</span><span class="p">),</span>
+ <span class="n">Knapsack</span><span class="p">([</span><span class="k">False</span><span class="p">,</span> <span class="k">False</span><span class="p">,</span> <span class="k">False</span><span class="p">,</span> <span class="k">False</span><span class="p">,</span> <span class="k">False</span><span class="p">],</span> <span class="n">weight</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span><span class="mi">0</span><span class="p">),</span>
+ <span class="n">Knapsack</span><span class="p">([</span><span class="k">False</span><span class="p">,</span> <span class="k">False</span><span class="p">,</span> <span class="k">False</span><span class="p">,</span> <span class="k">False</span><span class="p">,</span> <span class="k">False</span><span class="p">],</span> <span class="n">weight</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span><span class="mi">0</span><span class="p">),</span>
+ <span class="n">Knapsack</span><span class="p">([</span><span class="k">False</span><span class="p">,</span> <span class="k">False</span><span class="p">,</span> <span class="k">False</span><span class="p">,</span> <span class="k">False</span><span class="p">,</span> <span class="k">False</span><span class="p">],</span> <span class="n">weight</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span><span class="mi">0</span><span class="p">),</span>
+ <span class="n">Knapsack</span><span class="p">([</span><span class="k">False</span><span class="p">,</span> <span class="k">False</span><span class="p">,</span> <span class="k">False</span><span class="p">,</span> <span class="k">False</span><span class="p">,</span> <span class="k">False</span><span class="p">],</span> <span class="n">weight</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span><span class="mi">0</span><span class="p">),</span>
+ <span class="n">Knapsack</span><span class="p">([</span><span class="k">False</span><span class="p">,</span> <span class="k">False</span><span class="p">,</span> <span class="k">False</span><span class="p">,</span> <span class="k">False</span><span class="p">,</span> <span class="k">False</span><span class="p">],</span> <span class="n">weight</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span><span class="mi">0</span><span class="p">),</span>
+ <span class="n">Knapsack</span><span class="p">([</span><span class="k">False</span><span class="p">,</span> <span class="k">False</span><span class="p">,</span> <span class="k">False</span><span class="p">,</span> <span class="k">False</span><span class="p">,</span> <span class="k">False</span><span class="p">],</span> <span class="n">weight</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span><span class="mi">0</span><span class="p">),</span>
+ <span class="n">Knapsack</span><span class="p">([</span><span class="k">False</span><span class="p">,</span> <span class="k">False</span><span class="p">,</span> <span class="k">False</span><span class="p">,</span> <span class="k">False</span><span class="p">,</span> <span class="k">False</span><span class="p">],</span> <span class="n">weight</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span><span class="mi">0</span><span class="p">)]</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">selection</span><span class="p">(</span><span class="n">survival_size</span><span class="p">,</span> <span class="n">weight</span><span class="p">):</span>
+    <span class="k">pass</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>
+</pre></div>
+    </div>
+  </article>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+<div class="row">
+  <ul class="col-sm-6 list-inline">
+      <li class="list-inline-item"><a href="./authors.html">Authors</a></li>
+    <li class="list-inline-item"><a href="./archives.html">Archives</a></li>
+    <li class="list-inline-item"><a href="./categories.html">Categories</a></li>
+      <li class="list-inline-item"><a href="./tags.html">Tags</a></li>
+  </ul>
+  <p class="col-sm-6 text-sm-right text-muted">
+    Generated by <a href="https://github.com/getpelican/pelican" target="_blank">Pelican</a>
+    / <a href="https://github.com/nairobilug/pelican-alchemy" target="_blank">&#x2728;</a>
+  </p>
+</div>    </div>
+  </footer>
+
+</body>
+
+</html>

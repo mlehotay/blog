@@ -1,8 +1,8 @@
 Title: RPG Combat Simulator
 Date: 2020-01-24 09:41
-Modified: 2020-01-26 04:52
+Modified: 2020-01-27 19:56
 Category: Games
-Tags: simulation, probability, object-oriented
+Tags: simulation, probability, object-oriented-programming
 Slug: arena
 Status: published
 
@@ -382,4 +382,6 @@ arena.print_probabilities()
     Mithril Order: 0.577
 
 
-I put all the code for this blog post on GitHub: [https://github.com/mlehotay/arena](https://github.com/mlehotay/arena)
+Way to go Mithril Order!
+
+I put the code for this blog post on GitHub: [https://github.com/mlehotay/arena](https://github.com/mlehotay/arena)

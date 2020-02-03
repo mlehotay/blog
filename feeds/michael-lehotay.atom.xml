@@ -1,5 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>mlehotay - Michael Lehotay</title><link href="https://mlehotay.github.io/blog/" rel="alternate"></link><link href="https://mlehotay.github.io/blog/feeds/michael-lehotay.atom.xml" rel="self"></link><id>https://mlehotay.github.io/blog/</id><updated>2020-01-28T03:34:00-05:00</updated><subtitle>developer blog and motley assemblage of data science projects</subtitle><entry><title>Solving the Knapsack Problem with a Genetic Algorithim</title><link href="https://mlehotay.github.io/blog/knapsack.html" rel="alternate"></link><published>2020-01-26T22:43:00-05:00</published><updated>2020-01-28T03:34:00-05:00</updated><author><name>Michael Lehotay</name></author><id>tag:mlehotay.github.io,2020-01-26:/blog/knapsack.html</id><summary type="html">&lt;p&gt;Here's the code. I'll write the description in a day or two. I still need to add weapons and armor to the treasure chest and update the fitness calculations to include the probability defeating the troll.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>mlehotay - Michael Lehotay</title><link href="https://mlehotay.github.io/blog/" rel="alternate"></link><link href="https://mlehotay.github.io/blog/feeds/michael-lehotay.atom.xml" rel="self"></link><id>https://mlehotay.github.io/blog/</id><updated>2020-02-03T06:35:00-05:00</updated><subtitle>developer blog and motley assemblage of data science projects</subtitle><entry><title>A Brief Overview of Redash</title><link href="https://mlehotay.github.io/blog/redash.html" rel="alternate"></link><published>2020-02-03T05:32:00-05:00</published><updated>2020-02-03T06:35:00-05:00</updated><author><name>Michael Lehotay</name></author><id>tag:mlehotay.github.io,2020-02-03:/blog/redash.html</id><summary type="html">&lt;p&gt;In this post we'll take a quick look &lt;a href="https://redash.io/"&gt;Redash&lt;/a&gt;, an open source software package to "Make Your Company Data Driven." We're going to explore what it means to be data driven and how Redash can help.&lt;/p&gt;
+&lt;video autoplay="" loop="" muted=""  width="100%" height="100%"&gt;
+&lt;source src="https://redash.io/assets/images/elements/redash-intro-720.mp4" type="video/mp4"&gt;
+&lt;source src="https://redash.io/assets/images/elements/redash-intro-720.ogv" type="video/ogg"&gt;
+&lt;source src="https://redash.io/assets/images/elements/redash-intro-720.webm" type="video/webm"&gt;
+&lt;/video&gt;
+
+&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;Coming soon:&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Write a blog post about the open-source project you’ve been assigned …&lt;/p&gt;&lt;/blockquote&gt;</summary><content type="html">&lt;p&gt;In this post we'll take a quick look &lt;a href="https://redash.io/"&gt;Redash&lt;/a&gt;, an open source software package to "Make Your Company Data Driven." We're going to explore what it means to be data driven and how Redash can help.&lt;/p&gt;
+&lt;video autoplay="" loop="" muted=""  width="100%" height="100%"&gt;
+&lt;source src="https://redash.io/assets/images/elements/redash-intro-720.mp4" type="video/mp4"&gt;
+&lt;source src="https://redash.io/assets/images/elements/redash-intro-720.ogv" type="video/ogg"&gt;
+&lt;source src="https://redash.io/assets/images/elements/redash-intro-720.webm" type="video/webm"&gt;
+&lt;/video&gt;
+
+&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;Coming soon:&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Write a blog post about the open-source project you’ve been assigned… 
+Tell me &lt;strong&gt;WHY&lt;/strong&gt; I should care. And show me a &lt;strong&gt;&lt;em&gt;novel&lt;/em&gt;&lt;/strong&gt; example about I can use it!&lt;/p&gt;
+&lt;/blockquote&gt;</content><category term="Data Science"></category><category term="dashboard"></category><category term="data-driven"></category><category term="decision-making"></category></entry><entry><title>Solving the Knapsack Problem with a Genetic Algorithim</title><link href="https://mlehotay.github.io/blog/knapsack.html" rel="alternate"></link><published>2020-01-26T22:43:00-05:00</published><updated>2020-01-28T03:34:00-05:00</updated><author><name>Michael Lehotay</name></author><id>tag:mlehotay.github.io,2020-01-26:/blog/knapsack.html</id><summary type="html">&lt;p&gt;Here's the code. I'll write the description in a day or two. I still need to add weapons and armor to the treasure chest and update the fitness calculations to include the probability defeating the troll.&lt;/p&gt;
 &lt;h3&gt;Treasure&lt;/h3&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;random&lt;/span&gt;
 &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;arena&lt;/span&gt; &lt;span class="c1"&gt;# https://github.com/mlehotay/arena.git&lt;/span&gt;

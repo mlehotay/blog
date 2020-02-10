@@ -13,7 +13,7 @@ TIMEZONE = 'America/Toronto'
 DEFAULT_LANG = 'en'
 
 PATH = 'content'
-STATIC_PATHS = ['images']
+STATIC_PATHS = ['images', 'attachments']
 DELETE_OUTPUT_DIRECTORY = True
 
 DEFAULT_PAGINATION = 10

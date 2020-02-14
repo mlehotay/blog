@@ -1,6 +1,3 @@
-# GA files
-setup_by_max.md
-
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

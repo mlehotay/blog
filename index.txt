@@ -1,0 +1,25 @@
+published
+---------
+01 monty-hall.ipynb
+02 electricity.ipynb
+03 arena.ipynb
+04 knapsack.ipynb
+05 redash.md
+
+needs revision
+--------------
+electricity
+
+drafts
+------
+*redash*
+*knapsack*
+world-of-warcraft.ipynb
+
+to do
+-----
+kaggle.ipynb
+abalone.ipynb
+pokepredictor.ipynb
+broccoli recommender
+mlehotay.github.io

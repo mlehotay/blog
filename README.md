@@ -11,12 +11,12 @@ drafts
 6. kaggle.ipynb
 7. abalone.ipynb
 8. pokepredictor.ipynb
-9. world-of-warcraft.ipynb
+9. world-of-warcraft.ipynb ⚠️
 
 soon
 ----
-10. digital ocean deployment with sshfs
-11. how to add DNS record to make broccoli.floatingeye.net
+10. digital ocean deployment with sshfs ⚠️
+11. how to add DNS record to make broccoli.floatingeye.net ⚠️
 12. broccoli recommender
 13. author about page
 

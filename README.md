@@ -5,18 +5,18 @@ published
 3. arena.ipynb
 4. knapsack.ipynb (needs revision) 
 5. redash.md (needs revision)
+6. world-of-warcraft.ipynb ⚠️
+7. how to add DNS record to make broccoli.floatingeye.net ⚠️
+8. digital ocean deployment with sshfs ⚠️
 
 drafts
 ------
-6. kaggle.ipynb
-7. abalone.ipynb
-8. pokepredictor.ipynb
-9. world-of-warcraft.ipynb ⚠️
+9. kaggle.ipynb
+10. abalone.ipynb
+11. pokepredictor.ipynb
 
 soon
 ----
-10. digital ocean deployment with sshfs ⚠️
-11. how to add DNS record to make broccoli.floatingeye.net ⚠️
 12. broccoli recommender
 13. author about page
 14. expand on project 5, scrape more stats, build model

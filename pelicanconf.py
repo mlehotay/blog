@@ -8,6 +8,7 @@ AUTHOR = 'Michael Lehotay'
 SITENAME = 'mlehotay'
 SITESUBTITLE = 'developer blog and motley assemblage of data science projects'
 SITEURL = 'https://mlehotay.github.io/blog'
+GOOGLE_ANALYTICS = "UA-158784371-3"
 
 TIMEZONE = 'America/Toronto'
 DEFAULT_LANG = 'en'

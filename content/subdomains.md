@@ -1,6 +1,6 @@
 Title: DNS Subdomains
-Date: 2020-02-24 08:33
-Modified: 2020-02-24 11:49
+Date: 2020-02-21 00:00
+Modified: 2020-02-24 12:18
 Category: Web Apps
 Tags: DNS, configuration
 Slug: subdomains
@@ -10,6 +10,6 @@ Today we're going to set up some DNS records for the web apps I built in my data
 
 * Broccoli Recommender is running on [142.93.153.10](http://142.93.153.10/)
 * PokePredictor is running at [pokepredictor.herokuapp.com](http://pokepredictor.herokuapp.com/)
-* Abalone is running at [mollusc.herokuapp.com](http://mollusc.herokuapp.com/)
+* Abalone Calculator is running at [mollusc.herokuapp.com](http://mollusc.herokuapp.com/)
 
 [...]

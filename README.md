@@ -1,13 +1,13 @@
 published
 ---------
 1. monty-hall.ipynb
-2. electricity.ipynb (needs revision)
+2. electricity.ipynb 🚧
 3. arena.ipynb
-4. knapsack.ipynb (needs revision) 
-5. redash.md (needs revision)
-6. world-of-warcraft.ipynb ⚠️
-7. how to add DNS record to make broccoli.floatingeye.net ⚠️
-8. digital ocean deployment with sshfs ⚠️
+4. knapsack.ipynb 🚧
+5. redash.md 🚧
+6. world-of-warcraft.ipynb 🚧
+7. subdomains.md 🚧 ⚠️
+8. digital-ocean.md 🚧 ⚠️
 
 drafts
 ------

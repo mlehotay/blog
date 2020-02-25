@@ -1,6 +1,6 @@
 Title: DNS Subdomains
 Date: 2020-02-21 00:00
-Modified: 2020-02-25 01:25
+Modified: 2020-02-25 08:28
 Category: Web Apps
 Tags: DNS, configuration
 Slug: subdomains
@@ -12,7 +12,7 @@ Today we're going to set up some DNS resource records for the web apps I built i
 * PokePredictor is running at [pokepredictor.herokuapp.com](http://pokepredictor.herokuapp.com/)
 * Abalone Calculator is running at [mollusc.herokuapp.com](http://mollusc.herokuapp.com/)
 
-I suppose I could buy domains for each one and and give them names like broccoli.com or my-cool-app.xyz but I don't want to pay for three new domain names. I already have a domain and we can give these web apps addresses that are subdomains of the domain that I already own.
+I suppose I could buy domains for each one and and give them names like broccoli.com or my-cool-app.xyz but I don't want to pay for three new domain names. I already have a domain and we can give these web apps addresses that are subdomains of the one I already own.
 
 Setting this up on Digital Ocean is a bit easier than on Heroku so let's do the Broccoli Recommender first.
 
@@ -44,9 +44,9 @@ Let's launch a terminal and try to add a new DNS resource through the Heroku com
 
 ![Heroku domains:add error]({static}/images/heroku-unvalidated.png)
 
-Ah, yes, of course! The red exclamation marks indicate that the commands failed because my Heroku account isn't validated yet. In order to validated my account with Heroku I'm going to have to give them a credit card number.
+Ah, yes, of course! The red exclamation marks indicate that the commands failed because my Heroku account isn't validated yet. In order to validate my account I'm going to have to give Heroku a credit card number.
 
-Let's login to my Heroku account, open my account settings, and click on the Billing tab. We can enter our billing info here. The Heroku [pricing page](https://www.heroku.com/pricing) says their free accounts do include custom domains, so I don't expect they'll actually charge anything to my card.
+Let's login to my Heroku account, open my account settings, and click on the Billing tab. We can enter our billing info here. The Heroku [pricing page](https://www.heroku.com/pricing) says their free accounts do include custom domains, so I don't expect they'll actually charge anything to my card. But if they do I'll update this blog post ;-)
 
 ![Heroku domains:add error]({static}/images/heroku-billing.png)
 
@@ -54,16 +54,20 @@ Now let's try the Heroku command line app again.
 
 ![Heroku domains:add]({static}/images/heroku-dns.png)
 
-It worked this time! Now we need to go back to our DNS host (NearlyFreeSpeech) and add a DNS resource record like before, but this time we'll create a CNAME record instead because we are pointing to a hostname and not an IP address. Notice the period at the end of the URL in the Data field. Some DNS hosting providers require a period at the end if you point to resources outside of your domain.
+It worked this time! Now we need to go back to our DNS host (Nearly Free Speech) and add a DNS resource record like before, but this time we'll create a CNAME record instead of an A record because we are pointing to a hostname and not an IP address. Notice the period at the end of the URL in the Data field. Some DNS hosting providers require a period at the end if you point to resources outside of your domain.
 
 ![DNS Resource Record entry]({static}/images/nfs-dns-cname.png)
 
-And now [http://abalone.floatingeye.net](http://abalone.floatingeye.net/) is live! Let's do the same thing for [http://pokepredictor.floatingeye.net](http://pokepredictor.floatingeye.net/).
+And now [http://abalone.floatingeye.net](http://abalone.floatingeye.net/) is live!
+
+Let's do the same thing for [http://pokepredictor.floatingeye.net](http://pokepredictor.floatingeye.net/). Don't forget to cd to your project directory first.
 
 ![All three DNS Resource Records]({static}/images/abalone-dns.png)
 
+
+
 ### Links
-* https://www.nearlyfreespeech.net/services/dns
-* https://www.digitalocean.com/docs/networking/dns/
-* https://devcenter.heroku.com/articles/custom-domains
-* https://en.wikipedia.org/wiki/Domain_Name_System
+* [https://www.nearlyfreespeech.net/services/dns](https://www.nearlyfreespeech.net/services/dns)
+* [https://www.digitalocean.com/docs/networking/dns/](https://www.digitalocean.com/docs/networking/dns/)
+* [https://devcenter.heroku.com/articles/custom-domains](https://devcenter.heroku.com/articles/custom-domains)
+* [https://en.wikipedia.org/wiki/Domain_Name_System](https://en.wikipedia.org/wiki/Domain_Name_System)

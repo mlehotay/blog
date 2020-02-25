@@ -6,8 +6,8 @@ published
 4. knapsack.ipynb 🚧
 5. redash.md 🚧
 6. world-of-warcraft.ipynb 🚧
-7. subdomains.md 🚧 ⚠️
-8. digital-ocean.md 🚧 ⚠️
+7. subdomains.md 
+8. digital-ocean.md 🚧 
 
 drafts
 ------

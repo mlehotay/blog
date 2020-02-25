@@ -20,7 +20,7 @@
         href="https://mlehotay.github.io/blog/feeds/all.atom.xml">
   <link rel="alternate" type="application/atom+xml" title="Categories Atom Feed"
         href="https://mlehotay.github.io/blog/feeds/web-apps.atom.xml">  
-  <meta name="description" content="Today we're going to set up some DNS records for the web apps I built in my data science bootcamp. There are three of them; one is hosted on Digital Ocean and the other two are on Heroku. Broccoli Recommender is running on 142.93.153.10 PokePredictor is running …">
+  <meta name="description" content="Today we're going to set up some DNS resource records for the web apps I built in my data science bootcamp. There are three of them; one is hosted on Digital Ocean and the other two are on Heroku. Broccoli Recommender is running at 142.93.153.10 PokePredictor is …">
   <script>
     (function(i, s, o, g, r, a, m) {
       i['GoogleAnalyticsObject'] = r;
@@ -76,13 +76,23 @@
       </ul>
     </header>
     <div class="content">
-      <p>Today we're going to set up some DNS records for the web apps I built in my data science bootcamp. There are three of them; one is hosted on Digital Ocean and the other two are on Heroku.</p>
+      <p>Today we're going to set up some DNS resource records for the web apps I built in my data science bootcamp. There are three of them; one is hosted on Digital Ocean and the other two are on Heroku.</p>
 <ul>
-<li>Broccoli Recommender is running on <a href="http://142.93.153.10/">142.93.153.10</a></li>
+<li>Broccoli Recommender is running at <a href="http://142.93.153.10/">142.93.153.10</a></li>
 <li>PokePredictor is running at <a href="http://pokepredictor.herokuapp.com/">pokepredictor.herokuapp.com</a></li>
 <li>Abalone Calculator is running at <a href="http://mollusc.herokuapp.com/">mollusc.herokuapp.com</a></li>
 </ul>
-<p>[...]</p>
+<p>I suppose I could buy domain names for each one and and give them names like broccoli.com or my-cool-app.xyz but I don't want to pay for three new domain names. I already have a domain (floatingeye.net) and we can give these web apps addresses that are subdomains of the domain that I already own.</p>
+<p>Setting this up on Digital Ocean is a bit easier than on Heroku so let's do the Broccoli Recommender first.</p>
+<p>Start by logging into Digital Ocean and clicking on the project in the sidebar. The name of our droplet is displayed along with the IP address where it is running. We need that IP address.</p>
+<p>Digital Ocean has DNS tools to manage your domain but we're not going to use them. I'm already using Nearly Free Speech's DNS hosting service and I don't want to switch. The steps should be pretty similar for any DNS hosting provider.</p>
+<p>Now I'll logging into my web hosting account and find the DNS Management page.</p>
+<p><img alt="DNS Management tools" src="./images/nfs-dns.png"></p>
+<p>Since the address we have at Digital Ocean is an IP address we'll need add an A record to the DNS table. If the address was a hostname we would add a CNAME record. (We'll do that for Heroku next.)</p>
+<p><img alt="DNS Resource Record entry" src="./images/nfs-dns-record.png"></p>
+<p><img alt="Broccoli DNS Resource Record" src="./images/broccoli-dns.png"></p>
+<p>And that's it! Broccoli Recommender is now accessible at <a href="http://broccoli.floatingeye.net">http://broccoli.floatingeye.net</a>!</p>
+<p>[more coming soon]</p>
     </div>
   </article>
     </div>

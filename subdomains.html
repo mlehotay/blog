@@ -82,7 +82,7 @@
 <li>PokePredictor is running at <a href="http://pokepredictor.herokuapp.com/">pokepredictor.herokuapp.com</a></li>
 <li>Abalone Calculator is running at <a href="http://mollusc.herokuapp.com/">mollusc.herokuapp.com</a></li>
 </ul>
-<p>I suppose I could buy domains for each one and and give them names like broccoli.com or my-cool-app.xyz but I don't want to pay for three new domain names. I already have a domain and we can give these web apps addresses that are subdomains of the domain that I already own.</p>
+<p>I suppose I could buy domains for each one and and give them names like broccoli.com or my-cool-app.xyz but I don't want to pay for three new domain names. I already have a domain and we can give these web apps addresses that are subdomains of the one I already own.</p>
 <p>Setting this up on Digital Ocean is a bit easier than on Heroku so let's do the Broccoli Recommender first.</p>
 <h4>'A' Record for the IP Address</h4>
 <p>Start by logging into Digital Ocean and clicking on the project in the sidebar. The name of our droplet is displayed along with the IP address where it is running. We need that IP address.</p>
@@ -98,21 +98,22 @@
 <p>Heroku uses dynamic IP addresses which means that the IP address where a site is hosted can change at any time. The canonical name, however, remains constant. We'll need to set up subdomain aliases for the hostnames that Heroku assigns us.</p>
 <p>Let's launch a terminal and try to add a new DNS resource through the Heroku command line app.</p>
 <p><img alt="Heroku domains:add error" src="./images/heroku-unvalidated.png"></p>
-<p>Ah, yes, of course! The red exclamation marks indicate that the commands failed because my Heroku account isn't validated yet. In order to validated my account with Heroku I'm going to have to give them a credit card number.</p>
-<p>Let's login to my Heroku account, open my account settings, and click on the Billing tab. We can enter our billing info here. The Heroku <a href="https://www.heroku.com/pricing">pricing page</a> says their free accounts do include custom domains, so I don't expect they'll actually charge anything to my card.</p>
+<p>Ah, yes, of course! The red exclamation marks indicate that the commands failed because my Heroku account isn't validated yet. In order to validate my account I'm going to have to give Heroku a credit card number.</p>
+<p>Let's login to my Heroku account, open my account settings, and click on the Billing tab. We can enter our billing info here. The Heroku <a href="https://www.heroku.com/pricing">pricing page</a> says their free accounts do include custom domains, so I don't expect they'll actually charge anything to my card. But if they do I'll update this blog post ;-)</p>
 <p><img alt="Heroku domains:add error" src="./images/heroku-billing.png"></p>
 <p>Now let's try the Heroku command line app again.</p>
 <p><img alt="Heroku domains:add" src="./images/heroku-dns.png"></p>
-<p>It worked this time! Now we need to go back to our DNS host (NearlyFreeSpeech) and add a DNS resource record like before, but this time we'll create a CNAME record instead because we are pointing to a hostname and not an IP address. Notice the period at the end of the URL in the Data field. Some DNS hosting providers require a period at the end if you point to resources outside of your domain.</p>
+<p>It worked this time! Now we need to go back to our DNS host (Nearly Free Speech) and add a DNS resource record like before, but this time we'll create a CNAME record instead of an A record because we are pointing to a hostname and not an IP address. Notice the period at the end of the URL in the Data field. Some DNS hosting providers require a period at the end if you point to resources outside of your domain.</p>
 <p><img alt="DNS Resource Record entry" src="./images/nfs-dns-cname.png"></p>
-<p>And now <a href="http://abalone.floatingeye.net/">http://abalone.floatingeye.net</a> is live! Let's do the same thing for <a href="http://pokepredictor.floatingeye.net/">http://pokepredictor.floatingeye.net</a>.</p>
+<p>And now <a href="http://abalone.floatingeye.net/">http://abalone.floatingeye.net</a> is live!</p>
+<p>Let's do the same thing for <a href="http://pokepredictor.floatingeye.net/">http://pokepredictor.floatingeye.net</a>. Don't forget to cd to your project directory first.</p>
 <p><img alt="All three DNS Resource Records" src="./images/abalone-dns.png"></p>
 <h3>Links</h3>
 <ul>
-<li>https://www.nearlyfreespeech.net/services/dns</li>
-<li>https://www.digitalocean.com/docs/networking/dns/</li>
-<li>https://devcenter.heroku.com/articles/custom-domains</li>
-<li>https://en.wikipedia.org/wiki/Domain_Name_System</li>
+<li><a href="https://www.nearlyfreespeech.net/services/dns">https://www.nearlyfreespeech.net/services/dns</a></li>
+<li><a href="https://www.digitalocean.com/docs/networking/dns/">https://www.digitalocean.com/docs/networking/dns/</a></li>
+<li><a href="https://devcenter.heroku.com/articles/custom-domains">https://devcenter.heroku.com/articles/custom-domains</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Domain_Name_System">https://en.wikipedia.org/wiki/Domain_Name_System</a></li>
 </ul>
     </div>
   </article>

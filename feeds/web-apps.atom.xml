@@ -9,15 +9,15 @@
 &lt;li&gt;PokePredictor is running at &lt;a href="http://pokepredictor.herokuapp.com/"&gt;pokepredictor.herokuapp.com&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;Abalone Calculator is running at &lt;a href="http://mollusc.herokuapp.com/"&gt;mollusc.herokuapp.com&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;I suppose I could buy domain names for each one and and give them names like broccoli.com or my-cool-app.xyz but I don't want to pay for three new domain names. I already have a domain (floatingeye.net) and we can give these web apps addresses that are subdomains of the domain that I already own.&lt;/p&gt;
+&lt;p&gt;I suppose I could buy domains for each one and and give them names like broccoli.com or my-cool-app.xyz but I don't want to pay for three new domain names. I already have a domain and we can give these web apps addresses that are subdomains of the domain that I already own.&lt;/p&gt;
 &lt;p&gt;Setting this up on Digital Ocean is a bit easier than on Heroku so let's do the Broccoli Recommender first.&lt;/p&gt;
 &lt;p&gt;Start by logging into Digital Ocean and clicking on the project in the sidebar. The name of our droplet is displayed along with the IP address where it is running. We need that IP address.&lt;/p&gt;
 &lt;p&gt;&lt;img alt="Digital Ocean Droplet" src="https://mlehotay.github.io/blog/images/droplet.png"&gt;&lt;/p&gt;
 &lt;p&gt;Digital Ocean has DNS tools to manage your domain but we're not going to use them. I'm already using Nearly Free Speech's DNS hosting service and I don't want to switch. The steps should be pretty similar for any DNS hosting provider.&lt;/p&gt;
-&lt;p&gt;Now I'll logging into my web hosting account and find the DNS Management page.&lt;/p&gt;
+&lt;p&gt;Now I'll log into my web hosting account and find the DNS Management page.&lt;/p&gt;
 &lt;p&gt;&lt;img alt="DNS Management tools" src="https://mlehotay.github.io/blog/images/nfs-dns.png"&gt;&lt;/p&gt;
-&lt;p&gt;Since the address we have at Digital Ocean is an IP address we'll need add an A record to the DNS table. If the address was a hostname we would add a CNAME record. (We'll do that for Heroku next.)&lt;/p&gt;
+&lt;p&gt;Since the address we have at Digital Ocean is an IP address we'll need add an A record to the DNS table. If it was a hostname we would add a CNAME record instead. (We'll do that for Heroku next.)&lt;/p&gt;
 &lt;p&gt;&lt;img alt="DNS Resource Record entry" src="https://mlehotay.github.io/blog/images/nfs-dns-record.png"&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img alt="Broccoli DNS Resource Record" src="https://mlehotay.github.io/blog/images/broccoli-dns.png"&gt;&lt;/p&gt;
-&lt;p&gt;And that's it! Broccoli Recommender is now accessible at &lt;a href="http://broccoli.floatingeye.net"&gt;http://broccoli.floatingeye.net&lt;/a&gt;!&lt;/p&gt;
+&lt;p&gt;And that's all there is to it! Broccoli Recommender is now accessible at &lt;a href="http://broccoli.floatingeye.net"&gt;http://broccoli.floatingeye.net&lt;/a&gt;!&lt;/p&gt;
 &lt;p&gt;[more coming soon]&lt;/p&gt;</content><category term="Web Apps"></category><category term="DNS"></category><category term="configuration"></category></entry></feed>

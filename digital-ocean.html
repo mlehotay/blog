@@ -80,88 +80,85 @@
 <p><img alt="Broccoli directory structure" src="./images/directory-structure.png"></p>
 <hr>
 <p>Here's the makefile on my local system:</p>
-<div class="highlight"><pre><span></span><span class="nf">mount</span><span class="o">:</span>
-    sshfs broccoli.floatingeye.net:/home/mlehotay/broccoli broccoli
+<div class="highlight"><pre><span></span><code><span class="nf">mount</span><span class="o">:</span>
+<span class="w">    </span>sshfs<span class="w"> </span>broccoli.floatingeye.net:/home/mlehotay/broccoli<span class="w"> </span>broccoli
 
 <span class="nf">umount</span><span class="o">:</span>
-    sudo umount broccoli
+<span class="w">    </span>sudo<span class="w"> </span>umount<span class="w"> </span>broccoli
 
 <span class="nf">upload</span><span class="o">:</span>
-    rm -rf broccoli/app/
+<span class="w">    </span>rm<span class="w"> </span>-rf<span class="w"> </span>broccoli/app/
 
-    mkdir broccoli/app
-    cp foods.py broccoli/app/
-    cp main.py broccoli/app/
+<span class="w">    </span>mkdir<span class="w"> </span>broccoli/app
+<span class="w">    </span>cp<span class="w"> </span>foods.py<span class="w"> </span>broccoli/app/
+<span class="w">    </span>cp<span class="w"> </span>main.py<span class="w"> </span>broccoli/app/
 
-    mkdir broccoli/app/static
-    mkdir broccoli/app/static/images
-    cp -r images/*.jpg broccoli/app/static/images/
+<span class="w">    </span>mkdir<span class="w"> </span>broccoli/app/static
+<span class="w">    </span>mkdir<span class="w"> </span>broccoli/app/static/images
+<span class="w">    </span>cp<span class="w"> </span>-r<span class="w"> </span>images/*.jpg<span class="w"> </span>broccoli/app/static/images/
 
-    mkdir broccoli/app/templates
-    cp templates/index.html broccoli/app/templates/
-    cp templates/recommend.html broccoli/app/templates/
-    cp templates/survey.html broccoli/app/templates/
-    cp templates/thankyou.html broccoli/app/templates/
-    cp templates/gtag.html broccoli/app/templates/
+<span class="w">    </span>mkdir<span class="w"> </span>broccoli/app/templates
+<span class="w">    </span>cp<span class="w"> </span>templates/index.html<span class="w"> </span>broccoli/app/templates/
+<span class="w">    </span>cp<span class="w"> </span>templates/recommend.html<span class="w"> </span>broccoli/app/templates/
+<span class="w">    </span>cp<span class="w"> </span>templates/survey.html<span class="w"> </span>broccoli/app/templates/
+<span class="w">    </span>cp<span class="w"> </span>templates/thankyou.html<span class="w"> </span>broccoli/app/templates/
+<span class="w">    </span>cp<span class="w"> </span>templates/gtag.html<span class="w"> </span>broccoli/app/templates/
 
-    mkdir broccoli/app/data
-    mkdir broccoli/app/data/json
-    cp data/db.py broccoli/app/data/
-    cp data/foods.csv broccoli/app/data/
+<span class="w">    </span>mkdir<span class="w"> </span>broccoli/app/data
+<span class="w">    </span>mkdir<span class="w"> </span>broccoli/app/data/json
+<span class="w">    </span>cp<span class="w"> </span>data/db.py<span class="w"> </span>broccoli/app/data/
+<span class="w">    </span>cp<span class="w"> </span>data/foods.csv<span class="w"> </span>broccoli/app/data/
 
 <span class="nf">download</span><span class="o">:</span>
-    cp -pr broccoli/backup/ .
+<span class="w">    </span>cp<span class="w"> </span>-pr<span class="w"> </span>broccoli/backup/<span class="w"> </span>.
 
 <span class="nf">login</span><span class="o">:</span>
-    ssh broccoli.floatingeye.net
-</pre></div>
-
+<span class="w">    </span>ssh<span class="w"> </span>broccoli.floatingeye.net
+</code></pre></div>
 
 <hr>
 <p>Here's the makefile on the droplet:</p>
-<div class="highlight"><pre><span></span><span class="nf">build</span><span class="o">:</span>
-    docker build -t appimage .
+<div class="highlight"><pre><span></span><code><span class="nf">build</span><span class="o">:</span>
+<span class="w">    </span>docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>appimage<span class="w"> </span>.
 <span class="nf">run</span><span class="o">:</span>
-    docker run -d --name appcontainer -p <span class="m">80</span>:80 appimage
-    docker cp backup/broccoli.db appcontainer:/app/data/
+<span class="w">    </span>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>--name<span class="w"> </span>appcontainer<span class="w"> </span>-p<span class="w"> </span><span class="m">80</span>:80<span class="w"> </span>appimage
+<span class="w">    </span>docker<span class="w"> </span>cp<span class="w"> </span>backup/broccoli.db<span class="w"> </span>appcontainer:/app/data/
 <span class="nf">stop</span><span class="o">:</span>
-    docker stop appcontainer
-<span class="nf">cleanup</span><span class="o">:</span> <span class="n">backup</span>
-    docker rmi -f appimage <span class="o">&amp;&amp;</span><span class="se">\</span>
-    docker rm appcontainer
+<span class="w">    </span>docker<span class="w"> </span>stop<span class="w"> </span>appcontainer
+<span class="nf">cleanup</span><span class="o">:</span><span class="w"> </span><span class="n">backup</span>
+<span class="w">    </span>docker<span class="w"> </span>rmi<span class="w"> </span>-f<span class="w"> </span>appimage<span class="w"> </span><span class="o">&amp;&amp;</span><span class="se">\</span>
+<span class="w">    </span>docker<span class="w"> </span>rm<span class="w"> </span>appcontainer
 
 <span class="nf">data</span><span class="o">:</span>
-    -mv broccoli.db broccoli.<span class="sb">`</span>cat /dev/urandom <span class="p">|</span> tr -cd <span class="s1">&#39;a-f0-9&#39;</span> <span class="p">|</span> head -c <span class="m">8</span><span class="sb">`</span>.db
-    -docker cp appcontainer:/app/data/broccoli.db .
-    -docker cp appcontainer:/app/data/json/ .
+<span class="w">    </span>-mv<span class="w"> </span>broccoli.db<span class="w"> </span>broccoli.<span class="sb">`</span>cat<span class="w"> </span>/dev/urandom<span class="w"> </span><span class="p">|</span><span class="w"> </span>tr<span class="w"> </span>-cd<span class="w"> </span><span class="s1">&#39;a-f0-9&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-c<span class="w"> </span><span class="m">8</span><span class="sb">`</span>.db
+<span class="w">    </span>-docker<span class="w"> </span>cp<span class="w"> </span>appcontainer:/app/data/broccoli.db<span class="w"> </span>.
+<span class="w">    </span>-docker<span class="w"> </span>cp<span class="w"> </span>appcontainer:/app/data/json/<span class="w"> </span>.
 
-<span class="nf">backup</span><span class="o">:</span> <span class="n">data</span>
-    cp -pr broccoli*.db json/ backup/
+<span class="nf">backup</span><span class="o">:</span><span class="w"> </span><span class="n">data</span>
+<span class="w">    </span>cp<span class="w"> </span>-pr<span class="w"> </span>broccoli*.db<span class="w"> </span>json/<span class="w"> </span>backup/
 
-<span class="nf">clean-data</span><span class="o">:</span> <span class="n">backup</span>
-    rm broccoli*.db
-    rm json/*.json
-</pre></div>
-
+<span class="nf">clean-data</span><span class="o">:</span><span class="w"> </span><span class="n">backup</span>
+<span class="w">    </span>rm<span class="w"> </span>broccoli*.db
+<span class="w">    </span>rm<span class="w"> </span>json/*.json
+</code></pre></div>
 
 <hr>
 <p>And here are the commands I run to deploy my app:</p>
-<div class="highlight"><pre><span></span><span class="nx">$</span> <span class="nx">cd</span> <span class="nx">sandbox</span><span class="o">/</span><span class="nx">broccoli</span>
-<span class="nx">$</span> <span class="nx">make</span> <span class="nx">mount</span>
-<span class="nx">$</span> <span class="nx">make</span> <span class="nx">upload</span>
-<span class="nx">$</span> <span class="nx">make</span> <span class="nx">login</span>
+<div class="highlight"><pre><span></span><code><span class="nx">$</span><span class="w"> </span><span class="nx">cd</span><span class="w"> </span><span class="nx">sandbox</span><span class="o">/</span><span class="nx">broccoli</span>
+<span class="nx">$</span><span class="w"> </span><span class="nx">make</span><span class="w"> </span><span class="nx">mount</span>
+<span class="nx">$</span><span class="w"> </span><span class="nx">make</span><span class="w"> </span><span class="nx">upload</span>
+<span class="nx">$</span><span class="w"> </span><span class="nx">make</span><span class="w"> </span><span class="nx">login</span>
 
-<span class="nx">$</span> <span class="nx">cd</span> <span class="nx">broccoli</span>
-<span class="nx">$</span> <span class="nx">make</span> <span class="nx">stop</span>
-<span class="nx">$</span> <span class="nx">make</span> <span class="nx">cleanup</span>
-<span class="nx">$</span> <span class="nx">make</span> <span class="nx">build</span>
-<span class="nx">$</span> <span class="nx">make</span> <span class="nx">run</span>
-<span class="nx">$</span> <span class="nx">exit</span>
+<span class="nx">$</span><span class="w"> </span><span class="nx">cd</span><span class="w"> </span><span class="nx">broccoli</span>
+<span class="nx">$</span><span class="w"> </span><span class="nx">make</span><span class="w"> </span><span class="nx">stop</span>
+<span class="nx">$</span><span class="w"> </span><span class="nx">make</span><span class="w"> </span><span class="nx">cleanup</span>
+<span class="nx">$</span><span class="w"> </span><span class="nx">make</span><span class="w"> </span><span class="nx">build</span>
+<span class="nx">$</span><span class="w"> </span><span class="nx">make</span><span class="w"> </span><span class="nx">run</span>
+<span class="nx">$</span><span class="w"> </span><span class="nx">exit</span>
 
-<span class="nx">$</span> <span class="nx">make</span> <span class="nx">download</span>
-<span class="nx">$</span> <span class="nx">make</span> <span class="nx">umount</span>
-</pre></div>
-
+<span class="nx">$</span><span class="w"> </span><span class="nx">make</span><span class="w"> </span><span class="nx">download</span>
+<span class="nx">$</span><span class="w"> </span><span class="nx">make</span><span class="w"> </span><span class="nx">umount</span>
+</code></pre></div>
 
 <h3>Links</h3>
 <ul>
@@ -170,6 +167,24 @@
 </ul>
     </div>
   </article>
+  <hr>
+  <div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function() {
+      this.page.url = './digital-ocean.html';
+      this.page.identifier = 'digital-ocean';
+    };
+    (function() {
+      var d = document;
+      var s = d.createElement('script');
+      s.src = '//mlehotay.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript class="text-muted">
+    Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+  </noscript>
     </div>
   </div>
 

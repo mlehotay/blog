@@ -3,88 +3,85 @@
 &lt;p&gt;&lt;img alt="Broccoli directory structure" src="https://mlehotay.github.io/blog/images/directory-structure.png"&gt;&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt;Here's the makefile on my local system:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nf"&gt;mount&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
-    sshfs broccoli.floatingeye.net:/home/mlehotay/broccoli broccoli
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="nf"&gt;mount&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;sshfs&lt;span class="w"&gt; &lt;/span&gt;broccoli.floatingeye.net:/home/mlehotay/broccoli&lt;span class="w"&gt; &lt;/span&gt;broccoli
 
 &lt;span class="nf"&gt;umount&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
-    sudo umount broccoli
+&lt;span class="w"&gt;    &lt;/span&gt;sudo&lt;span class="w"&gt; &lt;/span&gt;umount&lt;span class="w"&gt; &lt;/span&gt;broccoli
 
 &lt;span class="nf"&gt;upload&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
-    rm -rf broccoli/app/
+&lt;span class="w"&gt;    &lt;/span&gt;rm&lt;span class="w"&gt; &lt;/span&gt;-rf&lt;span class="w"&gt; &lt;/span&gt;broccoli/app/
 
-    mkdir broccoli/app
-    cp foods.py broccoli/app/
-    cp main.py broccoli/app/
+&lt;span class="w"&gt;    &lt;/span&gt;mkdir&lt;span class="w"&gt; &lt;/span&gt;broccoli/app
+&lt;span class="w"&gt;    &lt;/span&gt;cp&lt;span class="w"&gt; &lt;/span&gt;foods.py&lt;span class="w"&gt; &lt;/span&gt;broccoli/app/
+&lt;span class="w"&gt;    &lt;/span&gt;cp&lt;span class="w"&gt; &lt;/span&gt;main.py&lt;span class="w"&gt; &lt;/span&gt;broccoli/app/
 
-    mkdir broccoli/app/static
-    mkdir broccoli/app/static/images
-    cp -r images/*.jpg broccoli/app/static/images/
+&lt;span class="w"&gt;    &lt;/span&gt;mkdir&lt;span class="w"&gt; &lt;/span&gt;broccoli/app/static
+&lt;span class="w"&gt;    &lt;/span&gt;mkdir&lt;span class="w"&gt; &lt;/span&gt;broccoli/app/static/images
+&lt;span class="w"&gt;    &lt;/span&gt;cp&lt;span class="w"&gt; &lt;/span&gt;-r&lt;span class="w"&gt; &lt;/span&gt;images/*.jpg&lt;span class="w"&gt; &lt;/span&gt;broccoli/app/static/images/
 
-    mkdir broccoli/app/templates
-    cp templates/index.html broccoli/app/templates/
-    cp templates/recommend.html broccoli/app/templates/
-    cp templates/survey.html broccoli/app/templates/
-    cp templates/thankyou.html broccoli/app/templates/
-    cp templates/gtag.html broccoli/app/templates/
+&lt;span class="w"&gt;    &lt;/span&gt;mkdir&lt;span class="w"&gt; &lt;/span&gt;broccoli/app/templates
+&lt;span class="w"&gt;    &lt;/span&gt;cp&lt;span class="w"&gt; &lt;/span&gt;templates/index.html&lt;span class="w"&gt; &lt;/span&gt;broccoli/app/templates/
+&lt;span class="w"&gt;    &lt;/span&gt;cp&lt;span class="w"&gt; &lt;/span&gt;templates/recommend.html&lt;span class="w"&gt; &lt;/span&gt;broccoli/app/templates/
+&lt;span class="w"&gt;    &lt;/span&gt;cp&lt;span class="w"&gt; &lt;/span&gt;templates/survey.html&lt;span class="w"&gt; &lt;/span&gt;broccoli/app/templates/
+&lt;span class="w"&gt;    &lt;/span&gt;cp&lt;span class="w"&gt; &lt;/span&gt;templates/thankyou.html&lt;span class="w"&gt; &lt;/span&gt;broccoli/app/templates/
+&lt;span class="w"&gt;    &lt;/span&gt;cp&lt;span class="w"&gt; &lt;/span&gt;templates/gtag.html&lt;span class="w"&gt; &lt;/span&gt;broccoli/app/templates/
 
-    mkdir broccoli/app/data
-    mkdir broccoli/app/data/json
-    cp data/db.py broccoli/app/data/
-    cp data/foods.csv broccoli/app/data/
+&lt;span class="w"&gt;    &lt;/span&gt;mkdir&lt;span class="w"&gt; &lt;/span&gt;broccoli/app/data
+&lt;span class="w"&gt;    &lt;/span&gt;mkdir&lt;span class="w"&gt; &lt;/span&gt;broccoli/app/data/json
+&lt;span class="w"&gt;    &lt;/span&gt;cp&lt;span class="w"&gt; &lt;/span&gt;data/db.py&lt;span class="w"&gt; &lt;/span&gt;broccoli/app/data/
+&lt;span class="w"&gt;    &lt;/span&gt;cp&lt;span class="w"&gt; &lt;/span&gt;data/foods.csv&lt;span class="w"&gt; &lt;/span&gt;broccoli/app/data/
 
 &lt;span class="nf"&gt;download&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
-    cp -pr broccoli/backup/ .
+&lt;span class="w"&gt;    &lt;/span&gt;cp&lt;span class="w"&gt; &lt;/span&gt;-pr&lt;span class="w"&gt; &lt;/span&gt;broccoli/backup/&lt;span class="w"&gt; &lt;/span&gt;.
 
 &lt;span class="nf"&gt;login&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
-    ssh broccoli.floatingeye.net
-&lt;/pre&gt;&lt;/div&gt;
-
+&lt;span class="w"&gt;    &lt;/span&gt;ssh&lt;span class="w"&gt; &lt;/span&gt;broccoli.floatingeye.net
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;hr&gt;
 &lt;p&gt;Here's the makefile on the droplet:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nf"&gt;build&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
-    docker build -t appimage .
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="nf"&gt;build&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;docker&lt;span class="w"&gt; &lt;/span&gt;build&lt;span class="w"&gt; &lt;/span&gt;-t&lt;span class="w"&gt; &lt;/span&gt;appimage&lt;span class="w"&gt; &lt;/span&gt;.
 &lt;span class="nf"&gt;run&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
-    docker run -d --name appcontainer -p &lt;span class="m"&gt;80&lt;/span&gt;:80 appimage
-    docker cp backup/broccoli.db appcontainer:/app/data/
+&lt;span class="w"&gt;    &lt;/span&gt;docker&lt;span class="w"&gt; &lt;/span&gt;run&lt;span class="w"&gt; &lt;/span&gt;-d&lt;span class="w"&gt; &lt;/span&gt;--name&lt;span class="w"&gt; &lt;/span&gt;appcontainer&lt;span class="w"&gt; &lt;/span&gt;-p&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;80&lt;/span&gt;:80&lt;span class="w"&gt; &lt;/span&gt;appimage
+&lt;span class="w"&gt;    &lt;/span&gt;docker&lt;span class="w"&gt; &lt;/span&gt;cp&lt;span class="w"&gt; &lt;/span&gt;backup/broccoli.db&lt;span class="w"&gt; &lt;/span&gt;appcontainer:/app/data/
 &lt;span class="nf"&gt;stop&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
-    docker stop appcontainer
-&lt;span class="nf"&gt;cleanup&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;backup&lt;/span&gt;
-    docker rmi -f appimage &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
-    docker rm appcontainer
+&lt;span class="w"&gt;    &lt;/span&gt;docker&lt;span class="w"&gt; &lt;/span&gt;stop&lt;span class="w"&gt; &lt;/span&gt;appcontainer
+&lt;span class="nf"&gt;cleanup&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;backup&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;docker&lt;span class="w"&gt; &lt;/span&gt;rmi&lt;span class="w"&gt; &lt;/span&gt;-f&lt;span class="w"&gt; &lt;/span&gt;appimage&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;docker&lt;span class="w"&gt; &lt;/span&gt;rm&lt;span class="w"&gt; &lt;/span&gt;appcontainer
 
 &lt;span class="nf"&gt;data&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
-    -mv broccoli.db broccoli.&lt;span class="sb"&gt;`&lt;/span&gt;cat /dev/urandom &lt;span class="p"&gt;|&lt;/span&gt; tr -cd &lt;span class="s1"&gt;&amp;#39;a-f0-9&amp;#39;&lt;/span&gt; &lt;span class="p"&gt;|&lt;/span&gt; head -c &lt;span class="m"&gt;8&lt;/span&gt;&lt;span class="sb"&gt;`&lt;/span&gt;.db
-    -docker cp appcontainer:/app/data/broccoli.db .
-    -docker cp appcontainer:/app/data/json/ .
+&lt;span class="w"&gt;    &lt;/span&gt;-mv&lt;span class="w"&gt; &lt;/span&gt;broccoli.db&lt;span class="w"&gt; &lt;/span&gt;broccoli.&lt;span class="sb"&gt;`&lt;/span&gt;cat&lt;span class="w"&gt; &lt;/span&gt;/dev/urandom&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;|&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;tr&lt;span class="w"&gt; &lt;/span&gt;-cd&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;a-f0-9&amp;#39;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;|&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;head&lt;span class="w"&gt; &lt;/span&gt;-c&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;8&lt;/span&gt;&lt;span class="sb"&gt;`&lt;/span&gt;.db
+&lt;span class="w"&gt;    &lt;/span&gt;-docker&lt;span class="w"&gt; &lt;/span&gt;cp&lt;span class="w"&gt; &lt;/span&gt;appcontainer:/app/data/broccoli.db&lt;span class="w"&gt; &lt;/span&gt;.
+&lt;span class="w"&gt;    &lt;/span&gt;-docker&lt;span class="w"&gt; &lt;/span&gt;cp&lt;span class="w"&gt; &lt;/span&gt;appcontainer:/app/data/json/&lt;span class="w"&gt; &lt;/span&gt;.
 
-&lt;span class="nf"&gt;backup&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;data&lt;/span&gt;
-    cp -pr broccoli*.db json/ backup/
+&lt;span class="nf"&gt;backup&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;data&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;cp&lt;span class="w"&gt; &lt;/span&gt;-pr&lt;span class="w"&gt; &lt;/span&gt;broccoli*.db&lt;span class="w"&gt; &lt;/span&gt;json/&lt;span class="w"&gt; &lt;/span&gt;backup/
 
-&lt;span class="nf"&gt;clean-data&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;backup&lt;/span&gt;
-    rm broccoli*.db
-    rm json/*.json
-&lt;/pre&gt;&lt;/div&gt;
-
+&lt;span class="nf"&gt;clean-data&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;backup&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;rm&lt;span class="w"&gt; &lt;/span&gt;broccoli*.db
+&lt;span class="w"&gt;    &lt;/span&gt;rm&lt;span class="w"&gt; &lt;/span&gt;json/*.json
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;hr&gt;
 &lt;p&gt;And here are the commands I run to deploy my app:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nx"&gt;$&lt;/span&gt; &lt;span class="nx"&gt;cd&lt;/span&gt; &lt;span class="nx"&gt;sandbox&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nx"&gt;broccoli&lt;/span&gt;
-&lt;span class="nx"&gt;$&lt;/span&gt; &lt;span class="nx"&gt;make&lt;/span&gt; &lt;span class="nx"&gt;mount&lt;/span&gt;
-&lt;span class="nx"&gt;$&lt;/span&gt; &lt;span class="nx"&gt;make&lt;/span&gt; &lt;span class="nx"&gt;upload&lt;/span&gt;
-&lt;span class="nx"&gt;$&lt;/span&gt; &lt;span class="nx"&gt;make&lt;/span&gt; &lt;span class="nx"&gt;login&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="nx"&gt;$&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;cd&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;sandbox&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nx"&gt;broccoli&lt;/span&gt;
+&lt;span class="nx"&gt;$&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;make&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;mount&lt;/span&gt;
+&lt;span class="nx"&gt;$&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;make&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;upload&lt;/span&gt;
+&lt;span class="nx"&gt;$&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;make&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;login&lt;/span&gt;
 
-&lt;span class="nx"&gt;$&lt;/span&gt; &lt;span class="nx"&gt;cd&lt;/span&gt; &lt;span class="nx"&gt;broccoli&lt;/span&gt;
-&lt;span class="nx"&gt;$&lt;/span&gt; &lt;span class="nx"&gt;make&lt;/span&gt; &lt;span class="nx"&gt;stop&lt;/span&gt;
-&lt;span class="nx"&gt;$&lt;/span&gt; &lt;span class="nx"&gt;make&lt;/span&gt; &lt;span class="nx"&gt;cleanup&lt;/span&gt;
-&lt;span class="nx"&gt;$&lt;/span&gt; &lt;span class="nx"&gt;make&lt;/span&gt; &lt;span class="nx"&gt;build&lt;/span&gt;
-&lt;span class="nx"&gt;$&lt;/span&gt; &lt;span class="nx"&gt;make&lt;/span&gt; &lt;span class="nx"&gt;run&lt;/span&gt;
-&lt;span class="nx"&gt;$&lt;/span&gt; &lt;span class="nx"&gt;exit&lt;/span&gt;
+&lt;span class="nx"&gt;$&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;cd&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;broccoli&lt;/span&gt;
+&lt;span class="nx"&gt;$&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;make&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;stop&lt;/span&gt;
+&lt;span class="nx"&gt;$&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;make&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;cleanup&lt;/span&gt;
+&lt;span class="nx"&gt;$&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;make&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;build&lt;/span&gt;
+&lt;span class="nx"&gt;$&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;make&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;run&lt;/span&gt;
+&lt;span class="nx"&gt;$&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;exit&lt;/span&gt;
 
-&lt;span class="nx"&gt;$&lt;/span&gt; &lt;span class="nx"&gt;make&lt;/span&gt; &lt;span class="nx"&gt;download&lt;/span&gt;
-&lt;span class="nx"&gt;$&lt;/span&gt; &lt;span class="nx"&gt;make&lt;/span&gt; &lt;span class="nx"&gt;umount&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
+&lt;span class="nx"&gt;$&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;make&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;download&lt;/span&gt;
+&lt;span class="nx"&gt;$&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;make&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;umount&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;h3&gt;Links&lt;/h3&gt;
 &lt;ul&gt;

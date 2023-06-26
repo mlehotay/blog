@@ -78,63 +78,57 @@
     <div class="content">
       <p>Here's the code. I'll write the description in a day or two. I still need to add weapons and armor to the treasure chest and update the fitness calculations to include the probability defeating the troll.</p>
 <h3>Treasure</h3>
-<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">random</span>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">random</span>
 <span class="kn">import</span> <span class="nn">arena</span> <span class="c1"># https://github.com/mlehotay/arena.git</span>
-</pre></div>
+</code></pre></div>
 
-
-<div class="highlight"><pre><span></span><span class="n">NUM_ITEMS</span> <span class="o">=</span> <span class="mi">20</span> <span class="c1"># number of items in treasure chest</span>
+<div class="highlight"><pre><span></span><code><span class="n">NUM_ITEMS</span> <span class="o">=</span> <span class="mi">20</span> <span class="c1"># number of items in treasure chest</span>
 <span class="n">MAX_WEIGHT</span> <span class="o">=</span> <span class="mi">100</span> <span class="c1"># max weight of a single treasure item</span>
 <span class="n">MAX_VALUE</span> <span class="o">=</span> <span class="mi">100</span> <span class="c1"># max value of a single treasure item</span>
-</pre></div>
+</code></pre></div>
 
-
-<div class="highlight"><pre><span></span><span class="n">treasure_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;gold&#39;</span><span class="p">,</span> <span class="s1">&#39;gem&#39;</span><span class="p">,</span> <span class="s1">&#39;ring&#39;</span><span class="p">,</span> <span class="s1">&#39;amulet&#39;</span><span class="p">,</span> <span class="s1">&#39;potion&#39;</span><span class="p">,</span> <span class="s1">&#39;scroll&#39;</span><span class="p">,</span> <span class="s1">&#39;wand&#39;</span><span class="p">,</span> <span class="s1">&#39;spellbook&#39;</span><span class="p">]</span>
+<div class="highlight"><pre><span></span><code><span class="n">treasure_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;gold&#39;</span><span class="p">,</span> <span class="s1">&#39;gem&#39;</span><span class="p">,</span> <span class="s1">&#39;ring&#39;</span><span class="p">,</span> <span class="s1">&#39;amulet&#39;</span><span class="p">,</span> <span class="s1">&#39;potion&#39;</span><span class="p">,</span> <span class="s1">&#39;scroll&#39;</span><span class="p">,</span> <span class="s1">&#39;wand&#39;</span><span class="p">,</span> <span class="s1">&#39;spellbook&#39;</span><span class="p">]</span>
 <span class="n">treasure</span> <span class="o">=</span> <span class="p">[{</span>
         <span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">treasure_names</span><span class="p">),</span>
         <span class="s1">&#39;weight&#39;</span><span class="p">:</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">MAX_WEIGHT</span><span class="p">),</span>
         <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">MAX_VALUE</span><span class="p">)</span>
     <span class="p">}</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">NUM_ITEMS</span><span class="p">)</span>
 <span class="p">]</span>
-</pre></div>
+</code></pre></div>
 
+<div class="highlight"><pre><span></span><code><span class="n">treasure</span>
+</code></pre></div>
 
-<div class="highlight"><pre><span></span><span class="n">treasure</span>
-</pre></div>
-
-
-<div class="highlight"><pre><span></span><span class="p">[</span><span class="err">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;scroll&#39;</span><span class="p">,</span> <span class="s1">&#39;weight&#39;</span><span class="p">:</span> <span class="mi">17</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="mi">89</span><span class="err">}</span><span class="p">,</span>
- <span class="err">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;ring&#39;</span><span class="p">,</span> <span class="s1">&#39;weight&#39;</span><span class="p">:</span> <span class="mi">44</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="mi">75</span><span class="err">}</span><span class="p">,</span>
- <span class="err">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;gold&#39;</span><span class="p">,</span> <span class="s1">&#39;weight&#39;</span><span class="p">:</span> <span class="mi">92</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="mi">98</span><span class="err">}</span><span class="p">,</span>
- <span class="err">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;scroll&#39;</span><span class="p">,</span> <span class="s1">&#39;weight&#39;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="err">}</span><span class="p">,</span>
- <span class="err">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;spellbook&#39;</span><span class="p">,</span> <span class="s1">&#39;weight&#39;</span><span class="p">:</span> <span class="mi">56</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="mi">93</span><span class="err">}</span><span class="p">,</span>
- <span class="err">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;ring&#39;</span><span class="p">,</span> <span class="s1">&#39;weight&#39;</span><span class="p">:</span> <span class="mi">26</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="mi">75</span><span class="err">}</span><span class="p">,</span>
- <span class="err">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;potion&#39;</span><span class="p">,</span> <span class="s1">&#39;weight&#39;</span><span class="p">:</span> <span class="mi">47</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="mi">98</span><span class="err">}</span><span class="p">,</span>
- <span class="err">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;potion&#39;</span><span class="p">,</span> <span class="s1">&#39;weight&#39;</span><span class="p">:</span> <span class="mi">30</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="mi">62</span><span class="err">}</span><span class="p">,</span>
- <span class="err">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;gem&#39;</span><span class="p">,</span> <span class="s1">&#39;weight&#39;</span><span class="p">:</span> <span class="mi">16</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="mi">7</span><span class="err">}</span><span class="p">,</span>
- <span class="err">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;gem&#39;</span><span class="p">,</span> <span class="s1">&#39;weight&#39;</span><span class="p">:</span> <span class="mi">51</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="mi">30</span><span class="err">}</span><span class="p">,</span>
- <span class="err">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;scroll&#39;</span><span class="p">,</span> <span class="s1">&#39;weight&#39;</span><span class="p">:</span> <span class="mi">28</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="mi">46</span><span class="err">}</span><span class="p">,</span>
- <span class="err">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;amulet&#39;</span><span class="p">,</span> <span class="s1">&#39;weight&#39;</span><span class="p">:</span> <span class="mi">74</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="err">}</span><span class="p">,</span>
- <span class="err">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;spellbook&#39;</span><span class="p">,</span> <span class="s1">&#39;weight&#39;</span><span class="p">:</span> <span class="mi">73</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="mi">7</span><span class="err">}</span><span class="p">,</span>
- <span class="err">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;potion&#39;</span><span class="p">,</span> <span class="s1">&#39;weight&#39;</span><span class="p">:</span> <span class="mi">19</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="mi">93</span><span class="err">}</span><span class="p">,</span>
- <span class="err">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;amulet&#39;</span><span class="p">,</span> <span class="s1">&#39;weight&#39;</span><span class="p">:</span> <span class="mi">71</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="mi">91</span><span class="err">}</span><span class="p">,</span>
- <span class="err">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;amulet&#39;</span><span class="p">,</span> <span class="s1">&#39;weight&#39;</span><span class="p">:</span> <span class="mi">57</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="mi">71</span><span class="err">}</span><span class="p">,</span>
- <span class="err">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;gold&#39;</span><span class="p">,</span> <span class="s1">&#39;weight&#39;</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="mi">6</span><span class="err">}</span><span class="p">,</span>
- <span class="err">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;potion&#39;</span><span class="p">,</span> <span class="s1">&#39;weight&#39;</span><span class="p">:</span> <span class="mi">43</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="mi">71</span><span class="err">}</span><span class="p">,</span>
- <span class="err">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;potion&#39;</span><span class="p">,</span> <span class="s1">&#39;weight&#39;</span><span class="p">:</span> <span class="mi">23</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="mi">78</span><span class="err">}</span><span class="p">,</span>
- <span class="err">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;gold&#39;</span><span class="p">,</span> <span class="s1">&#39;weight&#39;</span><span class="p">:</span> <span class="mi">25</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="mi">83</span><span class="err">}</span><span class="p">]</span>
-</pre></div>
-
+<div class="highlight"><pre><span></span><code>[{&#39;description&#39;: &#39;scroll&#39;, &#39;weight&#39;: 17, &#39;value&#39;: 89},
+ {&#39;description&#39;: &#39;ring&#39;, &#39;weight&#39;: 44, &#39;value&#39;: 75},
+ {&#39;description&#39;: &#39;gold&#39;, &#39;weight&#39;: 92, &#39;value&#39;: 98},
+ {&#39;description&#39;: &#39;scroll&#39;, &#39;weight&#39;: 100, &#39;value&#39;: 20},
+ {&#39;description&#39;: &#39;spellbook&#39;, &#39;weight&#39;: 56, &#39;value&#39;: 93},
+ {&#39;description&#39;: &#39;ring&#39;, &#39;weight&#39;: 26, &#39;value&#39;: 75},
+ {&#39;description&#39;: &#39;potion&#39;, &#39;weight&#39;: 47, &#39;value&#39;: 98},
+ {&#39;description&#39;: &#39;potion&#39;, &#39;weight&#39;: 30, &#39;value&#39;: 62},
+ {&#39;description&#39;: &#39;gem&#39;, &#39;weight&#39;: 16, &#39;value&#39;: 7},
+ {&#39;description&#39;: &#39;gem&#39;, &#39;weight&#39;: 51, &#39;value&#39;: 30},
+ {&#39;description&#39;: &#39;scroll&#39;, &#39;weight&#39;: 28, &#39;value&#39;: 46},
+ {&#39;description&#39;: &#39;amulet&#39;, &#39;weight&#39;: 74, &#39;value&#39;: 20},
+ {&#39;description&#39;: &#39;spellbook&#39;, &#39;weight&#39;: 73, &#39;value&#39;: 7},
+ {&#39;description&#39;: &#39;potion&#39;, &#39;weight&#39;: 19, &#39;value&#39;: 93},
+ {&#39;description&#39;: &#39;amulet&#39;, &#39;weight&#39;: 71, &#39;value&#39;: 91},
+ {&#39;description&#39;: &#39;amulet&#39;, &#39;weight&#39;: 57, &#39;value&#39;: 71},
+ {&#39;description&#39;: &#39;gold&#39;, &#39;weight&#39;: 7, &#39;value&#39;: 6},
+ {&#39;description&#39;: &#39;potion&#39;, &#39;weight&#39;: 43, &#39;value&#39;: 71},
+ {&#39;description&#39;: &#39;potion&#39;, &#39;weight&#39;: 23, &#39;value&#39;: 78},
+ {&#39;description&#39;: &#39;gold&#39;, &#39;weight&#39;: 25, &#39;value&#39;: 83}]
+</code></pre></div>
 
 <h3>Knapsack</h3>
-<div class="highlight"><pre><span></span><span class="n">CAPACITY</span> <span class="o">=</span> <span class="mi">200</span> <span class="c1"># max weight the knapsack can hold</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">CAPACITY</span> <span class="o">=</span> <span class="mi">200</span> <span class="c1"># max weight the knapsack can hold</span>
+</code></pre></div>
 
-
-<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Knapsack</span><span class="p">:</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item_list</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">mask</span> <span class="o">==</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="n">mask</span> <span class="o">=</span> <span class="p">[</span><span class="bp">False</span><span class="p">]</span><span class="o">*</span><span class="n">NUM_ITEMS</span> <span class="c1"># new knapsacks start out empty</span>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Knapsack</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item_list</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">mask</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">mask</span> <span class="o">=</span> <span class="p">[</span><span class="kc">False</span><span class="p">]</span><span class="o">*</span><span class="n">NUM_ITEMS</span> <span class="c1"># new knapsacks start out empty</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">mask</span> <span class="o">=</span> <span class="n">mask</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">items</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span> <span class="k">for</span> <span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">selected</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">item_list</span><span class="p">,</span> <span class="n">mask</span><span class="p">)</span> <span class="k">if</span> <span class="n">selected</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">weight</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span><span class="n">item</span><span class="p">[</span><span class="s1">&#39;weight&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="p">])</span>
@@ -143,109 +137,96 @@
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">mask_string</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">flag</span><span class="p">))</span> <span class="k">for</span> <span class="n">flag</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">mask</span><span class="p">])</span>
-        <span class="k">return</span> <span class="n">f</span><span class="s1">&#39;&lt;knapsack mask:{mask_string} weight:{self.weight} value:{self.value}&gt;&#39;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;&lt;knapsack mask:</span><span class="si">{</span><span class="n">mask_string</span><span class="si">}</span><span class="s1"> weight:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">weight</span><span class="si">}</span><span class="s1"> value:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s1">&gt;&#39;</span>
 
     <span class="k">def</span> <span class="nf">print_contents</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">print</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="p">:</span>
-            <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;  {item[&#39;description&#39;]} weight:{item[&#39;weight&#39;]} value:{item[&#39;value&#39;]}&quot;</span><span class="p">)</span>
-</pre></div>
-
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">item</span><span class="p">[</span><span class="s1">&#39;description&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> weight:</span><span class="si">{</span><span class="n">item</span><span class="p">[</span><span class="s1">&#39;weight&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> value:</span><span class="si">{</span><span class="n">item</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
 
 <h3>Genetic Algorithm</h3>
-<div class="highlight"><pre><span></span><span class="c1"># genetic algorithm parameters</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># genetic algorithm parameters</span>
 <span class="n">POPULATION_SIZE</span> <span class="o">=</span> <span class="mi">100</span> <span class="c1"># number of individuals in population</span>
 <span class="n">MUTATION_RATE</span> <span class="o">=</span> <span class="mf">0.20</span> <span class="c1"># probability that an individual mutates</span>
 <span class="n">SURVIVAL_RATE</span> <span class="o">=</span> <span class="mf">0.50</span> <span class="c1"># percentage of generation that survives to have children</span>
 <span class="n">NUM_GENERATIONS</span> <span class="o">=</span> <span class="mi">100</span> <span class="c1"># number of generations to simulate</span>
-</pre></div>
+</code></pre></div>
 
-
-<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">fitness</span><span class="p">(</span><span class="n">knapsack</span><span class="p">):</span> <span class="c1"># survival of the fittest</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">fitness</span><span class="p">(</span><span class="n">knapsack</span><span class="p">):</span> <span class="c1"># survival of the fittest</span>
     <span class="k">if</span> <span class="n">knapsack</span><span class="o">.</span><span class="n">weight</span> <span class="o">&gt;</span> <span class="n">CAPACITY</span><span class="p">:</span>
         <span class="k">return</span> <span class="o">-</span><span class="mi">1</span> <span class="c1"># illegal knapsacks have negative fitness</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">knapsack</span><span class="o">.</span><span class="n">value</span>
-</pre></div>
+</code></pre></div>
 
-
-<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">mutate</span><span class="p">(</span><span class="n">knapsack</span><span class="p">,</span> <span class="n">item_list</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">mutate</span><span class="p">(</span><span class="n">knapsack</span><span class="p">,</span> <span class="n">item_list</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">MUTATION_RATE</span><span class="p">:</span>
         <span class="n">i</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">NUM_ITEMS</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># randomly select one gene</span>
         <span class="n">new_mask</span> <span class="o">=</span> <span class="n">knapsack</span><span class="o">.</span><span class="n">mask</span>
         <span class="n">new_mask</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">new_mask</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="c1"># &quot;Mutation: it is the key to our evolution.&quot; -Professor X</span>
         <span class="n">knapsack</span> <span class="o">=</span> <span class="n">Knapsack</span><span class="p">(</span><span class="n">item_list</span><span class="p">,</span> <span class="n">new_mask</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">knapsack</span>
-</pre></div>
+</code></pre></div>
 
-
-<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">crossover</span><span class="p">(</span><span class="n">knapsack1</span><span class="p">,</span> <span class="n">knapsack2</span><span class="p">,</span> <span class="n">item_list</span><span class="p">):</span> <span class="c1"># combine DNA of parents to make child</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">crossover</span><span class="p">(</span><span class="n">knapsack1</span><span class="p">,</span> <span class="n">knapsack2</span><span class="p">,</span> <span class="n">item_list</span><span class="p">):</span> <span class="c1"># combine DNA of parents to make child</span>
     <span class="n">child_mask</span> <span class="o">=</span> <span class="p">[</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">gene</span><span class="p">)</span> <span class="k">for</span> <span class="n">gene</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">knapsack1</span><span class="o">.</span><span class="n">mask</span><span class="p">,</span> <span class="n">knapsack2</span><span class="o">.</span><span class="n">mask</span><span class="p">)]</span>
     <span class="k">return</span> <span class="n">Knapsack</span><span class="p">(</span><span class="n">item_list</span><span class="p">,</span> <span class="n">child_mask</span><span class="p">)</span>
-</pre></div>
+</code></pre></div>
 
-
-<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">select</span><span class="p">(</span><span class="n">population</span><span class="p">):</span> <span class="c1">#  this is where we simulate natural selection</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">select</span><span class="p">(</span><span class="n">population</span><span class="p">):</span> <span class="c1">#  this is where we simulate natural selection</span>
     <span class="n">num_survivors</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">POPULATION_SIZE</span> <span class="o">*</span> <span class="n">SURVIVAL_RATE</span><span class="p">)</span>
-    <span class="n">population</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">population</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">fitness</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="bp">True</span><span class="p">)[:</span><span class="n">num_survivors</span><span class="p">]</span>
+    <span class="n">population</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">population</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">fitness</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)[:</span><span class="n">num_survivors</span><span class="p">]</span>
     <span class="k">return</span> <span class="n">population</span>
-</pre></div>
+</code></pre></div>
 
-
-<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">repopulate</span><span class="p">(</span><span class="n">population</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">repopulate</span><span class="p">(</span><span class="n">population</span><span class="p">):</span>
     <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">population</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">POPULATION_SIZE</span><span class="p">:</span>
         <span class="n">parents</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">population</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
         <span class="n">child</span> <span class="o">=</span> <span class="n">crossover</span><span class="p">(</span><span class="n">parents</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">parents</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">treasure</span><span class="p">)</span>
         <span class="n">population</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">population</span>
-</pre></div>
-
+</code></pre></div>
 
 <h3>Simulation</h3>
-<div class="highlight"><pre><span></span><span class="n">population</span> <span class="o">=</span> <span class="p">[</span><span class="n">Knapsack</span><span class="p">(</span><span class="n">treasure</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">POPULATION_SIZE</span><span class="p">)]</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">population</span> <span class="o">=</span> <span class="p">[</span><span class="n">Knapsack</span><span class="p">(</span><span class="n">treasure</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">POPULATION_SIZE</span><span class="p">)]</span>
+</code></pre></div>
 
-
-<div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">NUM_GENERATIONS</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><code><span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">NUM_GENERATIONS</span><span class="p">):</span>
     <span class="n">population</span> <span class="o">=</span> <span class="p">[</span><span class="n">mutate</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">treasure</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">population</span><span class="p">]</span>
     <span class="n">population</span> <span class="o">=</span> <span class="n">select</span><span class="p">(</span><span class="n">population</span><span class="p">)</span>
     <span class="n">population</span> <span class="o">=</span> <span class="n">repopulate</span><span class="p">(</span><span class="n">population</span><span class="p">)</span>
-</pre></div>
+</code></pre></div>
 
-
-<div class="highlight"><pre><span></span><span class="c1"># all valid individuals in final generation, sorted by fitness</span>
-<span class="n">population</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">([</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">population</span> <span class="k">if</span> <span class="n">k</span><span class="o">.</span><span class="n">valid</span><span class="p">],</span> <span class="n">key</span><span class="o">=</span><span class="n">fitness</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># all valid individuals in final generation, sorted by fitness</span>
+<span class="n">population</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">([</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">population</span> <span class="k">if</span> <span class="n">k</span><span class="o">.</span><span class="n">valid</span><span class="p">],</span> <span class="n">key</span><span class="o">=</span><span class="n">fitness</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">population</span>
-</pre></div>
+</code></pre></div>
 
+<div class="highlight"><pre><span></span><code>[&lt;knapsack mask:10000110001000010001 weight:200 value:462&gt;,
+ &lt;knapsack mask:11000101100000000100 weight:176 value:379&gt;,
+ &lt;knapsack mask:00000000011001001011 weight:153 value:336&gt;,
+ &lt;knapsack mask:00000000000001100110 weight:156 value:333&gt;,
+ &lt;knapsack mask:11000100000000001010 weight:117 value:323&gt;,
+ &lt;knapsack mask:01000010010000000100 weight:185 value:274&gt;,
+ &lt;knapsack mask:00000000010001000110 weight:136 value:272&gt;,
+ &lt;knapsack mask:01000000000100000100 weight:161 value:166&gt;,
+ &lt;knapsack mask:00000000011000001010 weight:109 value:160&gt;,
+ &lt;knapsack mask:10000000100000000000 weight:33 value:96&gt;]
+</code></pre></div>
 
-<div class="highlight"><pre><span></span><span class="p">[</span><span class="o">&lt;</span><span class="n">knapsack</span> <span class="n">mask</span><span class="p">:</span><span class="mi">10000110001000010001</span> <span class="n">weight</span><span class="p">:</span><span class="mi">200</span> <span class="n">value</span><span class="p">:</span><span class="mi">462</span><span class="o">&gt;</span><span class="p">,</span>
- <span class="o">&lt;</span><span class="n">knapsack</span> <span class="n">mask</span><span class="p">:</span><span class="mi">11000101100000000100</span> <span class="n">weight</span><span class="p">:</span><span class="mi">176</span> <span class="n">value</span><span class="p">:</span><span class="mi">379</span><span class="o">&gt;</span><span class="p">,</span>
- <span class="o">&lt;</span><span class="n">knapsack</span> <span class="n">mask</span><span class="p">:</span><span class="mi">00000000011001001011</span> <span class="n">weight</span><span class="p">:</span><span class="mi">153</span> <span class="n">value</span><span class="p">:</span><span class="mi">336</span><span class="o">&gt;</span><span class="p">,</span>
- <span class="o">&lt;</span><span class="n">knapsack</span> <span class="n">mask</span><span class="p">:</span><span class="mi">00000000000001100110</span> <span class="n">weight</span><span class="p">:</span><span class="mi">156</span> <span class="n">value</span><span class="p">:</span><span class="mi">333</span><span class="o">&gt;</span><span class="p">,</span>
- <span class="o">&lt;</span><span class="n">knapsack</span> <span class="n">mask</span><span class="p">:</span><span class="mi">11000100000000001010</span> <span class="n">weight</span><span class="p">:</span><span class="mi">117</span> <span class="n">value</span><span class="p">:</span><span class="mi">323</span><span class="o">&gt;</span><span class="p">,</span>
- <span class="o">&lt;</span><span class="n">knapsack</span> <span class="n">mask</span><span class="p">:</span><span class="mi">01000010010000000100</span> <span class="n">weight</span><span class="p">:</span><span class="mi">185</span> <span class="n">value</span><span class="p">:</span><span class="mi">274</span><span class="o">&gt;</span><span class="p">,</span>
- <span class="o">&lt;</span><span class="n">knapsack</span> <span class="n">mask</span><span class="p">:</span><span class="mi">00000000010001000110</span> <span class="n">weight</span><span class="p">:</span><span class="mi">136</span> <span class="n">value</span><span class="p">:</span><span class="mi">272</span><span class="o">&gt;</span><span class="p">,</span>
- <span class="o">&lt;</span><span class="n">knapsack</span> <span class="n">mask</span><span class="p">:</span><span class="mi">01000000000100000100</span> <span class="n">weight</span><span class="p">:</span><span class="mi">161</span> <span class="n">value</span><span class="p">:</span><span class="mi">166</span><span class="o">&gt;</span><span class="p">,</span>
- <span class="o">&lt;</span><span class="n">knapsack</span> <span class="n">mask</span><span class="p">:</span><span class="mi">00000000011000001010</span> <span class="n">weight</span><span class="p">:</span><span class="mi">109</span> <span class="n">value</span><span class="p">:</span><span class="mi">160</span><span class="o">&gt;</span><span class="p">,</span>
- <span class="o">&lt;</span><span class="n">knapsack</span> <span class="n">mask</span><span class="p">:</span><span class="mi">10000000100000000000</span> <span class="n">weight</span><span class="p">:</span><span class="mi">33</span> <span class="n">value</span><span class="p">:</span><span class="mi">96</span><span class="o">&gt;</span><span class="p">]</span>
-</pre></div>
-
-
-<div class="highlight"><pre><span></span><span class="c1"># details of best solution</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># details of best solution</span>
 <span class="n">population</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">print_contents</span><span class="p">()</span>
-</pre></div>
+</code></pre></div>
 
-
-<div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">knapsack</span> <span class="n">mask</span><span class="p">:</span><span class="mi">10000110001000010001</span> <span class="n">weight</span><span class="p">:</span><span class="mi">200</span> <span class="n">value</span><span class="p">:</span><span class="mi">462</span><span class="o">&gt;</span>
-  <span class="k">scroll</span> <span class="n">weight</span><span class="p">:</span><span class="mi">17</span> <span class="n">value</span><span class="p">:</span><span class="mi">89</span>
-  <span class="n">ring</span> <span class="n">weight</span><span class="p">:</span><span class="mi">26</span> <span class="n">value</span><span class="p">:</span><span class="mi">75</span>
-  <span class="n">potion</span> <span class="n">weight</span><span class="p">:</span><span class="mi">47</span> <span class="n">value</span><span class="p">:</span><span class="mi">98</span>
-  <span class="k">scroll</span> <span class="n">weight</span><span class="p">:</span><span class="mi">28</span> <span class="n">value</span><span class="p">:</span><span class="mi">46</span>
-  <span class="n">amulet</span> <span class="n">weight</span><span class="p">:</span><span class="mi">57</span> <span class="n">value</span><span class="p">:</span><span class="mi">71</span>
-  <span class="n">gold</span> <span class="n">weight</span><span class="p">:</span><span class="mi">25</span> <span class="n">value</span><span class="p">:</span><span class="mi">83</span>
-</pre></div>
-
+<div class="highlight"><pre><span></span><code>&lt;knapsack mask:10000110001000010001 weight:200 value:462&gt;
+  scroll weight:17 value:89
+  ring weight:26 value:75
+  potion weight:47 value:98
+  scroll weight:28 value:46
+  amulet weight:57 value:71
+  gold weight:25 value:83
+</code></pre></div>
 
 <h3>Links</h3>
 <ul>
@@ -257,6 +238,24 @@
 </ul>
     </div>
   </article>
+  <hr>
+  <div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function() {
+      this.page.url = './knapsack.html';
+      this.page.identifier = 'knapsack';
+    };
+    (function() {
+      var d = document;
+      var s = d.createElement('script');
+      s.src = '//mlehotay.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript class="text-muted">
+    Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+  </noscript>
     </div>
   </div>
 

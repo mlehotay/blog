@@ -77,13 +77,12 @@
     </header>
     <div class="content">
       <p>https://networkx.github.io/</p>
-<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">networkx</span> <span class="kn">as</span> <span class="nn">nx</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
-</pre></div>
-
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</code></pre></div>
 
 <p><img alt="neighbourhood map" src="../images/map-nodes.png"></p>
-<div class="highlight"><pre><span></span><span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">()</span>
+<div class="highlight"><pre><span></span><code><span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">()</span>
 <span class="n">e</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span> <span class="mf">0.08</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span> <span class="mf">0.08</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span> <span class="mf">0.17</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span> <span class="mf">0.17</span><span class="p">),</span>
      <span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span> <span class="mf">0.27</span><span class="p">),</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span> <span class="mf">0.07</span><span class="p">),</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span> <span class="mf">0.09</span><span class="p">),</span> <span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="mi">11</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">),</span> <span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span> <span class="mf">0.14</span><span class="p">),</span>
      <span class="p">(</span><span class="mi">9</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span> <span class="mf">0.11</span><span class="p">),</span> <span class="p">(</span><span class="mi">9</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span> <span class="mf">0.19</span><span class="p">),</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">11</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">),</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">17</span><span class="p">,</span> <span class="mf">0.09</span><span class="p">),</span>
@@ -91,85 +90,91 @@
      <span class="p">(</span><span class="mi">13</span><span class="p">,</span><span class="mi">13</span><span class="p">,</span> <span class="mf">0.06</span><span class="p">),</span> <span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">16</span><span class="p">,</span> <span class="mf">0.11</span><span class="p">),</span> <span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">19</span><span class="p">,</span> <span class="mf">0.06</span><span class="p">),</span> <span class="p">(</span><span class="mi">16</span><span class="p">,</span><span class="mi">17</span><span class="p">,</span> <span class="mf">0.10</span><span class="p">),</span>
      <span class="p">(</span><span class="mi">17</span><span class="p">,</span><span class="mi">18</span><span class="p">,</span> <span class="mf">0.04</span><span class="p">),</span> <span class="p">(</span><span class="mi">19</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span> <span class="mf">0.11</span><span class="p">)]</span>
 <span class="n">G</span><span class="o">.</span><span class="n">add_weighted_edges_from</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
-</pre></div>
+</code></pre></div>
 
-
-<div class="highlight"><pre><span></span><span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">with_labels</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-</pre></div>
-
+<div class="highlight"><pre><span></span><code><span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">with_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</code></pre></div>
 
 <p><img alt="png" src="output_5_0.png"></p>
-<div class="highlight"><pre><span></span><span class="k">print</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">dijkstra_path</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">13</span><span class="p">))</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">dijkstra_path</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">13</span><span class="p">))</span>
+</code></pre></div>
 
+<div class="highlight"><pre><span></span><code>[1, 3, 4, 5, 7, 11, 12, 13]
+</code></pre></div>
 
-<div class="highlight"><pre><span></span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">13</span><span class="p">]</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">nx</span><span class="o">.</span><span class="n">draw_planar</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">with_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</code></pre></div>
 
-
-<div class="highlight"><pre><span></span><span class="n">nx</span><span class="o">.</span><span class="n">draw_planar</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">with_labels</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-</pre></div>
-
-
-<div class="highlight"><pre><span></span><span class="o">/</span><span class="nv">home</span><span class="o">/</span><span class="nv">mlehotay</span><span class="o">/</span><span class="nv">anaconda3</span><span class="o">/</span><span class="nv">lib</span><span class="o">/</span><span class="nv">python3</span>.<span class="mi">7</span><span class="o">/</span><span class="nv">site</span><span class="o">-</span><span class="nv">packages</span><span class="o">/</span><span class="nv">networkx</span><span class="o">/</span><span class="nv">drawing</span><span class="o">/</span><span class="nv">layout</span>.<span class="nv">py</span>:<span class="mi">950</span>: <span class="nv">FutureWarning</span>: <span class="nv">arrays</span> <span class="nv">to</span> <span class="nv">stack</span> <span class="nv">must</span> <span class="nv">be</span> <span class="nv">passed</span> <span class="nv">as</span> <span class="nv">a</span> <span class="s2">&quot;</span><span class="s">sequence</span><span class="s2">&quot;</span> <span class="nv">type</span> <span class="nv">such</span> <span class="nv">as</span> <span class="nv">list</span> <span class="nv">or</span> <span class="nv">tuple</span>. <span class="nv">Support</span> <span class="k">for</span> <span class="nv">non</span><span class="o">-</span><span class="nv">sequence</span> <span class="nv">iterables</span> <span class="nv">such</span> <span class="nv">as</span> <span class="nv">generators</span> <span class="nv">is</span> <span class="nv">deprecated</span> <span class="nv">as</span> <span class="nv">of</span> <span class="nv">NumPy</span> <span class="mi">1</span>.<span class="mi">16</span> <span class="nv">and</span> <span class="nv">will</span> <span class="nv">raise</span> <span class="nv">an</span> <span class="nv">error</span> <span class="nv">in</span> <span class="nv">the</span> <span class="nv">future</span>.
-  <span class="nv">pos</span> <span class="o">=</span> <span class="nv">np</span>.<span class="nv">row_stack</span><span class="ss">((</span><span class="nv">pos</span>[<span class="nv">x</span>] <span class="k">for</span> <span class="nv">x</span> <span class="nv">in</span> <span class="nv">node_list</span><span class="ss">))</span>
-</pre></div>
-
+<div class="highlight"><pre><span></span><code><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">mlehotay</span><span class="o">/</span><span class="n">anaconda3</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.7</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">networkx</span><span class="o">/</span><span class="n">drawing</span><span class="o">/</span><span class="n">layout</span><span class="p">.</span><span class="nl">py</span><span class="p">:</span><span class="mi">950</span><span class="err">:</span><span class="w"> </span><span class="nl">FutureWarning</span><span class="p">:</span><span class="w"> </span><span class="n">arrays</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">stack</span><span class="w"> </span><span class="n">must</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">passed</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ss">&quot;sequence&quot;</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="n">such</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">list</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="n">tuple</span><span class="p">.</span><span class="w"> </span><span class="n">Support</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">non</span><span class="o">-</span><span class="k">sequence</span><span class="w"> </span><span class="n">iterables</span><span class="w"> </span><span class="n">such</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">generators</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">deprecated</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">NumPy</span><span class="w"> </span><span class="mf">1.16</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">will</span><span class="w"> </span><span class="n">raise</span><span class="w"> </span><span class="n">an</span><span class="w"> </span><span class="n">error</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">future</span><span class="p">.</span>
+<span class="w">  </span><span class="n">pos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">np</span><span class="p">.</span><span class="n">row_stack</span><span class="p">((</span><span class="n">pos</span><span class="o">[</span><span class="n">x</span><span class="o">]</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">node_list</span><span class="p">))</span>
+</code></pre></div>
 
 <p><img alt="png" src="output_7_1.png"></p>
-<div class="highlight"><pre><span></span><span class="n">nx</span><span class="o">.</span><span class="n">draw_circular</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">with_labels</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-</pre></div>
-
+<div class="highlight"><pre><span></span><code><span class="n">nx</span><span class="o">.</span><span class="n">draw_circular</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">with_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</code></pre></div>
 
 <p><img alt="png" src="output_8_0.png"></p>
-<div class="highlight"><pre><span></span><span class="n">nx</span><span class="o">.</span><span class="n">draw_kamada_kawai</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">with_labels</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-</pre></div>
-
+<div class="highlight"><pre><span></span><code><span class="n">nx</span><span class="o">.</span><span class="n">draw_kamada_kawai</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">with_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</code></pre></div>
 
 <p><img alt="png" src="output_9_0.png"></p>
-<div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">nx</span><span class="o">.</span><span class="n">generate_adjlist</span><span class="p">(</span><span class="n">G</span><span class="p">):</span>
-    <span class="k">print</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code><span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">nx</span><span class="o">.</span><span class="n">generate_adjlist</span><span class="p">(</span><span class="n">G</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+</code></pre></div>
 
+<div class="highlight"><pre><span></span><code><span class="mf">1</span><span class="w"> </span><span class="mf">2</span><span class="w"> </span><span class="mf">3</span>
+<span class="mf">2</span>
+<span class="mf">3</span><span class="w"> </span><span class="mf">4</span><span class="w"> </span><span class="mf">8</span>
+<span class="mf">4</span><span class="w"> </span><span class="mf">5</span><span class="w"> </span><span class="mf">7</span>
+<span class="mf">8</span><span class="w"> </span><span class="mf">9</span>
+<span class="mf">5</span><span class="w"> </span><span class="mf">6</span><span class="w"> </span><span class="mf">7</span>
+<span class="mf">7</span><span class="w"> </span><span class="mf">11</span>
+<span class="mf">6</span>
+<span class="mf">11</span><span class="w"> </span><span class="mf">10</span><span class="w"> </span><span class="mf">12</span><span class="w"> </span><span class="mf">16</span>
+<span class="mf">9</span><span class="w"> </span><span class="mf">10</span><span class="w"> </span><span class="mf">15</span>
+<span class="mf">10</span><span class="w"> </span><span class="mf">17</span>
+<span class="mf">15</span><span class="w"> </span><span class="mf">16</span><span class="w"> </span><span class="mf">19</span>
+<span class="mf">17</span><span class="w"> </span><span class="mf">16</span><span class="w"> </span><span class="mf">18</span>
+<span class="mf">12</span><span class="w"> </span><span class="mf">13</span><span class="w"> </span><span class="mf">14</span>
+<span class="mf">16</span>
+<span class="mf">13</span><span class="w"> </span><span class="mf">13</span>
+<span class="mf">14</span>
+<span class="mf">19</span><span class="w"> </span><span class="mf">20</span>
+<span class="mf">18</span>
+<span class="mf">20</span>
+</code></pre></div>
 
-<div class="highlight"><pre><span></span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span>
-<span class="mi">2</span>
-<span class="mi">3</span> <span class="mi">4</span> <span class="mi">8</span>
-<span class="mi">4</span> <span class="mi">5</span> <span class="mi">7</span>
-<span class="mi">8</span> <span class="mi">9</span>
-<span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span>
-<span class="mi">7</span> <span class="mi">11</span>
-<span class="mi">6</span>
-<span class="mi">11</span> <span class="mi">10</span> <span class="mi">12</span> <span class="mi">16</span>
-<span class="mi">9</span> <span class="mi">10</span> <span class="mi">15</span>
-<span class="mi">10</span> <span class="mi">17</span>
-<span class="mi">15</span> <span class="mi">16</span> <span class="mi">19</span>
-<span class="mi">17</span> <span class="mi">16</span> <span class="mi">18</span>
-<span class="mi">12</span> <span class="mi">13</span> <span class="mi">14</span>
-<span class="mi">16</span>
-<span class="mi">13</span> <span class="mi">13</span>
-<span class="mi">14</span>
-<span class="mi">19</span> <span class="mi">20</span>
-<span class="mi">18</span>
-<span class="mi">20</span>
-</pre></div>
-
-
-<div class="highlight"><pre><span></span><span class="n">nx</span><span class="o">.</span><span class="n">write_weighted_edgelist</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="s1">&#39;map-edges.txt&#39;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">nx</span><span class="o">.</span><span class="n">write_weighted_edgelist</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="s1">&#39;map-edges.txt&#39;</span><span class="p">)</span>
 <span class="n">H</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">read_weighted_edgelist</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s1">&#39;map-edges.txt&#39;</span><span class="p">)</span>
-</pre></div>
+</code></pre></div>
 
-
-<div class="highlight"><pre><span></span><span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">with_labels</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">with_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="c1">#plt.show()</span>
-</pre></div>
-
+</code></pre></div>
 
 <p><img alt="png" src="output_12_0.png"></p>
-<div class="highlight"><pre><span></span>
-</pre></div>
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
     </div>
   </article>
+  <hr>
+  <div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function() {
+      this.page.url = '../drafts/networkx.html';
+      this.page.identifier = 'networkx';
+    };
+    (function() {
+      var d = document;
+      var s = d.createElement('script');
+      s.src = '//mlehotay.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript class="text-muted">
+    Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+  </noscript>
     </div>
   </div>
 

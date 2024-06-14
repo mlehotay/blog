@@ -8,7 +8,7 @@ AUTHOR = 'Michael Lehotay'
 SITENAME = 'mlehotay'
 SITESUBTITLE = 'developer blog and assorted data science projects'
 SITEURL = 'https://mlehotay.github.io/blog'
-GOOGLE_ANALYTICS = "UA-158784371-3"
+ABSOLUTE_URL = SITEURL
 DISQUS_SITENAME = "mlehotay"
 
 TIMEZONE = 'America/Toronto'
@@ -19,5 +19,5 @@ STATIC_PATHS = ['images', 'attachments']
 DELETE_OUTPUT_DIRECTORY = True
 
 DEFAULT_PAGINATION = 10
-RELATIVE_URLS = True
+RELATIVE_URLS = False
 THEME = alchemy.path()

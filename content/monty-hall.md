@@ -5,6 +5,7 @@ Category: Data Science
 Tags: probability, simulation, python
 Slug: monty-hall
 Status: published
+Comments: true
 
 I've never really liked the [Monty Hall problem](https://en.wikipedia.org/wiki/Monty_Hall_problem). The soution is counterintuative and my brain kind of breaks when I try to wrap my head around the conditional probabilities. In situations like this it can be beneficial to look at the problem empirically and estimate the probabilities of the outcomes in the event space in code. So, let's play the game ourselves and see what happens!
 

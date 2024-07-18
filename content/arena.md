@@ -5,6 +5,8 @@ Category: Games
 Tags: simulation, probability, object-oriented-programming
 Slug: arena
 Status: published
+Comments: true
+
 
 I have been thinking about combat in RPG games lately and wondering if I could come up with a way to model combat that I could use for machine learning. I'd like to be able to make decisions about the best weapon to wield and the best armor to wear, and to be able to predict the odds of surviving a particular battle. The obvious approach is to simulate the battle many times and use statistics!
 

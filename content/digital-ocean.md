@@ -5,6 +5,8 @@ Category: Web Apps
 Tags: configuration, make, deployment
 Slug: digital-ocean
 Status: published
+Comments: true
+
 
 In this post I'll talk about the way I set up the directory structure for my data science bootcamp capstone project, and how I mounted my droplet in my local file system in order to deploy my web application. I also used of a couple of makefiles so I didn't have to keep re-typing the same long shell commands in the terminal and I'll explain how that works too.
 
@@ -107,4 +109,3 @@ $ make umount
 
 * [GNU Make](https://www.gnu.org/software/make/)
 * [How To Use SSHFS to Mount Remote File Systems Over SSH](https://www.digitalocean.com/community/tutorials/how-to-use-sshfs-to-mount-remote-file-systems-over-ssh)
-

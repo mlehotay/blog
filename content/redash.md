@@ -5,6 +5,7 @@ Category: Data Science
 Tags: dashboard, data-driven, decision-making
 Slug: redash
 Status: published
+Comments: true
 
 In this post we'll take a quick look [Redash](https://redash.io/), an open source software package to "Make Your Company Data Driven." We're going to explore what it means to be data driven and how Redash can help.
 
@@ -18,5 +19,5 @@ In this post we'll take a quick look [Redash](https://redash.io/), an open sourc
 
 **Coming soon:**
 
-> Write a blog post about the open-source project you’ve been assigned… 
+> Write a blog post about the open-source project you’ve been assigned…
 > Tell me **WHY** I should care. And show me a ***novel*** example about I can use it!

@@ -5,6 +5,8 @@ Category: Web Apps
 Tags: DNS, configuration
 Slug: subdomains
 Status: published
+Comments: true
+
 
 Today we're going to set up some DNS resource records for the web apps I built in my data science bootcamp. There are three of them; one is hosted on Digital Ocean and the other two are on Heroku.
 

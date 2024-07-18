@@ -5,6 +5,7 @@ Category: Data Science
 Tags: genetic-algorithm, combinatorics, computational-complexity
 Slug: knapsack
 Status: published
+Comments: true
 
 Here's the code. I'll write the description in a day or two. I still need to add weapons and armor to the treasure chest and update the fitness calculations to include the probability defeating the troll.
 
@@ -87,7 +88,7 @@ class Knapsack:
     def __repr__(self):
         mask_string = ''.join([str(int(flag)) for flag in self.mask])
         return f'<knapsack mask:{mask_string} weight:{self.weight} value:{self.value}>'
-    
+
     def print_contents(self):
         print(self)
         for item in self.items:

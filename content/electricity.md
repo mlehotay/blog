@@ -5,6 +5,7 @@ Category: Data Science
 Tags: data-cleaning, time-series, visualization
 Slug: electricity
 Status: published
+Comments: true
 
 
 ```python
@@ -22,7 +23,7 @@ pd.options.display.max_columns = 40
 
 I received some excel files from my father-in-law containing information about electricity consumption in Ontario. He looked up the data [on the web](http://www.webroots.ca/static/ontarioelectricity/ontarioelectricity.html) three times daily and manually entered it into a spreadsheet.  There are three files in xlsx format. File 1 is observations from 2018, file 2 is observations from 2019, and file 3 is 1000 observations starting from August 2018 (approximately 13 months).
 
-Loaded files in LibreOffice Calc to preview data. 
+Loaded files in LibreOffice Calc to preview data.
 
 Most date entries are in dd-mmm format but a few are in dd-mmm-yy.
 
@@ -100,7 +101,7 @@ Note: bad code here. will fix later.
 
 ```python
 # something is going on with the dtypes, try forcing them to be numeric
-df = pd.read_csv('data/electricity1.csv', parse_dates={'iso8601': [0, 1, 2]}, 
+df = pd.read_csv('data/electricity1.csv', parse_dates={'iso8601': [0, 1, 2]},
                   dtype={'Nuclear %': np.float64,
                          'Nuclear MW': np.int64,
                          'Hydro %': np.float64,
@@ -126,9 +127,9 @@ df[((df['Nuclear MW']/df['Total MW']) - (df['Nuclear %']/100) >= 0.01) |
     ((df['Hydro MW'] / df['Total MW']) - (df['Hydro %'] / 100) >= 0.01) |
     ((df['Gas MW'] / df['Total MW']) - (df['Gas %'] / 100) >= 0.01) |
     ((df['Wind MW'] / df['Total MW']) - (df['Wind %'] / 100) >= 0.01) |
-    ((df['Solar MW'] / df['Total MW']) - (df['Solar %'] / 100) >= 0.01) 
+    ((df['Solar MW'] / df['Total MW']) - (df['Solar %'] / 100) >= 0.01)
     #((df['Biofuel MW'] / df['Total MW']) - (df['Biofuel %'] / 100) >= 0.01) |
-    #((df['Nuc.+Hyd. MW'] / df['Total MW']) - (df['Nuc.+Hyd. %'] / 100) >= 0.01) 
+    #((df['Nuc.+Hyd. MW'] / df['Total MW']) - (df['Nuc.+Hyd. %'] / 100) >= 0.01)
 ]
 ```
 
@@ -277,7 +278,7 @@ df[((df['Nuclear MW']/df['Total MW']) - (df['Nuclear %']/100) >= 0.01) |
 
 
 ```python
-df5 = pd.read_csv('data/electricity1.csv', parse_dates={'iso8601': [0, 1, 2]}, 
+df5 = pd.read_csv('data/electricity1.csv', parse_dates={'iso8601': [0, 1, 2]},
                   dtype={'Nuclear MW': np.int64,
                          'Hydro MW': np.int64,
                          'Gas MW': np.int64,

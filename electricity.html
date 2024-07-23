@@ -8,13 +8,13 @@
 
   <title>  Electricity Usage in Ontario | mlehotay
 </title>
-  <link rel="canonical" href="./electricity.html">
+  <link rel="canonical" href="https://mlehotay.github.io/blog/electricity.html">
 
 
-  <link rel="stylesheet" href="./theme/css/bootstrap.min.css">
-  <link rel="stylesheet" href="./theme/css/fontawesome.min.css">
-  <link rel="stylesheet" href="./theme/css/pygments/default.min.css">
-  <link rel="stylesheet" href="./theme/css/theme.css">
+  <link rel="stylesheet" href="https://mlehotay.github.io/blog/theme/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://mlehotay.github.io/blog/theme/css/fontawesome.min.css">
+  <link rel="stylesheet" href="https://mlehotay.github.io/blog/theme/css/pygments/default.min.css">
+  <link rel="stylesheet" href="https://mlehotay.github.io/blog/theme/css/theme.css">
 
   <link rel="alternate" type="application/atom+xml" title="Full Atom Feed"
         href="https://mlehotay.github.io/blog/feeds/all.atom.xml">
@@ -30,7 +30,7 @@
     <div class="container">
 <div class="row">
   <div class="col-sm-12">
-    <h1 class="title"><a href="./">mlehotay</a></h1>
+    <h1 class="title"><a href="https://mlehotay.github.io/blog/">mlehotay</a></h1>
       <p class="text-muted">developer blog and assorted data science projects</p>
   </div>
 </div>    </div>
@@ -50,14 +50,14 @@
         </li>
         <li class="list-inline-item">
           <i class="fas fa-folder-open"></i>
-          <a href="./category/data-science.html">Data Science</a>
+          <a href="https://mlehotay.github.io/blog/category/data-science.html">Data Science</a>
         </li>
           <li class="list-inline-item">
             <i class="fas fa-user"></i>
-              <a href="./author/michael-lehotay.html">Michael Lehotay</a>          </li>
+              <a href="https://mlehotay.github.io/blog/author/michael-lehotay.html">Michael Lehotay</a>          </li>
           <li class="list-inline-item">
             <i class="fas fa-tag"></i>
-              <a href="./tag/data-cleaning.html">#data-cleaning</a>,               <a href="./tag/time-series.html">#time-series</a>,               <a href="./tag/visualization.html">#visualization</a>          </li>
+              <a href="https://mlehotay.github.io/blog/tag/data-cleaning.html">#data-cleaning</a>,               <a href="https://mlehotay.github.io/blog/tag/time-series.html">#time-series</a>,               <a href="https://mlehotay.github.io/blog/tag/visualization.html">#visualization</a>          </li>
       </ul>
     </header>
     <div class="content">
@@ -71,7 +71,7 @@
 
 <h2>Preliminary Review</h2>
 <p>I received some excel files from my father-in-law containing information about electricity consumption in Ontario. He looked up the data <a href="http://www.webroots.ca/static/ontarioelectricity/ontarioelectricity.html">on the web</a> three times daily and manually entered it into a spreadsheet.  There are three files in xlsx format. File 1 is observations from 2018, file 2 is observations from 2019, and file 3 is 1000 observations starting from August 2018 (approximately 13 months).</p>
-<p>Loaded files in LibreOffice Calc to preview data. </p>
+<p>Loaded files in LibreOffice Calc to preview data.</p>
 <p>Most date entries are in dd-mmm format but a few are in dd-mmm-yy.</p>
 <p>Column headers span two rows: row 1 is name and row 2 is units. Header in file 2 is an image instead of text.</p>
 <p>File 3 contains two sheets with data. Looks like 1st sheet is a copy of the 2018 data and 2nd sheet is combined data from 2018-08-25 through 2019-09-30.</p>
@@ -79,7 +79,7 @@
 <p>Files 1 and 3 contain summary statisitics:
 Three rows of stats at the bottom of the sheet: min, max, and avg of each column.
 The two rightmost columns show average daily totals per month, and name of the month.</p>
-<p><img alt="Image of spreadsheet" src="./images/electricity.png"></p>
+<p><img alt="Image of spreadsheet" src="https://mlehotay.github.io/blog/images/electricity.png"></p>
 <h2>Data Cleaning</h2>
 <p>Fixed headers to contain both name and units in one row.</p>
 <p>Set the format of all the date columns to <code>yyyy-mm-dd</code>.</p>
@@ -122,7 +122,7 @@ The two rightmost columns show average daily totals per month, and name of the m
 <p>So now we've got all 1311 records in one data frame, <code>df4</code>. Let's take a look at these values and see what's up with the percentages. There were no formulas in the excel files so I'm thinking these values may have been calculated by hand, or maybe transcribed from the website. In any case they are probably redundant since we have the actual MW values. Let's check the math to make sure.</p>
 <p>Note: bad code here. will fix later.</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># something is going on with the dtypes, try forcing them to be numeric</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/electricity1.csv&#39;</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;iso8601&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]},</span> 
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/electricity1.csv&#39;</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;iso8601&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]},</span>
                   <span class="n">dtype</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Nuclear %&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span>
                          <span class="s1">&#39;Nuclear MW&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">,</span>
                          <span class="s1">&#39;Hydro %&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span>
@@ -146,9 +146,9 @@ The two rightmost columns show average daily totals per month, and name of the m
     <span class="p">((</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Hydro MW&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Total MW&#39;</span><span class="p">])</span> <span class="o">-</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Hydro %&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="mi">100</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mf">0.01</span><span class="p">)</span> <span class="o">|</span>
     <span class="p">((</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Gas MW&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Total MW&#39;</span><span class="p">])</span> <span class="o">-</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Gas %&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="mi">100</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mf">0.01</span><span class="p">)</span> <span class="o">|</span>
     <span class="p">((</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Wind MW&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Total MW&#39;</span><span class="p">])</span> <span class="o">-</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Wind %&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="mi">100</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mf">0.01</span><span class="p">)</span> <span class="o">|</span>
-    <span class="p">((</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Solar MW&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Total MW&#39;</span><span class="p">])</span> <span class="o">-</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Solar %&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="mi">100</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mf">0.01</span><span class="p">)</span> 
+    <span class="p">((</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Solar MW&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Total MW&#39;</span><span class="p">])</span> <span class="o">-</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Solar %&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="mi">100</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mf">0.01</span><span class="p">)</span>
     <span class="c1">#((df[&#39;Biofuel MW&#39;] / df[&#39;Total MW&#39;]) - (df[&#39;Biofuel %&#39;] / 100) &gt;= 0.01) |</span>
-    <span class="c1">#((df[&#39;Nuc.+Hyd. MW&#39;] / df[&#39;Total MW&#39;]) - (df[&#39;Nuc.+Hyd. %&#39;] / 100) &gt;= 0.01) </span>
+    <span class="c1">#((df[&#39;Nuc.+Hyd. MW&#39;] / df[&#39;Total MW&#39;]) - (df[&#39;Nuc.+Hyd. %&#39;] / 100) &gt;= 0.01)</span>
 <span class="p">]</span>
 </code></pre></div>
 
@@ -289,7 +289,7 @@ The two rightmost columns show average daily totals per month, and name of the m
 </div>
 
 <p>5 rows have miscalculated percentages, but all the other rows are calculated correctly. Probably data entry errors. Now that we've verified the percentage columns are derived from the MW columns, we can safely drop them.</p>
-<div class="highlight"><pre><span></span><code><span class="n">df5</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/electricity1.csv&#39;</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;iso8601&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]},</span> 
+<div class="highlight"><pre><span></span><code><span class="n">df5</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/electricity1.csv&#39;</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;iso8601&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]},</span>
                   <span class="n">dtype</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Nuclear MW&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">,</span>
                          <span class="s1">&#39;Hydro MW&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">,</span>
                          <span class="s1">&#39;Gas MW&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">,</span>
@@ -831,7 +831,7 @@ The two rightmost columns show average daily totals per month, and name of the m
   <div id="disqus_thread"></div>
   <script>
     var disqus_config = function() {
-      this.page.url = './electricity.html';
+      this.page.url = 'https://mlehotay.github.io/blog/electricity.html';
       this.page.identifier = 'electricity';
     };
     (function() {
@@ -852,10 +852,10 @@ The two rightmost columns show average daily totals per month, and name of the m
     <div class="container">
 <div class="row">
   <ul class="col-sm-6 list-inline">
-      <li class="list-inline-item"><a href="./authors.html">Authors</a></li>
-    <li class="list-inline-item"><a href="./archives.html">Archives</a></li>
-    <li class="list-inline-item"><a href="./categories.html">Categories</a></li>
-      <li class="list-inline-item"><a href="./tags.html">Tags</a></li>
+      <li class="list-inline-item"><a href="https://mlehotay.github.io/blog/authors.html">Authors</a></li>
+    <li class="list-inline-item"><a href="https://mlehotay.github.io/blog/archives.html">Archives</a></li>
+    <li class="list-inline-item"><a href="https://mlehotay.github.io/blog/categories.html">Categories</a></li>
+      <li class="list-inline-item"><a href="https://mlehotay.github.io/blog/tags.html">Tags</a></li>
   </ul>
   <p class="col-sm-6 text-sm-right text-muted">
     Generated by <a href="https://github.com/getpelican/pelican" target="_blank">Pelican</a>
